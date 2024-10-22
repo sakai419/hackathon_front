@@ -71,7 +71,6 @@ const Response = styled.div`
 	align-items: center;
 `;
 
-// aaa
 const URI = styled.div`
 	display: flex;
 	justify-content: center;
