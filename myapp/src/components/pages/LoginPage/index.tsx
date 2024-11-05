@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/src/components/ui/card";
 import {
 	EmailInput,
 	LoginContainer,
@@ -8,7 +8,7 @@ import {
 	PasswordInput,
 	SignUpLink,
 	WelcomeMessage,
-} from "@/features/login/components";
+} from "@/src/features/login/components";
 
 export default function LoginPage() {
 	const [showPassword, setShowPassword] = useState(false);

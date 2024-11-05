@@ -1,4 +1,8 @@
-import { CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+	CardHeader,
+	CardTitle,
+	CardDescription,
+} from "@/src/components/ui/card";
 
 export default function LoginHeader() {
 	return (
