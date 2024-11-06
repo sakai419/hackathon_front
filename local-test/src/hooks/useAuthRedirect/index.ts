@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { auth } from "@/lib/firebase";
+import { auth } from "@/services/auth/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 export function useAuthRedirect() {
