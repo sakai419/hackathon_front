@@ -1,3 +1,7 @@
+"use client";
+
+import HomePage from "@/components/pages/HomePage";
+
 export default function Home() {
-	return <h1>You have logged in</h1>;
+	return <HomePage />;
 }
