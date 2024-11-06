@@ -1,10 +1,32 @@
 import { Button } from "@/components/ui/button";
 import { MenuIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SidebarContent from "./SidebarContent";
+import UserInfo from "./UserInfo";
+import { useUser } from "@/hooks/useUser";
+import { User } from "@/types/User";
+import TweetButton from "./TweetButton";
+import TweetDialog from "./TweetDialog";
 
 export default function Sidebar() {
 	const [isOpen, setIsOpen] = useState(false);
+	const [userData, setUserData] = useState<User | null>(null);
+	const { user, loading, error } = useUser();
+	const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+	const handleOpenDialog = () => setIsDialogOpen(true);
+	const handleCloseDialog = () => setIsDialogOpen(false);
+
+	const handleTweet = (content: string) => {
+		// ここにツイート投稿のロジックを実装
+		console.log("ツイート内容:", content);
+	};
+
+	useEffect(() => {
+		if (!loading && !error) {
+			setUserData(user);
+		}
+	}, [loading, error, user]);
 
 	return (
 		<>
@@ -23,11 +45,23 @@ export default function Sidebar() {
 				}`}
 			>
 				<div
-					className={`overflow-hidden ${
+					className={`flex flex-col h-full overflow-hidden ${
 						isOpen ? "w-64" : "w-0 md:w-64"
 					}`}
 				>
 					<SidebarContent />
+					<TweetButton
+						onClick={handleOpenDialog}
+						className="mt-auto"
+					/>
+					<TweetDialog
+						isOpen={isDialogOpen}
+						onClose={handleCloseDialog}
+						onTweet={handleTweet}
+					/>
+					<div className="mt-auto">
+						{userData && <UserInfo user={userData} />}
+					</div>
 				</div>
 			</div>
 		</>
