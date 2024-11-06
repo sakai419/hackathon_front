@@ -19,12 +19,12 @@ export default function Sidebar() {
 			</Button>
 			<div
 				className={`fixed top-0 left-0 h-full bg-background p-4 shadow-lg transition-all duration-300 ease-in-out ${
-					isOpen ? "w-64" : "w-0 md:w-64"
+					isOpen ? "w-72" : "w-0 md:w-72"
 				}`}
 			>
 				<div
 					className={`overflow-hidden ${
-						isOpen ? "w-56" : "w-0 md:w-56"
+						isOpen ? "w-64" : "w-0 md:w-64"
 					}`}
 				>
 					<SidebarContent />
