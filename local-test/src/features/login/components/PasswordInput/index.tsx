@@ -5,11 +5,15 @@ import { EyeOffIcon, EyeIcon } from "lucide-react";
 interface PasswordInputProps {
 	showPassword: boolean;
 	togglePasswordVisibility: () => void;
+	value: string;
+	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function PasswordInput({
 	showPassword,
 	togglePasswordVisibility,
+	value,
+	onChange,
 }: PasswordInputProps) {
 	return (
 		<div className="space-y-2">
@@ -19,6 +23,8 @@ export default function PasswordInput({
 					id="password"
 					type={showPassword ? "text" : "password"}
 					placeholder="••••••••"
+					value={value}
+					onChange={onChange}
 					required
 					className="pr-10 w-full"
 				/>
