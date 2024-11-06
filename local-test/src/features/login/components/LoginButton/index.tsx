@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { handleLogin } from "@/lib/login";
+import { handleLogin } from "@/services/auth/login";
 import { useRouter } from "next/navigation";
 
 interface LoginButtonProps {

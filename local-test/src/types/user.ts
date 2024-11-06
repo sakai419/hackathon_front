@@ -1,6 +1,6 @@
 export type User = {
 	id: string;
 	name: string;
-	profileImage: string;
+	profileImageUrl?: string;
 	isPrivate: boolean;
 };

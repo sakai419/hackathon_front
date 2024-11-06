@@ -1,4 +1,4 @@
-import { User } from "@/types/User";
+import { User } from "@/types/user";
 import { useState, useEffect } from "react";
 
 const fetchUserData = async () => {
@@ -11,7 +11,11 @@ const fetchUserData = async () => {
 	};
 };
 
-export const useUser = () => {
+export default function useUser(): {
+	user: User | null;
+	loading: boolean;
+	error: string | null;
+} {
 	const [user, setUser] = useState<User | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
@@ -33,4 +37,4 @@ export const useUser = () => {
 	}, []);
 
 	return { user, loading, error };
-};
+}

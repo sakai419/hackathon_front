@@ -1,4 +1,4 @@
-import { User } from "@/types/User";
+import { User } from "@/types/user";
 import { LockIcon } from "lucide-react";
 import Image from "next/image";
 
@@ -10,7 +10,7 @@ export function UserAvatar({ user }: UserAvatarProps) {
 	return (
 		<div className="flex items-center space-x-3">
 			<Image
-				src={user.profileImage}
+				src={user?.profileImageUrl || "/default-profile.png"}
 				alt={user.name}
 				width={40}
 				height={40}

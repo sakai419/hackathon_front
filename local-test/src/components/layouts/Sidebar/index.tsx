@@ -3,10 +3,10 @@ import { MenuIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import SidebarContent from "./SidebarContent";
 import UserInfo from "./UserInfo";
-import { useUser } from "@/hooks/useUser";
-import { User } from "@/types/User";
+import { User } from "@/types/user";
 import TweetButton from "./TweetButton";
 import TweetDialog from "./TweetDialog";
+import useUser from "@/hooks/useUser";
 
 export default function Sidebar() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +18,6 @@ export default function Sidebar() {
 	const handleCloseDialog = () => setIsDialogOpen(false);
 
 	const handleTweet = (content: string) => {
-		// ここにツイート投稿のロジックを実装
 		console.log("ツイート内容:", content);
 	};
 

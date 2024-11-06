@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { handleLogout } from "@/lib/logout"; // logout.ts 内で handleLogout を定義している場合
+import { handleLogout } from "@/services/auth/logout";
 
 interface PopoverLogoutContentProps {
 	userId: string;
@@ -15,7 +15,7 @@ export function PopoverLogoutContent({ userId }: PopoverLogoutContentProps) {
 	return (
 		<div
 			className="text-base font-bold cursor-pointer"
-			onClick={onLogoutClick} // クリックでonLogoutClickを発火
+			onClick={onLogoutClick}
 		>
 			@{userId}からログアウト
 		</div>
