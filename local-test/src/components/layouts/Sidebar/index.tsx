@@ -3,15 +3,16 @@ import { MenuIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import SidebarContent from "./SidebarContent";
 import UserInfo from "./UserInfo";
-import { User } from "@/types/user";
+import { UserWithoutBio } from "@/types/userWithoutBio";
 import TweetButton from "./TweetButton";
 import TweetDialog from "./TweetDialog";
-import useUser from "@/hooks/useUser";
+import useUserWithoutBio from "@/hooks/useUserWithoutBio";
+import { useSidebarInfo } from "@/hooks/useSidebarInfo";
+import { SidebarInfo } from "@/types/sidebar";
 
 export default function Sidebar() {
 	const [isOpen, setIsOpen] = useState(false);
-	const [userData, setUserData] = useState<User | null>(null);
-	const { user, loading, error } = useUser();
+	const { sidebarInfo, loading, error } = useSidebarInfo();
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 	const handleOpenDialog = () => setIsDialogOpen(true);
@@ -20,12 +21,6 @@ export default function Sidebar() {
 	const handleTweet = (content: string) => {
 		console.log("ツイート内容:", content);
 	};
-
-	useEffect(() => {
-		if (!loading && !error) {
-			setUserData(user);
-		}
-	}, [loading, error, user]);
 
 	return (
 		<>
@@ -59,7 +54,9 @@ export default function Sidebar() {
 						onTweet={handleTweet}
 					/>
 					<div className="mt-auto">
-						{userData && <UserInfo user={userData} />}
+						{sidebarInfo && (
+							<UserInfo user={sidebarInfo?.userInfo} />
+						)}
 					</div>
 				</div>
 			</div>

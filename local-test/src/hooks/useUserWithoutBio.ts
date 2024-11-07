@@ -1,22 +1,25 @@
-import { User } from "@/types/user";
+import { UserWithoutBio } from "@/types/userWithoutBio";
 import { useState, useEffect } from "react";
 
 const fetchUserData = async () => {
 	await new Promise((resolve) => setTimeout(resolve, 500));
 	return {
-		id: "user123",
-		name: "山田太郎",
-		profileImage: "/placeholder.svg?height=40&width=40",
+		userId: "user123",
+		userName: "山田太郎",
+		profileImageUrl: "",
 		isPrivate: true,
+		isAdmin: false,
 	};
 };
 
-export default function useUser(): {
-	user: User | null;
+export default function useUserWithoutBio(): {
+	userWithoutBio: UserWithoutBio | null;
 	loading: boolean;
 	error: string | null;
 } {
-	const [user, setUser] = useState<User | null>(null);
+	const [userWithoutBio, setUserWithoutBio] = useState<UserWithoutBio | null>(
+		null
+	);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
 
@@ -25,7 +28,7 @@ export default function useUser(): {
 			try {
 				setLoading(true);
 				const userData = await fetchUserData();
-				setUser(userData);
+				setUserWithoutBio(userData);
 			} catch (err) {
 				setError("ユーザーデータの取得に失敗しました");
 			} finally {
@@ -36,5 +39,5 @@ export default function useUser(): {
 		getUserData();
 	}, []);
 
-	return { user, loading, error };
+	return { userWithoutBio, loading, error };
 }

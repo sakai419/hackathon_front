@@ -1,24 +1,27 @@
-import { User } from "@/types/user";
+import { UserWithoutBio } from "@/types/userWithoutBio";
 import { LockIcon } from "lucide-react";
 import Image from "next/image";
 
 interface UserAvatarProps {
-	user: User;
+	user: UserWithoutBio;
 }
 
 export function UserAvatar({ user }: UserAvatarProps) {
+	const profileImageUrl =
+		user.profileImageUrl || "/images/default_profile_image.png";
+
 	return (
 		<div className="flex items-center space-x-3">
 			<Image
-				src={user?.profileImageUrl || "/default-profile.png"}
-				alt={user.name}
+				src={profileImageUrl}
+				alt={user.userName}
 				width={40}
 				height={40}
 				className="rounded-full"
 			/>
 			<div className="flex-grow text-left">
-				<p className="font-bold text-sm">{user.name}</p>
-				<p className="text-xs text-gray-500">@{user.id}</p>
+				<p className="font-bold text-sm">{user.userName}</p>
+				<p className="text-xs text-gray-500">@{user.userId}</p>
 			</div>
 			{user.isPrivate && (
 				<LockIcon

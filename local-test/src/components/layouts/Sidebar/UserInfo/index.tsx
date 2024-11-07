@@ -7,10 +7,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { UserAvatar } from "./UserAvatar";
 import { PopoverLogoutContent } from "./PopoverLogoutContent";
-import { User } from "@/types/User";
+import { UserWithoutBio } from "@/types/userWithoutBio";
 
 interface UserInfoProps {
-	user: User;
+	user: UserWithoutBio;
 }
 
 export default function UserInfo({ user }: UserInfoProps) {
@@ -22,7 +22,7 @@ export default function UserInfo({ user }: UserInfoProps) {
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="w-auto p-4 rounded-xl shadow-[0_0_15px_rgba(0,0,0,0.1)]">
-				<PopoverLogoutContent userId={user.id} />
+				<PopoverLogoutContent userId={user.userId} />
 			</PopoverContent>
 		</Popover>
 	);
