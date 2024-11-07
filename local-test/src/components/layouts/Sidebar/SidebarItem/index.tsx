@@ -6,12 +6,14 @@ interface SidebarItemProps {
 	icon: React.ElementType;
 	label: string;
 	href: string;
+	count?: number;
 }
 
 export default function SidebarItem({
 	icon: Icon,
 	label,
 	href,
+	count,
 }: SidebarItemProps) {
 	const pathname = usePathname();
 	const isActive = pathname === href;
@@ -26,13 +28,31 @@ export default function SidebarItem({
 			}`}
 			asChild
 		>
-			<Link href={href}>
-				<Icon
-					className={`mr-2 h-5 w-5 ${
-						isActive ? "text-primary-foreground" : "text-primary"
-					}`}
-				/>
-				<span>{label}</span>
+			<Link
+				href={href}
+				className="flex items-center justify-between w-full"
+			>
+				<div className="flex items-center">
+					<Icon
+						className={`mr-2 h-5 w-5 ${
+							isActive
+								? "text-primary-foreground"
+								: "text-primary"
+						}`}
+					/>
+					<span>{label}</span>
+				</div>
+				{count !== undefined && count !== 0 && (
+					<span
+						className={`ml-auto px-2 py-1 text-sm rounded-full ${
+							isActive
+								? "bg-primary-foreground text-primary"
+								: "bg-primary text-primary-foreground"
+						}`}
+					>
+						{count}
+					</span>
+				)}
 			</Link>
 		</Button>
 	);

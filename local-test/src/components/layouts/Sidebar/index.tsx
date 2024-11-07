@@ -43,7 +43,14 @@ export default function Sidebar() {
 						isOpen ? "w-64" : "w-0 md:w-64"
 					}`}
 				>
-					<SidebarContent />
+					<SidebarContent
+						unreadConversationCount={
+							sidebarInfo?.unreadConversationCount
+						}
+						unreadNotificationCount={
+							sidebarInfo?.unreadNotificationCount
+						}
+					/>
 					<TweetButton
 						onClick={handleOpenDialog}
 						className="mt-auto"
