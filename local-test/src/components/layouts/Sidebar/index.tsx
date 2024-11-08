@@ -41,12 +41,13 @@ export default function Sidebar() {
 					}`}
 				>
 					<SidebarContent
-						unreadConversationCount={
+						UnreadConversationCount={
 							sidebarInfo?.UnreadConversationCount
 						}
-						unreadNotificationCount={
+						UnreadNotificationCount={
 							sidebarInfo?.UnreadNotificationCount
 						}
+						UserId={sidebarInfo?.UserInfo.UserId}
 					/>
 					<TweetButton
 						onClick={handleOpenDialog}
