@@ -14,7 +14,7 @@ interface UserProfileProps {
 export default function UserHeader({ profile }: UserProfileProps) {
 	const bannerImage = profile.BannerImageUrl || "/images/default_image.png";
 	const profileImage =
-		profile.UserInfo.profileImageUrl || "/images/default_image.png";
+		profile.UserInfo.ProfileImageUrl || "/images/default_image.png";
 	const Date = formatYearMonth(profile.CreatedAt);
 
 	return (
@@ -27,7 +27,7 @@ export default function UserHeader({ profile }: UserProfileProps) {
 				<div className="flex flex-col">
 					<div className="flex items-center gap-1">
 						<span className="font-bold">
-							{profile.UserInfo.userId}
+							{profile.UserInfo.UserId}
 						</span>
 						<Lock className="h-4 w-4" />
 					</div>
@@ -50,10 +50,10 @@ export default function UserHeader({ profile }: UserProfileProps) {
 					<Avatar className="w-24 h-24 border-4 border-background">
 						<AvatarImage
 							src={profileImage}
-							alt={`${profile.UserInfo.userName}のプロフィール画像`}
+							alt={`${profile.UserInfo.UserName}のプロフィール画像`}
 						/>
 						<AvatarFallback>
-							{profile.UserInfo.userName?.charAt(0)}
+							{profile.UserInfo.UserName?.charAt(0)}
 						</AvatarFallback>
 					</Avatar>
 				</div>
@@ -72,16 +72,16 @@ export default function UserHeader({ profile }: UserProfileProps) {
 				<div>
 					<div className="flex items-center gap-1">
 						<span className="text-xl font-bold">
-							{profile.UserInfo.userId}
+							{profile.UserInfo.UserId}
 						</span>
 						<Lock className="h-4 w-4" />
 					</div>
 					<div className="text-muted-foreground">
-						@{profile.UserInfo.userName}
+						@{profile.UserInfo.UserName}
 					</div>
 				</div>
 
-				{profile.UserInfo.bio && <div>{profile.UserInfo.bio}</div>}
+				{profile.UserInfo.Bio && <div>{profile.UserInfo.Bio}</div>}
 
 				<div className="flex items-center gap-2 text-muted-foreground">
 					<Calendar className="h-4 w-4" />

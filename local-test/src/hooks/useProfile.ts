@@ -18,12 +18,12 @@ export default function useProfile(userId: string): {
 				const data = await getUserProfile(userId);
 				const profile: Profile = {
 					UserInfo: {
-						userId: data.user_info.user_id,
-						userName: data.user_info.user_name,
-						profileImageUrl: data.user_info.profile_image_url,
-						isPrivate: data.user_info.is_private,
-						isAdmin: data.user_info.is_admin,
-						bio: data.user_info.bio,
+						UserId: data.user_info.user_id,
+						UserName: data.user_info.user_name,
+						ProfileImageUrl: data.user_info.profile_image_url,
+						IsPrivate: data.user_info.is_private,
+						IsAdmin: data.user_info.is_admin,
+						Bio: data.user_info.bio,
 					},
 					BannerImageUrl: data.banner_image_url,
 					TweetCount: data.tweet_count,

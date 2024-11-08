@@ -15,16 +15,16 @@ export function useSidebarInfo() {
 				if (data) {
 					// JSON形式に変換し、SidebarInfo型に整形
 					const sidebarData: SidebarInfo = {
-						userInfo: {
-							userId: data.user_info.user_id,
-							userName: data.user_info.user_name,
-							profileImageUrl: data.user_info.profile_image_url,
-							isPrivate: data.user_info.is_private,
-							isAdmin: data.user_info.is_admin,
+						UserInfo: {
+							UserId: data.user_info.user_id,
+							UserName: data.user_info.user_name,
+							ProfileImageUrl: data.user_info.profile_image_url,
+							IsPrivate: data.user_info.is_private,
+							IsAdmin: data.user_info.is_admin,
 						},
-						unreadConversationCount:
+						UnreadConversationCount:
 							data.unread_conversation_count || 0,
-						unreadNotificationCount:
+						UnreadNotificationCount:
 							data.unread_notification_count || 0,
 					};
 

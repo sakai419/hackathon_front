@@ -42,10 +42,10 @@ export default function Sidebar() {
 				>
 					<SidebarContent
 						unreadConversationCount={
-							sidebarInfo?.unreadConversationCount
+							sidebarInfo?.UnreadConversationCount
 						}
 						unreadNotificationCount={
-							sidebarInfo?.unreadNotificationCount
+							sidebarInfo?.UnreadNotificationCount
 						}
 					/>
 					<TweetButton
@@ -59,7 +59,7 @@ export default function Sidebar() {
 					/>
 					<div className="mt-auto">
 						{sidebarInfo && (
-							<UserInfo user={sidebarInfo?.userInfo} />
+							<UserInfo user={sidebarInfo?.UserInfo} />
 						)}
 					</div>
 				</div>

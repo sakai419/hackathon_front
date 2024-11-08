@@ -1,25 +1,24 @@
-import { UserWithoutBio } from "@/types/userInfoWithoutBio";
+import { UserInfoWithoutBio } from "@/types/userInfoWithoutBio";
 import { useState, useEffect } from "react";
 
 const fetchUserData = async () => {
 	await new Promise((resolve) => setTimeout(resolve, 500));
 	return {
-		userId: "user123",
-		userName: "山田太郎",
-		profileImageUrl: "",
-		isPrivate: true,
-		isAdmin: false,
+		UserId: "user123",
+		UserName: "山田太郎",
+		ProfileImageUrl: "",
+		IsPrivate: true,
+		IsAdmin: false,
 	};
 };
 
-export default function useUserWithoutBio(): {
-	userWithoutBio: UserWithoutBio | null;
+export default function useUserInfoWithoutBio(): {
+	userInfoWithoutBio: UserInfoWithoutBio | null;
 	loading: boolean;
 	error: string | null;
 } {
-	const [userWithoutBio, setUserWithoutBio] = useState<UserWithoutBio | null>(
-		null
-	);
+	const [userInfoWithoutBio, setUserWithoutBio] =
+		useState<UserInfoWithoutBio | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
 
@@ -39,5 +38,5 @@ export default function useUserWithoutBio(): {
 		getUserData();
 	}, []);
 
-	return { userWithoutBio, loading, error };
+	return { userInfoWithoutBio, loading, error };
 }

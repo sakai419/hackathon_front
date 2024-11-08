@@ -21,7 +21,7 @@ export default function UserInfo({ user }: UserInfoProps) {
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="w-auto p-4 rounded-xl shadow-[0_0_15px_rgba(0,0,0,0.1)]">
-				<PopoverLogoutContent userId={user.userId} />
+				<PopoverLogoutContent userId={user.UserId} />
 			</PopoverContent>
 		</Popover>
 	);
