@@ -12,11 +12,9 @@ interface UserProfileProps {
 }
 
 export default function UserHeader({ profile }: UserProfileProps) {
-	const bannerImage =
-		profile.BannerImageUrl || "/placeholder.svg?height=200&width=800";
+	const bannerImage = profile.BannerImageUrl || "/images/default_image.png";
 	const profileImage =
-		profile.UserInfo.profileImageUrl ||
-		"/placeholder.svg?height=96&width=96";
+		profile.UserInfo.profileImageUrl || "/images/default_image.png";
 	const Date = formatYearMonth(profile.CreatedAt);
 
 	return (

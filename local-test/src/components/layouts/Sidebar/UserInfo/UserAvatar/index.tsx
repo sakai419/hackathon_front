@@ -7,8 +7,7 @@ interface UserAvatarProps {
 }
 
 export function UserAvatar({ user }: UserAvatarProps) {
-	const profileImageUrl =
-		user.profileImageUrl || "/images/default_profile_image.png";
+	const profileImageUrl = user.profileImageUrl || "/images/default_image.png";
 
 	return (
 		<div className="flex items-center space-x-3">
