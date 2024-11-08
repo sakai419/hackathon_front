@@ -32,7 +32,7 @@ export default function SidebarContent({
 			<SidebarItem
 				icon={MailIcon}
 				label="メッセージ"
-				href="messages"
+				href="/messages"
 				count={UnreadConversationCount}
 			/>
 			<SidebarItem

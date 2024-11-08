@@ -1,3 +1,4 @@
+import DynamicTabs from "@/components/elements/DynamicTab";
 import MainLayout from "@/components/layouts/MainLayout";
 import UserHeader from "@/features/profile/components/UserHeader";
 import useProfile from "@/hooks/useProfile";
@@ -30,6 +31,17 @@ export default function ProfilePage({ userId }: ProfilePageProps) {
 		<MainLayout>
 			<div className="max-w-2xl mx-auto">
 				{profileData && <UserHeader profile={profileData} />}
+				<DynamicTabs
+					tabs={[
+						{ Name: "ツイート", Url: `/profile/${userId}/tweets` },
+						{ Name: "返信", Url: `/profile/${userId}/replies` },
+						{
+							Name: "リツイート",
+							Url: `/profile/${userId}/retweets`,
+						},
+						{ Name: "いいね", Url: `/profile/${userId}/likes` },
+					]}
+				/>
 			</div>
 		</MainLayout>
 	);
