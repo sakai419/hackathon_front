@@ -6,7 +6,7 @@ import {
 	SettingsIcon,
 	Search,
 } from "lucide-react";
-import SidebarItem from "../SidebarItem";
+import SidebarItem from "./SidebarItem";
 
 interface SidebarContentProps {
 	UnreadConversationCount?: number;

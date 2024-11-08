@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { MenuIcon } from "lucide-react";
 import { useState } from "react";
-import SidebarContent from "./SidebarContent";
-import UserInfo from "./UserInfo";
-import TweetButton from "./TweetButton";
-import TweetDialog from "./TweetDialog";
 import { useSidebarInfo } from "@/hooks/useSidebarInfo";
+import {
+	SidebarContent,
+	TweetButton,
+	TweetDialog,
+	UserInfo,
+} from "@/features/sidebar/components";
 
 export default function Sidebar() {
 	const [isOpen, setIsOpen] = useState(false);

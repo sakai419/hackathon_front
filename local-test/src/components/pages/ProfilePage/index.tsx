@@ -1,7 +1,7 @@
 import DynamicTabs from "@/components/elements/DynamicTab";
 import { TweetListExample } from "@/components/elements/TweetList";
 import MainLayout from "@/components/layouts/MainLayout";
-import UserHeader from "@/features/profile/components/UserHeader";
+import { UserHeader } from "@/features/profile/components";
 import useProfile from "@/hooks/useProfile";
 import { Profile } from "@/types/profile";
 import { useEffect, useState } from "react";
