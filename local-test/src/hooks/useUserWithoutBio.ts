@@ -1,4 +1,4 @@
-import { UserWithoutBio } from "@/types/userWithoutBio";
+import { UserWithoutBio } from "@/types/userInfoWithoutBio";
 import { useState, useEffect } from "react";
 
 const fetchUserData = async () => {

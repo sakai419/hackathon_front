@@ -10,23 +10,22 @@ export function useSidebarInfo() {
 	useEffect(() => {
 		const fetchSidebarData = async () => {
 			try {
+				setLoading(true);
 				const data = await getSidebarInfo();
-
 				if (data) {
 					// JSON形式に変換し、SidebarInfo型に整形
 					const sidebarData: SidebarInfo = {
 						userInfo: {
-							userId: data.UserInfo.UserId || "",
-							userName: data.UserInfo.UserName || "",
-							profileImageUrl:
-								data.UserInfo.ProfileImageURL || "",
-							isPrivate: data.UserInfo.IsPrivate || false,
-							isAdmin: data.UserInfo.IsAdmin || false,
+							userId: data.user_info.user_id,
+							userName: data.user_info.user_name,
+							profileImageUrl: data.user_info.profile_image_url,
+							isPrivate: data.user_info.is_private,
+							isAdmin: data.user_info.is_admin,
 						},
 						unreadConversationCount:
-							data.UnreadConversationCount || 0,
+							data.unread_conversation_count || 0,
 						unreadNotificationCount:
-							data.UnreadNotificationCount || 0,
+							data.unread_notification_count || 0,
 					};
 
 					setSidebarInfo(sidebarData);

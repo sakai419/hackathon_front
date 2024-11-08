@@ -39,6 +39,7 @@ export const sendRequestWithRetry = async (config: AxiosRequestConfig) => {
 	} catch (error: any) {
 		// トークンが期限切れで403エラーが発生した場合
 		if (error.response && error.response.status === 403) {
+			console.log("Token expired. Refreshing token...");
 			const newToken = await refreshToken();
 			if (newToken) {
 				// 新しいトークンをヘッダーに追加して再送信

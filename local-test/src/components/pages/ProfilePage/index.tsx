@@ -1,6 +1,5 @@
-import TweetList from "@/components/elements/TweetList";
+import MainLayout from "@/components/layouts/MainLayout";
 import UserHeader from "@/features/profile/components/UserHeader";
-import UserStats from "@/features/profile/components/UserStats";
 import useProfile from "@/hooks/useProfile";
 import { Profile } from "@/types/profile";
 import { useEffect, useState } from "react";
@@ -17,7 +16,6 @@ export default function ProfilePage({ userId }: ProfilePageProps) {
 		if (!loading && !error) {
 			setProfileData(profile);
 		}
-		console.log(profile, profileData);
 	}, [profile, loading, error]);
 
 	if (loading) {
@@ -29,12 +27,10 @@ export default function ProfilePage({ userId }: ProfilePageProps) {
 	}
 
 	return (
-		<div className="max-w-2xl mx-auto">
-			{profileData && <UserHeader {...profileData} />}
-			<div className="px-4">
-				{profileData && <UserStats {...profileData} />}
+		<MainLayout>
+			<div className="max-w-2xl mx-auto">
+				{profileData && <UserHeader profile={profileData} />}
 			</div>
-			<TweetList tweets={[]} />
-		</div>
+		</MainLayout>
 	);
 }

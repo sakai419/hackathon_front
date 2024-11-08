@@ -1,7 +1,7 @@
-import { UserWithoutBio } from "./userWithoutBio";
+import { UserInfoWithoutBio } from "./userInfoWithoutBio";
 
 export type SidebarInfo = {
-	userInfo: UserWithoutBio;
+	userInfo: UserInfoWithoutBio;
 	unreadConversationCount: number;
 	unreadNotificationCount: number;
 };

@@ -1,9 +1,9 @@
-import { UserWithoutBio } from "@/types/userWithoutBio";
+import { UserInfoWithoutBio } from "@/types/userInfoWithoutBio";
 import { LockIcon } from "lucide-react";
 import Image from "next/image";
 
 interface UserAvatarProps {
-	user: UserWithoutBio;
+	user: UserInfoWithoutBio;
 }
 
 export function UserAvatar({ user }: UserAvatarProps) {

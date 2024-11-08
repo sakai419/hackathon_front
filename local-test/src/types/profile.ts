@@ -1,10 +1,11 @@
+import { UserInfo } from "./useInfo";
+
 export type Profile = {
-	userId: string;
-	userName: string;
-	profileImageUrl?: string;
-	bannerImageUrl?: string;
-	bio?: string;
-	followers: number;
-	following: number;
-	posts: number;
+	UserInfo: UserInfo;
+	BannerImageUrl: string;
+	TweetCount: number;
+	FollowingCount: number;
+	FollowerCount: number;
+	IsFollowed: boolean;
+	CreatedAt: string;
 };

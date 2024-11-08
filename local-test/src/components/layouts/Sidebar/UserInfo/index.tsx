@@ -1,4 +1,3 @@
-// UserInfo.tsx
 import {
 	Popover,
 	PopoverTrigger,
@@ -7,10 +6,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { UserAvatar } from "./UserAvatar";
 import { PopoverLogoutContent } from "./PopoverLogoutContent";
-import { UserWithoutBio } from "@/types/userWithoutBio";
+import { UserInfoWithoutBio } from "@/types/userInfoWithoutBio";
 
 interface UserInfoProps {
-	user: UserWithoutBio;
+	user: UserInfoWithoutBio;
 }
 
 export default function UserInfo({ user }: UserInfoProps) {
