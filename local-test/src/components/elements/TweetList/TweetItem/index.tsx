@@ -5,12 +5,11 @@ import { Heart, MessageCircle, Repeat, Pin, Lock, Shield } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { TweetInfo } from "@/types/tweetInfo";
+import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
 
 export default function Tweet({ tweet }: { tweet: TweetInfo }) {
-	const formatDate = (dateString: string) => {
-		const date = new Date(dateString);
-		return date.toLocaleString("ja-JP", { month: "short", day: "numeric" });
-	};
+	const tweetDate = new Date(tweet.CreatedAt);
+	const relativeTime = getRelativeTimeString(tweetDate);
 
 	return (
 		<div className="w-full border-t border-b border-gray-200 py-4">
@@ -78,9 +77,7 @@ export default function Tweet({ tweet }: { tweet: TweetInfo }) {
 					/>
 				)}
 				<p className="text-gray-500 mt-2 text-sm">
-					<time dateTime={tweet.CreatedAt}>
-						{formatDate(tweet.CreatedAt)}
-					</time>
+					<time dateTime={tweet.CreatedAt}>{relativeTime}</time>
 				</p>
 			</div>
 			<div className="flex justify-between text-gray-500 mt-4">
