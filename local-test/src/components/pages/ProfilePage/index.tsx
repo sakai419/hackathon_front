@@ -1,4 +1,5 @@
 import DynamicTabs from "@/components/elements/DynamicTab";
+import { TweetListExample } from "@/components/elements/TweetList";
 import MainLayout from "@/components/layouts/MainLayout";
 import UserHeader from "@/features/profile/components/UserHeader";
 import useProfile from "@/hooks/useProfile";
@@ -42,6 +43,7 @@ export default function ProfilePage({ userId }: ProfilePageProps) {
 						{ Name: "いいね", Url: `/profile/${userId}/likes` },
 					]}
 				/>
+				<TweetListExample />
 			</div>
 		</MainLayout>
 	);
