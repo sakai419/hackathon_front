@@ -5,9 +5,9 @@ import { useSidebarInfo } from "@/hooks/useSidebarInfo";
 import {
 	SidebarContent,
 	TweetButton,
-	TweetDialog,
 	UserInfo,
 } from "@/features/sidebar/components";
+import TweetDialog from "@/components/elements/TweetDialog";
 
 export default function Sidebar() {
 	const [isOpen, setIsOpen] = useState(false);
