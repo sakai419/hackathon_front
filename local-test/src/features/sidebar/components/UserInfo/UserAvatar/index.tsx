@@ -1,5 +1,5 @@
 import { UserInfoWithoutBio } from "@/types/userInfoWithoutBio";
-import { LockIcon } from "lucide-react";
+import { LockIcon, Shield } from "lucide-react";
 import Image from "next/image";
 
 interface UserAvatarProps {
@@ -27,6 +27,9 @@ export function UserAvatar({ user }: UserAvatarProps) {
 					className="h-4 w-4 text-gray-500"
 					aria-label="非公開アカウント"
 				/>
+			)}
+			{user.IsAdmin && (
+				<Shield className="w-4 h-4 text-blue-500" aria-label="管理者" />
 			)}
 		</div>
 	);
