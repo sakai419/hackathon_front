@@ -12,7 +12,7 @@ export default function DynamicTabs({ tabs }: DynamicTabsProps) {
 
 	return (
 		<div className="border-b">
-			<nav className="flex -mb-px" aria-label="プロフィールタブ">
+			<nav className="flex -mb-px">
 				{tabs.map((tab) => (
 					<Link
 						key={tab.Name}
