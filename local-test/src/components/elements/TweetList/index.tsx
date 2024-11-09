@@ -1,6 +1,6 @@
 import { TweetInfo } from "@/types/tweetInfo";
 import TweetItem from "./TweetItem";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const sampleTweets = [
 	{
@@ -8,7 +8,7 @@ const sampleTweets = [
 		UserInfo: {
 			UserId: "1",
 			UserName: "田中太郎",
-			ProfileImageUrl: "/placeholder.svg?height=400&width=400",
+			ProfileImageUrl: "",
 			IsPrivate: false,
 			IsAdmin: true,
 		},
@@ -28,7 +28,7 @@ const sampleTweets = [
 		UserInfo: {
 			UserId: "2",
 			UserName: "山田花子",
-			ProfileImageUrl: "/placeholder.svg?height=400&width=400",
+			ProfileImageUrl: "",
 			IsPrivate: true,
 			IsAdmin: false,
 		},
@@ -52,7 +52,7 @@ const sampleTweets = [
 		UserInfo: {
 			UserId: "3",
 			UserName: "鈴木一郎",
-			ProfileImageUrl: "/placeholder.svg?height=400&width=400",
+			ProfileImageUrl: "",
 			IsPrivate: false,
 			IsAdmin: false,
 		},
@@ -78,10 +78,49 @@ export function TweetListExample() {
 }
 
 export default function TweetList({ tweets }: { tweets: TweetInfo[] }) {
+	const [tweetList, setTweets] = useState(tweets);
+
+	const handleLike = (tweetId: number) => {
+		setTweets((prevTweets) =>
+			prevTweets.map((tweet) =>
+				tweet.TweetID === tweetId
+					? {
+							...tweet,
+							HasLiked: !tweet.HasLiked,
+							LikesCount: tweet.HasLiked
+								? tweet.LikesCount - 1
+								: tweet.LikesCount + 1,
+					  }
+					: tweet
+			)
+		);
+	};
+
+	const handleRetweet = (tweetId: number) => {
+		setTweets((prevTweets) =>
+			prevTweets.map((tweet) =>
+				tweet.TweetID === tweetId
+					? {
+							...tweet,
+							HasRetweeted: !tweet.HasRetweeted,
+							RetweetsCount: tweet.HasRetweeted
+								? tweet.RetweetsCount - 1
+								: tweet.RetweetsCount + 1,
+					  }
+					: tweet
+			)
+		);
+	};
+
 	return (
 		<div className="divide-y divide-gray-200">
-			{tweets.map((tweet, index) => (
-				<TweetItem key={tweet.TweetID} tweet={tweet} />
+			{tweetList.map((tweet, index) => (
+				<TweetItem
+					key={tweet.TweetID}
+					tweet={tweet}
+					onLike={() => handleLike(tweet.TweetID)}
+					onRetweet={() => handleRetweet(tweet.TweetID)}
+				/>
 			))}
 		</div>
 	);

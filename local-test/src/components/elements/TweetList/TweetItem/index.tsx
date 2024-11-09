@@ -6,17 +6,30 @@ import Image from "next/image";
 import Link from "next/link";
 import { TweetInfo } from "@/types/tweetInfo";
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
+import { useState } from "react";
 
-export default function Tweet({ tweet }: { tweet: TweetInfo }) {
+type TweetItemProps = {
+	tweet: TweetInfo;
+	onLike: () => void;
+	onRetweet: () => void;
+};
+
+export default function TweetItem({
+	tweet,
+	onLike,
+	onRetweet,
+}: TweetItemProps) {
 	const tweetDate = new Date(tweet.CreatedAt);
 	const relativeTime = getRelativeTimeString(tweetDate);
+	const profileImage =
+		tweet.UserInfo.ProfileImageUrl || "/images/default_image.png";
 
 	return (
 		<div className="w-full border-t border-b border-gray-200 py-4">
 			<div className="flex items-start space-x-4 pb-2">
 				<Avatar className="w-12 h-12">
 					<AvatarImage
-						src={tweet.UserInfo.ProfileImageUrl}
+						src={profileImage}
 						alt={tweet.UserInfo.UserName}
 					/>
 					<AvatarFallback>
@@ -84,7 +97,7 @@ export default function Tweet({ tweet }: { tweet: TweetInfo }) {
 				<Button
 					variant="ghost"
 					size="sm"
-					className="flex items-center space-x-2"
+					className="flex items-center space-x-2 hover:bg-sky-100 hover:text-sky-500"
 				>
 					<MessageCircle className="w-4 h-4" />
 					<span>{tweet.RepliesCount}</span>
@@ -93,22 +106,31 @@ export default function Tweet({ tweet }: { tweet: TweetInfo }) {
 				<Button
 					variant="ghost"
 					size="sm"
-					className={`flex items-center space-x-2 ${
+					onClick={onRetweet}
+					className={`flex items-center space-x-2 hover:bg-green-100 hover:text-green-500 ${
 						tweet.HasRetweeted ? "text-green-500" : ""
 					}`}
 				>
-					<Repeat className="w-4 h-4" />
+					<Repeat className="w-4 h-4 hover:bg-green-300" />
 					<span>{tweet.RetweetsCount}</span>
 					<span className="sr-only">リツイート</span>
 				</Button>
 				<Button
 					variant="ghost"
 					size="sm"
-					className={`flex items-center space-x-2 ${
+					onClick={onLike}
+					className={`flex items-center space-x-2 hover:bg-red-100 hover:text-red-500 ${
 						tweet.HasLiked ? "text-red-500" : ""
 					}`}
+					aria-label={
+						tweet.HasLiked ? "いいねを取り消す" : "いいねする"
+					}
 				>
-					<Heart className="w-4 h-4" />
+					<Heart
+						className="w-4 h-4"
+						fill={tweet.HasLiked ? "currentColor" : "none"}
+						stroke={tweet.HasLiked ? "none" : "currentColor"}
+					/>
 					<span>{tweet.LikesCount}</span>
 					<span className="sr-only">いいね</span>
 				</Button>
