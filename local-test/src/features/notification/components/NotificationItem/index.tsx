@@ -1,4 +1,4 @@
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import Link from "next/link";
 import { Notification } from "@/types/notification";
 import { NotificationIcon } from "./NotificationIcon";

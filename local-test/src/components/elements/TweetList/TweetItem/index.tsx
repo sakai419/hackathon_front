@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Heart, MessageCircle, Repeat, Pin, Lock, Shield } from "lucide-react";
@@ -6,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { TweetInfo } from "@/types/tweetInfo";
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
+import UserAvatar from "../../UserAvatar";
 
 type TweetItemProps = {
 	tweet: TweetInfo;
@@ -26,15 +26,11 @@ export default function TweetItem({
 	return (
 		<div className="w-full border-t border-b border-gray-200 py-4">
 			<div className="flex items-start space-x-4 pb-2">
-				<Avatar className="w-12 h-12">
-					<AvatarImage
-						src={profileImage}
-						alt={tweet.UserInfo.UserName}
-					/>
-					<AvatarFallback>
-						{tweet.UserInfo.UserName[0]}
-					</AvatarFallback>
-				</Avatar>
+				<UserAvatar
+					userId={tweet.UserInfo.UserId}
+					src={profileImage}
+					alt={tweet.UserInfo?.UserName}
+				></UserAvatar>
 				<div className="flex-1">
 					<div className="flex items-center justify-between">
 						<div className="flex items-center space-x-2">

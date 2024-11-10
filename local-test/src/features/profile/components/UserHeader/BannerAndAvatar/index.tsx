@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import UserAvatar from "@/components/elements/UserAvatar";
 
 interface BannerAndAvatarProps {
 	bannerImage: string;
@@ -22,13 +22,12 @@ export default function BannerAndAvatar({
 				/>
 			</div>
 			<div className="absolute -bottom-12 left-4">
-				<Avatar className="w-24 h-24 border-4 border-background">
-					<AvatarImage
-						src={profileImage}
-						alt={`${userName}のプロフィール画像`}
-					/>
-					<AvatarFallback>{userName?.charAt(0)}</AvatarFallback>
-				</Avatar>
+				<UserAvatar
+					userId={userName}
+					src={profileImage}
+					alt={userName}
+					size="w-24 h-24"
+				></UserAvatar>
 			</div>
 			<div className="absolute right-4 bottom-4">
 				<Button variant="outline" className="bg-background font-bold">
