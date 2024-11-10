@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const sampleTweets = [
 	{
-		TweetID: 1,
+		TweetId: 1,
 		UserInfo: {
 			UserId: "1",
 			UserName: "田中太郎",
@@ -24,7 +24,7 @@ const sampleTweets = [
 		CreatedAt: "2023-06-15T09:00:00Z",
 	},
 	{
-		TweetID: 2,
+		TweetId: 2,
 		UserInfo: {
 			UserId: "2",
 			UserName: "山田花子",
@@ -48,7 +48,7 @@ const sampleTweets = [
 		CreatedAt: "2023-06-15T10:30:00Z",
 	},
 	{
-		TweetID: 3,
+		TweetId: 3,
 		UserInfo: {
 			UserId: "3",
 			UserName: "鈴木一郎",
@@ -83,7 +83,7 @@ export default function TweetList({ tweets }: { tweets: TweetInfo[] }) {
 	const handleLike = (tweetId: number) => {
 		setTweets((prevTweets) =>
 			prevTweets.map((tweet) =>
-				tweet.TweetID === tweetId
+				tweet.TweetId === tweetId
 					? {
 							...tweet,
 							HasLiked: !tweet.HasLiked,
@@ -99,7 +99,7 @@ export default function TweetList({ tweets }: { tweets: TweetInfo[] }) {
 	const handleRetweet = (tweetId: number) => {
 		setTweets((prevTweets) =>
 			prevTweets.map((tweet) =>
-				tweet.TweetID === tweetId
+				tweet.TweetId === tweetId
 					? {
 							...tweet,
 							HasRetweeted: !tweet.HasRetweeted,
@@ -116,10 +116,10 @@ export default function TweetList({ tweets }: { tweets: TweetInfo[] }) {
 		<div className="divide-y divide-gray-200">
 			{tweetList.map((tweet, index) => (
 				<TweetItem
-					key={tweet.TweetID}
+					key={tweet.TweetId}
 					tweet={tweet}
-					onLike={() => handleLike(tweet.TweetID)}
-					onRetweet={() => handleRetweet(tweet.TweetID)}
+					onLike={() => handleLike(tweet.TweetId)}
+					onRetweet={() => handleRetweet(tweet.TweetId)}
 				/>
 			))}
 		</div>

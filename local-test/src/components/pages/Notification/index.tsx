@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { NotificationType } from "@/types/notification";
+import { Notification, NotificationType } from "@/types/notification";
 import MainLayout from "@/components/layouts/MainLayout";
 import NotificationItem from "./components/NotificationItem";
+import { useEffect, useState } from "react";
+import useNotifications from "@/hooks/useNotification";
 
 const notifications = [
 	{
@@ -18,7 +20,7 @@ const notifications = [
 		Type: "like" as NotificationType,
 		Content: "あなたのツイートがいいねされました",
 		RelatedTweet: {
-			TweetID: 1,
+			TweetId: 1,
 			UserInfo: {
 				UserId: "1",
 				UserName: "田中太郎",
@@ -72,7 +74,7 @@ const notifications = [
 	},
 ];
 
-export default function NotificationPage() {
+export function NotificationExample() {
 	return (
 		<MainLayout>
 			<div className="max-w-2xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
@@ -87,6 +89,43 @@ export default function NotificationPage() {
 						/>
 					))}
 				</ScrollArea>
+				<div className="p-4 border-t border-gray-200">
+					<Button variant="outline" className="w-full">
+						すべての通知を見る
+					</Button>
+				</div>
+			</div>
+		</MainLayout>
+	);
+}
+
+export default function NotificationPage() {
+	const { notifications, loading, error } = useNotifications();
+
+	if (loading) {
+		return <div>Loading...</div>;
+	}
+
+	if (error) {
+		return <div>{error}</div>;
+	}
+
+	return (
+		<MainLayout>
+			<div className="max-w-2xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+				<div className="p-4 border-b border-gray-200">
+					<h1 className="text-xl font-semibold">通知</h1>
+				</div>
+				{notifications && (
+					<ScrollArea className="h-[calc(100vh-8rem)]">
+						{notifications.map((notification) => (
+							<NotificationItem
+								key={notification.NotificationId}
+								notification={notification}
+							/>
+						))}
+					</ScrollArea>
+				)}
 				<div className="p-4 border-t border-gray-200">
 					<Button variant="outline" className="w-full">
 						すべての通知を見る

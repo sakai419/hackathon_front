@@ -1,6 +1,7 @@
 import getSidebarInfo from "@/services/api/sidebar/getSidebarInfo";
 import { SidebarInfo } from "@/types/sidebar";
-import { useState, useEffect, SetStateAction } from "react";
+import { UserInfoWithoutBio } from "@/types/userInfoWithoutBio";
+import { useState, useEffect } from "react";
 
 export function useSidebarInfo() {
 	const [sidebarInfo, setSidebarInfo] = useState<SidebarInfo | null>(null);
@@ -21,7 +22,7 @@ export function useSidebarInfo() {
 							ProfileImageUrl: data.user_info.profile_image_url,
 							IsPrivate: data.user_info.is_private,
 							IsAdmin: data.user_info.is_admin,
-						},
+						} as UserInfoWithoutBio,
 						UnreadConversationCount:
 							data.unread_conversation_count || 0,
 						UnreadNotificationCount:

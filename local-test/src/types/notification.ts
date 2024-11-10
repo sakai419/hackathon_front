@@ -1,5 +1,5 @@
 import { TweetInfo } from "./tweetInfo";
-import { UserInfo } from "./useInfo";
+import { UserInfoWithoutBio } from "./userInfoWithoutBio";
 
 export type NotificationType =
 	| "follow"
@@ -16,7 +16,7 @@ export type NotificationType =
 
 export type Notification = {
 	NotificationId: number;
-	SenderInfo: UserInfo;
+	SenderInfo: UserInfoWithoutBio;
 	Type: NotificationType;
 	Content?: string;
 	RelatedTweet?: TweetInfo;

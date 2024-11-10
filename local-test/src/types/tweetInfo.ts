@@ -1,12 +1,12 @@
 import { UserInfoWithoutBio } from "./userInfoWithoutBio";
 
-type Media = {
+export type Media = {
 	type: string;
 	url: string;
 };
 
 export type TweetInfo = {
-	TweetID: number;
+	TweetId: number;
 	UserInfo: UserInfoWithoutBio;
 	Content?: string;
 	Code?: string;

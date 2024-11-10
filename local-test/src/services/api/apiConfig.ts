@@ -4,3 +4,4 @@ export const USER_ENDPOINT = `${API_BASE_URL}/users`;
 export const TWEET_ENDPOINT = `${API_BASE_URL}/tweets`;
 export const LIKE_ENDPOINT = `${API_BASE_URL}/likes`;
 export const SIDEBAR_ENDPOINT = `${API_BASE_URL}/sidebar`;
+export const NOTIFICATION_ENDPOINT = `${API_BASE_URL}/notifications`;

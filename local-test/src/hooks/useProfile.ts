@@ -1,5 +1,6 @@
-import getUserProfile from "@/services/api/user/getUserProfile";
+import getUserProfile from "@/services/api/users/getUserProfile";
 import { Profile } from "@/types/profile";
+import { UserInfo } from "@/types/useInfo";
 import { useState, useEffect } from "react";
 
 export default function useProfile(userId: string): {
@@ -24,14 +25,14 @@ export default function useProfile(userId: string): {
 						IsPrivate: data.user_info.is_private,
 						IsAdmin: data.user_info.is_admin,
 						Bio: data.user_info.bio,
-					},
+					} as UserInfo,
 					BannerImageUrl: data.banner_image_url,
 					TweetCount: data.tweet_count,
 					FollowerCount: data.follower_count,
 					FollowingCount: data.following_count,
 					IsFollowed: data.is_followed,
 					CreatedAt: data.created_at,
-				};
+				} as Profile;
 				setProfileData(profile);
 			} catch (err) {
 				setError("ユーザーデータの取得に失敗しました");

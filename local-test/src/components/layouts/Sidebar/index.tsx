@@ -19,6 +19,14 @@ export default function Sidebar() {
 		console.log("ツイート内容:", content);
 	};
 
+	if (loading) {
+		return <div>Loading...</div>;
+	}
+
+	if (error) {
+		return <div>{error}</div>;
+	}
+
 	return (
 		<>
 			<Button

@@ -2,8 +2,6 @@ import DynamicTabs from "@/components/elements/DynamicTab";
 import { TweetListExample } from "@/components/elements/TweetList";
 import MainLayout from "@/components/layouts/MainLayout";
 import useProfile from "@/hooks/useProfile";
-import { Profile } from "@/types/profile";
-import { useEffect, useState } from "react";
 import UserHeader from "./components/UserHeader";
 
 interface ProfilePageProps {
@@ -11,27 +9,20 @@ interface ProfilePageProps {
 }
 
 export default function ProfilePage({ userId }: ProfilePageProps) {
-	const [profileData, setProfileData] = useState<Profile | null>(null);
 	const { profile, loading, error } = useProfile(userId);
 
-	useEffect(() => {
-		if (!loading && !error) {
-			setProfileData(profile);
-		}
-	}, [profile, loading, error]);
-
 	if (loading) {
-		return <p>Loading...</p>;
+		return <div>Loading...</div>;
 	}
 
 	if (error) {
-		return <p>{error}</p>;
+		return <div>{error}</div>;
 	}
 
 	return (
 		<MainLayout>
 			<div className="max-w-2xl mx-auto">
-				{profileData && <UserHeader profile={profileData} />}
+				{profile && <UserHeader profile={profile} />}
 				<DynamicTabs
 					tabs={[
 						{ Name: "ツイート", Url: `/profile/${userId}/tweets` },
