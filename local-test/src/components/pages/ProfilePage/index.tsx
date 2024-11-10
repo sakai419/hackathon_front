@@ -4,6 +4,7 @@ import MainLayout from "@/components/layouts/MainLayout";
 import { UserHeader } from "@/features/profile/components";
 import useProfile from "@/hooks/useProfile";
 import { Profile } from "@/types/profile";
+import { Quote } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface ProfilePageProps {

@@ -26,7 +26,7 @@ export default function SidebarContent({
 			<SidebarItem
 				icon={BellIcon}
 				label="通知"
-				href="/notifiactions"
+				href="/notifications"
 				count={UnreadNotificationCount}
 			/>
 			<SidebarItem

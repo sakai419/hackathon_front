@@ -12,7 +12,7 @@ export default function ProfileHeader({
 }: ProfileHeaderProps) {
 	return (
 		<div className="flex items-center gap-6 p-4 h-14">
-			<Link href="/" className="hover:opacity-70">
+			<Link href="/home" className="hover:opacity-70">
 				<ArrowLeft className="h-5 w-5" />
 			</Link>
 			<div className="flex flex-col">
