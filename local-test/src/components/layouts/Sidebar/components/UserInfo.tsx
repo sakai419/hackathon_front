@@ -4,7 +4,7 @@ import {
 	PopoverContent,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { PopoverLogoutContent } from "./PopoverLogoutContent";
+import { PopoverLogoutContent } from "./PopoverLoggoutContent";
 import { UserInfoWithoutBio } from "@/types/userInfoWithoutBio";
 import UserAvatar from "@/components/elements/UserAvatar";
 import { LockIcon, Shield } from "lucide-react";
@@ -27,6 +27,10 @@ export default function UserInfo({ user }: UserInfoProps) {
 						alt={user.UserName}
 						size="md"
 					/>
+					<div className="flex-grow text-left">
+						<p className="font-bold text-sm">{user.UserName}</p>
+						<p className="text-xs text-gray-500">@{user.UserId}</p>
+					</div>
 					{user.IsPrivate && (
 						<LockIcon
 							className="w-4 h-4 text-gray-500"
