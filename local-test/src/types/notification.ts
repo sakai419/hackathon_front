@@ -16,10 +16,10 @@ export type NotificationType =
 
 export type Notification = {
 	NotificationId: number;
-	SenderInfo: UserInfo | null;
+	SenderInfo: UserInfo;
 	Type: NotificationType;
-	Content: string | null;
-	RelatedTweet: TweetInfo | null;
+	Content?: string;
+	RelatedTweet?: TweetInfo;
 	IsRead: boolean;
 	CreatedAt: string;
 };

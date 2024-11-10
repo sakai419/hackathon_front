@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Notification } from "@/types/notification";
 import { NotificationIcon } from "./NotificationIcon";
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
+import RelatedTweetCard from "@/components/elements/RelatedTweetCard";
 
 export default function NotificationItem({
 	notification,
@@ -15,20 +16,53 @@ export default function NotificationItem({
 	const profileImage =
 		notification.SenderInfo?.ProfileImageUrl || "/images/default_image.png";
 
+	var message = "";
+
+	switch (notification.Type) {
+		case "follow":
+			message = `${notification.SenderInfo?.UserName}さんがあなたをフォローしました`;
+			break;
+		case "like":
+			message = `${notification.SenderInfo?.UserName}さんがあなたのツイートをいいねしました`;
+			break;
+		case "retweet":
+			message = `${notification.SenderInfo?.UserName}さんがあなたのツイートをリツイートしました`;
+			break;
+		case "reply":
+			message = `${notification.SenderInfo?.UserName}さんがあなたのツイートにリプライしました`;
+			break;
+		case "quote":
+			message = `${notification.SenderInfo?.UserName}さんがあなたのツイートを引用リツイートしました`;
+			break;
+		case "follow_request":
+			message = `${notification.SenderInfo?.UserName}さんがあなたにフォローリクエストを送りました`;
+			break;
+		case "request_accepted":
+			message = `${notification.SenderInfo?.UserName}さんがあなたのフォローリクエストを承認しました`;
+			break;
+		case "warning":
+			message = "あなたに警告を送りました";
+			break;
+		case "other":
+			message = notification.Content || "";
+			break;
+		default:
+	}
+
 	return (
 		<div className="flex items-start space-x-4 p-4 hover:bg-gray-50">
-			<Avatar className="w-10 h-10">
-				<AvatarImage
-					src={profileImage}
-					alt={notification.SenderInfo?.UserName}
-				/>
-				<AvatarFallback>
-					{notification.SenderInfo?.UserName[0]}
-				</AvatarFallback>
-			</Avatar>
+			<NotificationIcon type={notification.Type} />
 			<div className="flex-1 space-y-1">
 				<div className="flex items-center space-x-2">
-					<NotificationIcon type={notification.Type} />
+					<Avatar className="w-10 h-10">
+						<AvatarImage
+							src={profileImage}
+							alt={notification.SenderInfo?.UserName}
+						/>
+						<AvatarFallback>
+							{notification.SenderInfo?.UserName[0]}
+						</AvatarFallback>
+					</Avatar>
 					<Link
 						href={`/profile/${notification.SenderInfo?.UserName}`}
 						className="font-semibold hover:underline"
@@ -39,8 +73,11 @@ export default function NotificationItem({
 						@{notification.SenderInfo?.UserId}
 					</span>
 				</div>
-				<p>{notification.Content}</p>
+				<p>{message}</p>
 				<p className="text-sm text-gray-500">{relativeTime}</p>
+				{notification.RelatedTweet && (
+					<RelatedTweetCard tweet={notification.RelatedTweet} />
+				)}
 			</div>
 		</div>
 	);

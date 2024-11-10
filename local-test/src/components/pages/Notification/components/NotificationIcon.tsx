@@ -25,7 +25,7 @@ export function NotificationIcon({ type }: NotificationIconProps) {
 			return (
 				<UserPlus
 					{...iconProps}
-					className="w-4 h-4 text-blue-500"
+					className="w-8 h-8 text-blue-500"
 					aria-label="フォロー通知"
 				/>
 			);
@@ -33,7 +33,7 @@ export function NotificationIcon({ type }: NotificationIconProps) {
 			return (
 				<Heart
 					{...iconProps}
-					className="w-4 h-4 text-red-500"
+					className="w-8 h-8 text-red-500"
 					aria-label="いいね通知"
 				/>
 			);
@@ -41,7 +41,7 @@ export function NotificationIcon({ type }: NotificationIconProps) {
 			return (
 				<Repeat
 					{...iconProps}
-					className="w-4 h-4 text-green-500"
+					className="w-8 h-8 text-green-500"
 					aria-label="リツイート通知"
 				/>
 			);
@@ -50,7 +50,7 @@ export function NotificationIcon({ type }: NotificationIconProps) {
 			return (
 				<MessageCircle
 					{...iconProps}
-					className="w-4 h-4 text-purple-500"
+					className="w-8 h-8 text-purple-500"
 					aria-label="返信・引用通知"
 				/>
 			);
@@ -58,7 +58,7 @@ export function NotificationIcon({ type }: NotificationIconProps) {
 			return (
 				<Mail
 					{...iconProps}
-					className="w-4 h-4 text-blue-400"
+					className="w-8 h-8 text-blue-400"
 					aria-label="メッセージ通知"
 				/>
 			);
@@ -66,7 +66,7 @@ export function NotificationIcon({ type }: NotificationIconProps) {
 			return (
 				<UserCheck
 					{...iconProps}
-					className="w-4 h-4 text-green-400"
+					className="w-8 h-8 text-green-400"
 					aria-label="フォローリクエスト承認通知"
 				/>
 			);
@@ -74,7 +74,7 @@ export function NotificationIcon({ type }: NotificationIconProps) {
 			return (
 				<Flag
 					{...iconProps}
-					className="w-4 h-4 text-orange-500"
+					className="w-8 h-8 text-orange-500"
 					aria-label="報告通知"
 				/>
 			);
@@ -82,7 +82,7 @@ export function NotificationIcon({ type }: NotificationIconProps) {
 			return (
 				<AlertTriangle
 					{...iconProps}
-					className="w-4 h-4 text-yellow-500"
+					className="w-8 h-8 text-yellow-500"
 					aria-label="警告通知"
 				/>
 			);
@@ -91,7 +91,7 @@ export function NotificationIcon({ type }: NotificationIconProps) {
 			return (
 				<HelpCircle
 					{...iconProps}
-					className="w-4 h-4 text-gray-500"
+					className="w-8 h-8 text-gray-500"
 					aria-label="その他の通知"
 				/>
 			);

@@ -1,5 +1,5 @@
 import { TweetInfo } from "@/types/tweetInfo";
-import TweetItem from "./TweetItem";
+import TweetItem from "../TweetItem";
 import { useEffect, useState } from "react";
 
 const sampleTweets = [

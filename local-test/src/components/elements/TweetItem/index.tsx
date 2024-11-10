@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { TweetInfo } from "@/types/tweetInfo";
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
-import UserAvatar from "../../UserAvatar";
+import UserAvatar from "../UserAvatar";
 
 type TweetItemProps = {
 	tweet: TweetInfo;

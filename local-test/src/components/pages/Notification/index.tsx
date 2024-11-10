@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import NotificationItem from "@/features/notification/components/NotificationItem";
 import { NotificationType } from "@/types/notification";
 import MainLayout from "@/components/layouts/MainLayout";
+import NotificationItem from "./components/NotificationItem";
 
 const notifications = [
 	{
@@ -17,7 +17,26 @@ const notifications = [
 		},
 		Type: "like" as NotificationType,
 		Content: "あなたのツイートがいいねされました",
-		RelatedTweet: null,
+		RelatedTweet: {
+			TweetID: 1,
+			UserInfo: {
+				UserId: "1",
+				UserName: "田中太郎",
+				ProfileImageUrl: "",
+				IsPrivate: false,
+				IsAdmin: true,
+			},
+			Content: "今日は晴れですね！散歩に行ってきます。",
+			LikesCount: 15,
+			RetweetsCount: 3,
+			RepliesCount: 2,
+			IsQuote: false,
+			IsReply: false,
+			IsPinned: true,
+			HasLiked: true,
+			HasRetweeted: false,
+			CreatedAt: "2023-06-15T09:00:00Z",
+		},
 		IsRead: false,
 		CreatedAt: "2021-08-01T12:00:00Z",
 	},
@@ -33,7 +52,6 @@ const notifications = [
 		},
 		Type: "retweet" as NotificationType,
 		Content: "あなたのツイートがリツイートされました",
-		RelatedTweet: null,
 		IsRead: true,
 		CreatedAt: "2021-08-01T12:00:00Z",
 	},
@@ -49,7 +67,6 @@ const notifications = [
 		},
 		Type: "reply" as NotificationType,
 		Content: "あなたのツイートに返信がありました",
-		RelatedTweet: null,
 		IsRead: false,
 		CreatedAt: "2021-08-01T12:00:00Z",
 	},

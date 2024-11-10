@@ -1,11 +1,10 @@
 import DynamicTabs from "@/components/elements/DynamicTab";
 import { TweetListExample } from "@/components/elements/TweetList";
 import MainLayout from "@/components/layouts/MainLayout";
-import { UserHeader } from "@/features/profile/components";
 import useProfile from "@/hooks/useProfile";
 import { Profile } from "@/types/profile";
-import { Quote } from "lucide-react";
 import { useEffect, useState } from "react";
+import UserHeader from "./components/UserHeader";
 
 interface ProfilePageProps {
 	userId: string;
