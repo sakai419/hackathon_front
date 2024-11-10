@@ -23,6 +23,7 @@ export default function BannerAndAvatar({
 			</div>
 			<div className="absolute -bottom-12 left-4">
 				<UserAvatar
+					withLink={false}
 					userId={userName}
 					src={profileImage}
 					alt={userName}

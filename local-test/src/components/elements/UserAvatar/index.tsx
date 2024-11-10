@@ -2,6 +2,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import Link from "next/link";
 
 type UserAvatarProps = {
+	withLink?: boolean;
 	userId: string;
 	src: string;
 	alt: string;
@@ -9,17 +10,22 @@ type UserAvatarProps = {
 };
 
 export default function UserAvatar({
+	withLink = true,
 	userId,
 	src,
 	alt,
 	size = "w-10 h-10",
 }: UserAvatarProps) {
-	return (
-		<Link href={`/${userId}`}>
-			<Avatar className={size}>
-				<AvatarImage src={src} alt={alt} />
-				<AvatarFallback>{alt[0]}</AvatarFallback>
-			</Avatar>
-		</Link>
+	const avatar = (
+		<Avatar className={size}>
+			<AvatarImage src={src} alt={alt} />
+			<AvatarFallback>{alt[0]}</AvatarFallback>
+		</Avatar>
 	);
+
+	if (withLink) {
+		return <Link href={`/${userId}`}>{avatar}</Link>;
+	}
+
+	return avatar;
 }
