@@ -4,15 +4,19 @@ import { Edit } from "lucide-react";
 import EditProfileSteps from "./EditProfileSteps";
 
 interface BannerAndAvatarProps {
+	userId: string;
+	userName: string;
+	bio: string;
 	bannerImage: string;
 	profileImage: string;
-	userName: string;
 }
 
 export default function BannerAndAvatar({
+	userId,
+	userName,
+	bio,
 	bannerImage,
 	profileImage,
-	userName,
 }: BannerAndAvatarProps) {
 	return (
 		<div className="relative">
@@ -33,7 +37,13 @@ export default function BannerAndAvatar({
 				/>
 			</div>
 			<div className="absolute right-4 bottom-4">
-				<EditProfileSteps />
+				<EditProfileSteps
+					userId={userId}
+					userName={userName}
+					bio={bio}
+					profileImageUrl={profileImage}
+					bannerImageUrl={bannerImage}
+				/>
 			</div>
 		</div>
 	);

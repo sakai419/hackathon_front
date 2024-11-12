@@ -4,12 +4,27 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { uploadFile } from "@/services/upload/upload";
-import { EditProfileData } from "@/types/profile";
+import { EditProfileData, Profile } from "@/types/profile";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Loader2, Upload } from "lucide-react";
 import { useState } from "react";
+import { ProfileUpdateStep } from "./ProfileUpdateStep";
 
-export default function EditProfileSteps() {
+interface EditProfileStepsProps {
+	userId: string;
+	userName: string;
+	bio: string;
+	profileImageUrl: string;
+	bannerImageUrl: string;
+}
+
+export default function EditProfileSteps({
+	userId,
+	userName,
+	bio,
+	profileImageUrl,
+	bannerImageUrl,
+}: EditProfileStepsProps) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const steps = [
@@ -216,16 +231,31 @@ export default function EditProfileSteps() {
 					</div>
 				);
 			},
-			validate: (data: EditProfileData) => !!data.BannerImageUrl,
+			validate: (data: EditProfileData) => !data.isUploading,
+		},
+		{
+			title: "設定の変更",
+			content: (data: EditProfileData) => {
+				return (
+					<ProfileUpdateStep
+						userId={data.UserId}
+						userName={data.UserName}
+						bio={data.Bio}
+						profileImageUrl={data.ProfileImageUrl}
+						bannerImageUrl={data.BannerImageUrl}
+					/>
+				);
+			},
+			validate: (data: EditProfileData) => !data.isUploading,
 		},
 	];
 
 	const initialData: EditProfileData = {
-		UserId: "",
-		UserName: "",
-		Bio: "",
-		ProfileImageUrl: "",
-		BannerImageUrl: "",
+		UserId: userId,
+		UserName: userName,
+		Bio: bio,
+		ProfileImageUrl: profileImageUrl,
+		BannerImageUrl: bannerImageUrl,
 		isUploading: false,
 		uploadError: null,
 	};

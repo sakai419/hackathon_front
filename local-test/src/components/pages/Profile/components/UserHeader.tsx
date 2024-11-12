@@ -23,9 +23,11 @@ export default function UserHeader({ profile }: UserProfileProps) {
 				tweetCount={profile.TweetCount}
 			/>
 			<BannerAndAvatar
+				userId={profile.UserInfo.UserId}
+				userName={profile.UserInfo.UserName}
+				bio={profile.UserInfo.Bio}
 				bannerImage={bannerImage}
 				profileImage={profileImage}
-				userName={profile.UserInfo.UserName}
 			/>
 			<ProfileInfo
 				userId={profile.UserInfo.UserId}
