@@ -279,7 +279,7 @@ export default function EditProfileSteps({
 				isOpen={isOpen}
 				initialData={initialData}
 				onClose={() => setIsOpen(false)}
-				onSubmit={handleSubmit}
+				// onSubmit={handleSubmit}
 				steps={steps}
 			/>
 		</>

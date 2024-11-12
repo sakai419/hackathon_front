@@ -23,7 +23,6 @@ interface MultiStepDialogProps<T> {
 	initialData: T;
 	isOpen: boolean;
 	onClose: () => void;
-	onSubmit: (data: T) => Promise<any>;
 }
 
 export function MultiStepDialog<T>({
@@ -31,7 +30,6 @@ export function MultiStepDialog<T>({
 	initialData,
 	isOpen,
 	onClose,
-	onSubmit,
 }: MultiStepDialogProps<T>) {
 	const [currentStep, setCurrentStep] = useState(0);
 	const [formData, setFormData] = useState<T>(initialData);
@@ -63,72 +61,54 @@ export function MultiStepDialog<T>({
 		onClose();
 	};
 
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		if (
-			!steps[currentStep].validate ||
-			steps[currentStep].validate(formData)
-		) {
-			startTransition(async () => {
-				const result = await onSubmit(formData);
-				if (result.success) {
-					handleClose();
-				} else {
-					// エラー処理
-					console.error(result.error);
-				}
-			});
-		}
-	};
-
 	return (
 		<Dialog open={isOpen} onOpenChange={handleClose}>
 			<DialogContent className="sm:max-w-[425px]">
-				<form onSubmit={handleSubmit}>
-					<DialogHeader>
-						<DialogTitle>{steps[currentStep].title}</DialogTitle>
-					</DialogHeader>
-					<div className="py-4">
-						{steps[currentStep].content(formData, updateData)}
-					</div>
-					<DialogFooter className="flex justify-between items-center">
-						<div className="flex space-x-2">
+				<DialogHeader>
+					<DialogTitle>{steps[currentStep].title}</DialogTitle>
+				</DialogHeader>
+				<div className="py-4">
+					{steps[currentStep].content(formData, updateData)}
+				</div>
+				<DialogFooter className="flex justify-between items-center">
+					<div className="flex space-x-2">
+						<Button
+							type="button"
+							variant="outline"
+							onClick={handleBack}
+							disabled={currentStep === 0 || isPending}
+						>
+							戻る
+						</Button>
+						{currentStep === steps.length - 1 ? (
 							<Button
 								type="button"
-								variant="outline"
-								onClick={handleBack}
-								disabled={currentStep === 0 || isPending}
+								onClick={handleClose}
+								disabled={
+									steps[currentStep].validate &&
+									!steps[currentStep].validate(formData)
+								}
 							>
-								戻る
+								完了
 							</Button>
-							{currentStep === steps.length - 1 ? (
-								<Button type="submit" disabled={isPending}>
-									{isPending && (
-										<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-									)}
-									完了
-								</Button>
-							) : (
-								<Button
-									type="button"
-									onClick={handleNext}
-									disabled={
-										isPending ||
-										(steps[currentStep].validate &&
-											!steps[currentStep].validate(
-												formData
-											))
-									}
-								>
-									次へ
-								</Button>
-							)}
-						</div>
-						<div className="text-sm text-gray-500">
-							{currentStep + 1} / {steps.length}
-						</div>
-					</DialogFooter>
-				</form>
+						) : (
+							<Button
+								type="button"
+								onClick={handleNext}
+								disabled={
+									isPending ||
+									(steps[currentStep].validate &&
+										!steps[currentStep].validate(formData))
+								}
+							>
+								次へ
+							</Button>
+						)}
+					</div>
+					<div className="text-sm text-gray-500">
+						{currentStep + 1} / {steps.length}
+					</div>
+				</DialogFooter>
 			</DialogContent>
 		</Dialog>
 	);
