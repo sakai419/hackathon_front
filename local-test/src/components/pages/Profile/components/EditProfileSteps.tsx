@@ -141,7 +141,82 @@ export default function EditProfileSteps() {
 					</div>
 				);
 			},
-			validate: (data: EditProfileData) => !!data.ProfileImageUrl,
+			validate: (data: EditProfileData) => !data.isUploading,
+		},
+		{
+			title: "バナー画像",
+			content: (
+				data: EditProfileData,
+				updateData: (newData: Partial<EditProfileData>) => void
+			) => {
+				const handleBannerUpload = async (
+					e: React.ChangeEvent<HTMLInputElement>
+				) => {
+					const file = e.target.files?.[0];
+					if (file) {
+						updateData({
+							isUploading: true,
+							uploadError: null,
+						});
+						try {
+							const url = await uploadFile(file);
+							updateData({
+								BannerImageUrl: url,
+								isUploading: false,
+							});
+						} catch (err) {
+							updateData({
+								uploadError:
+									"バナー画像のアップロードに失敗しました。もう一度お試しください。",
+								isUploading: false,
+							});
+						}
+					}
+				};
+
+				const bannerImage =
+					data.BannerImageUrl || "/images/default_image.png";
+
+				return (
+					<div className="space-y-4">
+						<Label htmlFor="bannerImage">バナー画像</Label>
+						<div className="space-y-2">
+							<div className="relative w-full h-32 bg-gray-100 rounded-lg overflow-hidden">
+								<img
+									src={bannerImage}
+									alt="バナー画像"
+									className="w-full h-full object-cover"
+								/>
+							</div>
+							<Input
+								id="bannerImage"
+								type="file"
+								accept="image/*"
+								onChange={handleBannerUpload}
+								disabled={data.isUploading}
+								className="hidden"
+							/>
+							<Label
+								htmlFor="bannerImage"
+								className="cursor-pointer inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+							>
+								{data.isUploading ? (
+									<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+								) : (
+									<Upload className="mr-2 h-4 w-4" />
+								)}
+								バナー画像をアップロード
+							</Label>
+						</div>
+						{data.uploadError && (
+							<p className="text-sm text-red-500">
+								{data.uploadError}
+							</p>
+						)}
+					</div>
+				);
+			},
+			validate: (data: EditProfileData) => !!data.BannerImageUrl,
 		},
 	];
 
