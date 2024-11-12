@@ -30,7 +30,7 @@ export default function BannerAndAvatar({
 					src={profileImage}
 					alt={userName}
 					size="w-24 h-24"
-				></UserAvatar>
+				/>
 			</div>
 			<div className="absolute right-4 bottom-4">
 				<EditProfileSteps />

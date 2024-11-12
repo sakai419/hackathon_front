@@ -17,7 +17,7 @@ export default function UserAvatar({
 	size = "w-10 h-10",
 }: UserAvatarProps) {
 	const avatar = (
-		<Avatar className={size}>
+		<Avatar className={`${size} border-2`}>
 			<AvatarImage src={src} alt={alt} />
 			<AvatarFallback>{alt[0]}</AvatarFallback>
 		</Avatar>
