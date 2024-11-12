@@ -16,4 +16,6 @@ export type EditProfileData = {
 	Bio: string;
 	ProfileImageUrl: string;
 	BannerImageUrl: string;
+	isUploading?: boolean;
+	uploadError?: string | null;
 };

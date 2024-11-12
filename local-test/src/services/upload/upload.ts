@@ -17,9 +17,9 @@ export const uploadFile = async (file: File): Promise<string> => {
 		let storagePath;
 
 		if (fileType === "image") {
-			storagePath = `uploads/${user.uid}/images/${uniqueFileName}`;
+			storagePath = `uploads/images/${uniqueFileName}`;
 		} else if (fileType === "video") {
-			storagePath = `uploads/${user.uid}/videos/${uniqueFileName}`;
+			storagePath = `uploads/videos/${uniqueFileName}`;
 		} else {
 			throw new Error("サポートされていないファイルタイプです");
 		}

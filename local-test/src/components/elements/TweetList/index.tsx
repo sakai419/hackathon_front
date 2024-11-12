@@ -35,7 +35,7 @@ const sampleTweets = [
 		Content: "新しい料理のレシピを試してみました！",
 		Media: {
 			type: "image",
-			url: "/placeholder.svg?height=300&width=500",
+			url: "/images/default_image.png",
 		},
 		LikesCount: 30,
 		RetweetsCount: 5,
