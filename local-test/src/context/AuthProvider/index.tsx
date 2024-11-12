@@ -1,6 +1,6 @@
 "use client";
 
-import { auth } from "@/services/auth/firebase";
+import { auth } from "@/services/firebase/firebase";
 import { User } from "firebase/auth";
 import {
 	useState,

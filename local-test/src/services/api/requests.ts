@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { auth } from "@/services/auth/firebase";
+import { auth } from "@/services/firebase/firebase";
 
 const refreshToken = async (): Promise<string | null> => {
 	const user = auth.currentUser;

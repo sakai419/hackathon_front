@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import UserAvatar from "@/components/elements/UserAvatar";
+import { Edit } from "lucide-react";
+import EditProfileSteps from "./EditProfileSteps";
 
 interface BannerAndAvatarProps {
 	bannerImage: string;
@@ -31,9 +33,7 @@ export default function BannerAndAvatar({
 				></UserAvatar>
 			</div>
 			<div className="absolute right-4 bottom-4">
-				<Button variant="outline" className="bg-background font-bold">
-					プロフィールを設定
-				</Button>
+				<EditProfileSteps />
 			</div>
 		</div>
 	);

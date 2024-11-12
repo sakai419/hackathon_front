@@ -9,3 +9,11 @@ export type Profile = {
 	IsFollowed: boolean;
 	CreatedAt: string;
 };
+
+export type EditProfileData = {
+	UserId: string;
+	UserName: string;
+	Bio: string;
+	ProfileImageUrl: string;
+	BannerImageUrl: string;
+};

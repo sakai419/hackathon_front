@@ -1,5 +1,5 @@
 import { signOut } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth } from "../firebase/firebase";
 import { useRouter } from "next/navigation";
 
 export const handleLogout = async (router: ReturnType<typeof useRouter>) => {
