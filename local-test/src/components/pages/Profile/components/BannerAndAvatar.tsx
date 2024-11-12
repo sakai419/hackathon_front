@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import UserAvatar from "@/components/elements/UserAvatar";
 import { Edit } from "lucide-react";
-import EditProfileSteps from "./EditProfileSteps";
+import EditProfileSteps from "./EditProfileDialog";
 
 interface BannerAndAvatarProps {
 	userId: string;

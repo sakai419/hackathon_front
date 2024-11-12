@@ -1,41 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { Loader2, CheckCircle, XCircle } from "lucide-react";
-import { Profile } from "@/types/profile";
+import { EditProfileData } from "@/types/profile";
 import updateProfiles from "@/services/api/profiles/updateProfiles";
 
 interface ProfileUpdateStepProps {
-	userId: string;
-	userName: string;
-	bio: string;
-	profileImageUrl: string;
-	bannerImageUrl: string;
+	data: EditProfileData;
 }
 
-export function ProfileUpdateStep({
-	userId,
-	userName,
-	bio,
-	profileImageUrl,
-	bannerImageUrl,
-}: ProfileUpdateStepProps) {
+export function ProfileUpdateStep({ data }: ProfileUpdateStepProps) {
 	const [isUpdating, setIsUpdating] = useState(true);
 	const [updateSuccess, setUpdateSuccess] = useState<boolean | null>(null);
 
 	useEffect(() => {
 		const updateProfileData = async () => {
 			const result = await updateProfiles({
-				userId,
-				userName,
-				bio,
-				profileImageUrl,
-				bannerImageUrl,
+				userId: data.UserId,
+				userName: data.UserName,
+				bio: data.Bio,
+				profileImageUrl: data.ProfileImageUrl,
+				bannerImageUrl: data.BannerImageUrl,
 			});
 			setIsUpdating(false);
 			setUpdateSuccess(result !== null);
 		};
 
 		updateProfileData();
-	}, [userId, userName, bio, profileImageUrl, bannerImageUrl]);
+	}, [
+		data.UserId,
+		data.UserName,
+		data.Bio,
+		data.ProfileImageUrl,
+		data.BannerImageUrl,
+	]);
 
 	if (isUpdating) {
 		return (
