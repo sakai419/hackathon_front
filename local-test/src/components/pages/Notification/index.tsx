@@ -5,6 +5,7 @@ import MainLayout from "@/components/layouts/MainLayout";
 import NotificationItem from "./components/NotificationItem";
 import { useEffect, useState } from "react";
 import useNotifications from "@/hooks/useNotification";
+import Header from "@/components/elements/Header";
 
 const notifications = [
 	{
@@ -113,9 +114,9 @@ export default function NotificationPage() {
 	return (
 		<MainLayout>
 			<div className="max-w-2xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
-				<div className="p-4 border-b border-gray-200">
-					<h1 className="text-xl font-semibold">通知</h1>
-				</div>
+				<Header
+					title={<h1 className="text-xl font-semibold">通知</h1>}
+				/>
 				{notifications && (
 					<ScrollArea className="h-[calc(100vh-8rem)]">
 						{notifications.map((notification) => (
