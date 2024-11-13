@@ -3,6 +3,8 @@ import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import createAccount from "@/services/api/accounts/createAccount";
+import { AxiosError } from "axios";
 
 interface SetUserInfoCardContentProps {
 	onSubmit: () => void;
@@ -13,13 +15,27 @@ export default function SetUserInfoCardContent({
 }: SetUserInfoCardContentProps) {
 	const [userId, setUserId] = useState("");
 	const [userName, setUserName] = useState("");
+	const [isError, setIsError] = useState(false);
+	const [errorMessage, setErrorMessage] = useState<string>("");
 
 	const router = useRouter();
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		onSubmit();
-		router.push("/home");
+		try {
+			await createAccount({ userId, userName });
+			onSubmit();
+			router.push("/home");
+		} catch (error: AxiosError | any) {
+			console.log(error);
+			if (error.response.data.code === "DUPLICATE_ENTRY") {
+				setIsError(true);
+				setErrorMessage("このユーザーIDは既に使用されています");
+			} else {
+				setIsError(true);
+				setErrorMessage("エラーが発生しました");
+			}
+		}
 	};
 
 	return (
@@ -44,8 +60,9 @@ export default function SetUserInfoCardContent({
 					onChange={(e) => setUserName(e.target.value)}
 				/>
 			</div>
+			{isError && <p className="text-red-500">{errorMessage}</p>}
 			<Button type="submit" size="lg" className="w-full">
-				次へ
+				完了
 			</Button>
 		</form>
 	);

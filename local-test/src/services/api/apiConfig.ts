@@ -1,5 +1,6 @@
 export const API_BASE_URL = "http://localhost:8080/api/v1";
 export const AUTH_ENDPOINT = `${API_BASE_URL}/auth`;
+export const ACCOUNT_ENDPOINT = `${API_BASE_URL}/accounts`;
 export const USER_ENDPOINT = `${API_BASE_URL}/users`;
 export const PROFILE_ENDPOINT = `${API_BASE_URL}/profiles`;
 export const TWEET_ENDPOINT = `${API_BASE_URL}/tweets`;
