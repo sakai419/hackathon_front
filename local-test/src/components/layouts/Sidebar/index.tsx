@@ -15,8 +15,13 @@ export default function Sidebar() {
 	const handleOpenDialog = () => setIsDialogOpen(true);
 	const handleCloseDialog = () => setIsDialogOpen(false);
 
-	const handleTweet = (content: string) => {
+	const handleTweet = (content: string, mediaUrl?: string) => {
 		console.log("ツイート内容:", content);
+		return new Promise<void>((resolve) => {
+			setTimeout(() => {
+				resolve();
+			}, 1000);
+		});
 	};
 
 	if (loading) {
@@ -65,6 +70,7 @@ export default function Sidebar() {
 						isOpen={isDialogOpen}
 						onClose={handleCloseDialog}
 						onTweet={handleTweet}
+						userInfo={sidebarInfo?.UserInfo}
 					/>
 					<div className="mt-auto">
 						{sidebarInfo && (
