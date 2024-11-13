@@ -1,17 +1,18 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from "next/navigation";
 import { auth } from "../firebase/firebase";
 
-export const handleLogin = async (
-	email: string,
-	password: string,
-	router: ReturnType<typeof useRouter>
-) => {
+interface LoginProps {
+	email: string;
+	password: string;
+}
+
+export const handleLogin = async ({ email, password }: LoginProps) => {
 	try {
 		const user = await signInWithEmailAndPassword(auth, email, password);
 		console.log(user);
-		router.push("/home");
+		return user;
 	} catch (error) {
-		console.error(error);
+		console.log(error);
+		throw error;
 	}
 };

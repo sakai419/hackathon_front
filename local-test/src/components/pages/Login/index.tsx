@@ -1,43 +1,29 @@
-import { useState } from "react";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import EmailInput from "./components/EmailInput";
-import LoginButton from "./components/LoginButton";
-import LoginHeader from "./components/LoginHeader";
-import PasswordInput from "./components/PasswordInput";
-import SignUpLink from "./components/SignUpLink";
+import FormCard from "@/components/elements/FormCard";
+import LoginCardContent from "./components/LoginCardContent";
 
 export default function LoginPage() {
-	const [showPassword, setShowPassword] = useState(false);
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-
-	const togglePasswordVisibility = () => setShowPassword(!showPassword);
-	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-		setEmail(e.target.value);
-	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-		setPassword(e.target.value);
-
 	return (
 		<div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
 			<h1 className="text-3xl font-bold text-center text-primary mb-6">
 				Welcome to my app!!!
 			</h1>
-			<Card className="w-full max-w-md">
-				<LoginHeader />
-				<CardContent className="space-y-4">
-					<EmailInput value={email} onChange={handleEmailChange} />
-					<PasswordInput
-						showPassword={showPassword}
-						togglePasswordVisibility={togglePasswordVisibility}
-						value={password}
-						onChange={handlePasswordChange}
-					/>
-				</CardContent>
-				<CardFooter className="flex flex-col space-y-4">
-					<LoginButton email={email} password={password} />
-					<SignUpLink />
-				</CardFooter>
-			</Card>
+			<FormCard
+				title="ログイン"
+				description="アカウントにログインしてください"
+				content={<LoginCardContent />}
+				footer={
+					<div className="text-sm text-center text-gray-500">
+						アカウントをお持ちでない場合は、
+						<a
+							href="/signup"
+							className="text-blue-600 hover:underline"
+						>
+							新規登録
+						</a>
+						してください
+					</div>
+				}
+			/>
 		</div>
 	);
 }

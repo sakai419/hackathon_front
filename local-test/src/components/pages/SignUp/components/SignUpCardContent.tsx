@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import handleSignup from "@/services/auth/signup";
 import { Label } from "@radix-ui/react-label";
 import { EyeOff, Eye } from "lucide-react";
 import { useState } from "react";
@@ -19,14 +20,14 @@ export default function SignUpCardContent({
 
 	const passwordsMatch = password === confirmPassword && password !== "";
 
-	const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(email, password);
+		handleSignup({ email, password });
 		onSubmit();
 	};
 
 	return (
-		<form onSubmit={handleSignup} className="space-y-4">
+		<form onSubmit={handleSubmit} className="space-y-4">
 			<div className="space-y-2">
 				<Label htmlFor="email">メールアドレス</Label>
 				<Input
