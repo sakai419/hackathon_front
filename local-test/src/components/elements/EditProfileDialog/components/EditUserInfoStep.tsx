@@ -20,7 +20,7 @@ export default function EditUserInfoStep({
 					id="user_id"
 					value={data.UserId}
 					onChange={(e) => updateData({ UserId: e.target.value })}
-					placeholder="user_id"
+					placeholder="ユーザーID"
 					required
 				/>
 			</div>
