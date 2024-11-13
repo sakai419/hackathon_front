@@ -7,7 +7,7 @@ import EditUserInfoStep from "./EditUserInfoStep";
 import EditProfileImageStep from "./EditProfileImageStep";
 import EditBannerImageStep from "./EditBannerImageStep";
 
-interface EditProfileStepsProps {
+interface EditProfileDialogProps {
 	userId: string;
 	userName: string;
 	bio: string;
@@ -15,13 +15,13 @@ interface EditProfileStepsProps {
 	bannerImageUrl: string;
 }
 
-export default function EditProfileSteps({
+export default function EditProfileDialog({
 	userId,
 	userName,
 	bio,
 	profileImageUrl,
 	bannerImageUrl,
-}: EditProfileStepsProps) {
+}: EditProfileDialogProps) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const steps = [

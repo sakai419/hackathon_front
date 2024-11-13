@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Loader2, CheckCircle, XCircle } from "lucide-react";
 import { EditProfileData } from "@/types/profile";
 import updateProfiles from "@/services/api/profiles/updateProfiles";
+import { Button } from "@/components/ui/button";
 
 interface ProfileUpdateStepProps {
 	data: EditProfileData;
@@ -10,20 +11,25 @@ interface ProfileUpdateStepProps {
 export function ProfileUpdateStep({ data }: ProfileUpdateStepProps) {
 	const [isUpdating, setIsUpdating] = useState(true);
 	const [updateSuccess, setUpdateSuccess] = useState<boolean | null>(null);
+	const [error, setError] = useState<string | null>(null);
 
-	useEffect(() => {
-		const updateProfileData = async () => {
-			const result = await updateProfiles({
-				userId: data.UserId,
-				userName: data.UserName,
-				bio: data.Bio,
-				profileImageUrl: data.ProfileImageUrl,
-				bannerImageUrl: data.BannerImageUrl,
-			});
+	const updateProfileData = async () => {
+		try {
+			const result = await updateProfiles({ data });
 			setIsUpdating(false);
 			setUpdateSuccess(result !== null);
-		};
+		} catch (error: Error | any) {
+			if (error.message === "profiles already exists") {
+				setError("ユーザーIDが既に存在しています");
+			} else {
+				setError(error.message);
+			}
+			setIsUpdating(false);
+			setUpdateSuccess(false);
+		}
+	};
 
+	useEffect(() => {
 		updateProfileData();
 	}, [
 		data.UserId,
@@ -49,6 +55,9 @@ export function ProfileUpdateStep({ data }: ProfileUpdateStepProps) {
 				<p className="text-lg font-semibold">
 					設定の変更が完了しました
 				</p>
+				<p className="text-sm text-gray-500">
+					ユーザーIDを変更した場合、プロフィールのURLが変更されます。一度ホーム画面に戻ってから再びプロフィール画面に戻るようにしてください。
+				</p>
 			</div>
 		);
 	}
@@ -60,7 +69,17 @@ export function ProfileUpdateStep({ data }: ProfileUpdateStepProps) {
 				<p className="text-lg font-semibold">
 					設定の変更に失敗しました
 				</p>
+				<p className="text-red-600">{error}</p>
 				<p className="text-sm text-gray-500">もう一度お試しください</p>
+				<Button
+					type="button"
+					onClick={() => {
+						updateProfileData();
+					}}
+					disabled={isUpdating}
+				>
+					再試行
+				</Button>
 			</div>
 		);
 	}
