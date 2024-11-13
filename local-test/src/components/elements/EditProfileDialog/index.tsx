@@ -34,11 +34,7 @@ export default function EditProfileDialog({
 				return <EditUserInfoStep data={data} updateData={updateData} />;
 			},
 			validate: (data: EditProfileData) => {
-				return (
-					data.UserId !== "" &&
-					data.UserName !== "" &&
-					data.Bio !== ""
-				);
+				return data.UserId !== "" && data.UserName !== "";
 			},
 		},
 		{
