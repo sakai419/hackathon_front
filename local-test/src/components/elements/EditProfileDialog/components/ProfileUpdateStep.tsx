@@ -8,7 +8,7 @@ interface ProfileUpdateStepProps {
 	data: EditProfileData;
 }
 
-export function ProfileUpdateStep({ data }: ProfileUpdateStepProps) {
+export default function ProfileUpdateStep({ data }: ProfileUpdateStepProps) {
 	const [isUpdating, setIsUpdating] = useState(true);
 	const [updateSuccess, setUpdateSuccess] = useState<boolean | null>(null);
 	const [error, setError] = useState<string | null>(null);

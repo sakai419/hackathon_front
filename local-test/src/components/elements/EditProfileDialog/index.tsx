@@ -2,10 +2,10 @@ import { MultiStepDialog } from "@/components/elements/MultiStepDialog";
 import { Button } from "@/components/ui/button";
 import { EditProfileData } from "@/types/profile";
 import { useState } from "react";
-import { ProfileUpdateStep } from "./ProfileUpdateStep";
-import EditUserInfoStep from "./EditUserInfoStep";
-import EditProfileImageStep from "./EditProfileImageStep";
-import EditBannerImageStep from "./EditBannerImageStep";
+import EditBannerImageStep from "./components/EditBannerImageStep";
+import EditProfileImageStep from "./components/EditProfileImageStep";
+import ProfileUpdateStep from "./components/ProfileUpdateStep";
+import EditUserInfoStep from "./components/EditUserInfoStep";
 
 interface EditProfileDialogProps {
 	userId: string;
