@@ -16,7 +16,7 @@ export default async function handleSignup({ email, password }: SignupProps) {
 		console.log(user);
 		return null;
 	} catch (error) {
-		console.error(error);
+		console.log(error);
 		throw error;
 	}
 }

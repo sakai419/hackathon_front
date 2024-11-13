@@ -20,18 +20,7 @@ export default function SignupCard() {
 							}}
 						/>
 					}
-					footer={
-						<p className="text-sm text-muted-foreground">
-							すでにアカウントをお持ちの場合は{" "}
-							<Link
-								href="/login"
-								className="text-blue-600 hover:underline"
-							>
-								ログイン
-							</Link>{" "}
-							してください
-						</p>
-					}
+					footer={<></>}
 				/>
 			) : (
 				<FormCard

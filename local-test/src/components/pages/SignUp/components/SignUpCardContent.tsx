@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import handleSignup from "@/services/auth/signup";
 import { Label } from "@radix-ui/react-label";
+import { FirebaseError } from "firebase/app";
 import { EyeOff, Eye } from "lucide-react";
 import { useState } from "react";
 
@@ -17,13 +18,29 @@ export default function SignUpCardContent({
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [errorMessage, setErrorMessage] = useState<string>("");
+	const [isError, setIsError] = useState(false);
 
 	const passwordsMatch = password === confirmPassword && password !== "";
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		handleSignup({ email, password });
-		onSubmit();
+		try {
+			await handleSignup({ email, password });
+			onSubmit();
+		} catch (error: FirebaseError | any) {
+			setIsError(true);
+			if (error.code === "auth/email-already-in-use") {
+				setErrorMessage("このメールアドレスは既に使用されています");
+			} else if (error.code === "auth/weak-password") {
+				setErrorMessage("パスワードは6文字以上で設定してください");
+			} else if (error.code === "auth/invalid-email") {
+				setErrorMessage("メールアドレスの形式が正しくありません");
+			} else {
+				setErrorMessage("エラーが発生しました");
+			}
+			console.log(error);
+		}
 	};
 
 	return (
@@ -119,6 +136,11 @@ export default function SignUpCardContent({
 				<p className="text-sm text-red-500" role="alert">
 					パスワードが一致しません
 				</p>
+			)}
+			{isError && (
+				<div>
+					<p className="text-sm text-red-500">{errorMessage}</p>
+				</div>
 			)}
 			<Button type="submit" className="w-full" disabled={!passwordsMatch}>
 				アカウントを作成
