@@ -32,6 +32,7 @@ export default function TweetDialog({
 	const [isError, setIsError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [mediaFile, setMediaFile] = useState<File | null>(null);
+	const [mediaUrl, setMediaUrl] = useState<string | null>(null);
 	const [mediaType, setMediaType] = useState<MediaTypes | null>(null);
 	const [mediaPreview, setMediaPreview] = useState<string | null>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -68,18 +69,12 @@ export default function TweetDialog({
 
 	const handleTweet = async () => {
 		if (!content.trim() && !mediaFile) return;
-		let mediaUrl;
-		let media;
 
-		if (mediaFile) {
+		if (mediaFile && !mediaUrl) {
 			setIsLoading(true);
 			try {
 				const url = await uploadFile(mediaFile);
-				mediaUrl = url;
-				media = {
-					url: mediaUrl,
-					type: mediaType!,
-				};
+				setMediaUrl(url);
 			} catch (error) {
 				console.log(error);
 				setIsError(true);
@@ -92,9 +87,18 @@ export default function TweetDialog({
 
 		setIsLoading(true);
 		try {
-			await onTweet(content, media);
+			await onTweet(
+				content,
+				mediaFile
+					? {
+							url: mediaUrl!,
+							type: mediaType!,
+					  }
+					: undefined
+			);
 			setContent("");
 			setMediaFile(null);
+			setMediaUrl(null);
 			setMediaPreview(null);
 			setIsError(false);
 			setErrorMessage("");
