@@ -11,11 +11,13 @@ import Image from "next/image";
 import UserAvatar from "../UserAvatar";
 import { useState, useRef } from "react";
 import { UserInfoWithoutBio } from "@/types/userInfoWithoutBio";
+import { uploadFile } from "@/services/upload/upload";
+import { Media, MediaTypes } from "@/types/tweetInfo";
 
 interface TweetDialogProps {
 	isOpen: boolean;
 	onClose: () => void;
-	onTweet: (content: string, mediaUrl?: string) => Promise<void>;
+	onTweet: (content: string, media?: Media) => Promise<void>;
 	userInfo?: UserInfoWithoutBio;
 }
 
@@ -27,7 +29,10 @@ export default function TweetDialog({
 }: TweetDialogProps) {
 	const [content, setContent] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const [isError, setIsError] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
 	const [mediaFile, setMediaFile] = useState<File | null>(null);
+	const [mediaType, setMediaType] = useState<MediaTypes | null>(null);
 	const [mediaPreview, setMediaPreview] = useState<string | null>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -38,6 +43,15 @@ export default function TweetDialog({
 	const handleMediaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (file) {
+			if (file.type.startsWith("image/")) {
+				setMediaType("image");
+			} else if (file.type.startsWith("video/")) {
+				setMediaType("video");
+			} else {
+				setIsError(true);
+				setErrorMessage("サポートされていないファイルタイプです");
+			}
+
 			setMediaFile(file);
 			const previewUrl = URL.createObjectURL(file);
 			setMediaPreview(previewUrl);
@@ -54,17 +68,43 @@ export default function TweetDialog({
 
 	const handleTweet = async () => {
 		if (!content.trim() && !mediaFile) return;
+		let mediaUrl;
+		let media;
+
+		if (mediaFile) {
+			setIsLoading(true);
+			try {
+				const url = await uploadFile(mediaFile);
+				mediaUrl = url;
+				media = {
+					url: mediaUrl,
+					type: mediaType!,
+				};
+			} catch (error) {
+				console.log(error);
+				setIsError(true);
+				setErrorMessage(
+					"画像のアップロードに失敗しました。もう一度お試しください。"
+				);
+				return;
+			}
+		}
 
 		setIsLoading(true);
 		try {
-			// ここで実際のメディアアップロードとツイート投稿を行う
-			await onTweet(content, mediaPreview || undefined);
+			await onTweet(content, media);
 			setContent("");
 			setMediaFile(null);
 			setMediaPreview(null);
+			setIsError(false);
+			setErrorMessage("");
 			onClose();
 		} catch (error) {
-			console.error("Failed to post tweet:", error);
+			console.log(error);
+			setIsError(true);
+			setErrorMessage(
+				"ツイートの投稿に失敗しました。もう一度お試しください。"
+			);
 		} finally {
 			setIsLoading(false);
 		}
@@ -142,6 +182,13 @@ export default function TweetDialog({
 					>
 						{isLoading ? "投稿中..." : "ポストする"}
 					</Button>
+				</div>
+				<div className="flex justify-between items-center mt-4">
+					{isError && (
+						<p className="text-red-500 text-sm mt-2">
+							{errorMessage}
+						</p>
+					)}
 				</div>
 			</DialogContent>
 		</Dialog>

@@ -1,7 +1,9 @@
 import { UserInfoWithoutBio } from "./userInfoWithoutBio";
 
+export type MediaTypes = "image" | "video";
+
 export type Media = {
-	type: string;
+	type: MediaTypes;
 	url: string;
 };
 

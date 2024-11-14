@@ -6,6 +6,8 @@ import TweetDialog from "@/components/elements/TweetDialog";
 import SidebarContent from "./components/SidebarContent";
 import TweetButton from "./components/TweetButton";
 import UserInfo from "./components/UserInfo";
+import { Media } from "@/types/tweetInfo";
+import postTweet from "@/services/api/tweets/postTweet";
 
 export default function Sidebar() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -15,13 +17,18 @@ export default function Sidebar() {
 	const handleOpenDialog = () => setIsDialogOpen(true);
 	const handleCloseDialog = () => setIsDialogOpen(false);
 
-	const handleTweet = (content: string, mediaUrl?: string) => {
-		console.log("ツイート内容:", content);
-		return new Promise<void>((resolve) => {
-			setTimeout(() => {
-				resolve();
-			}, 1000);
-		});
+	const handleTweet = async (content: string, media?: Media) => {
+		try {
+			await postTweet({
+				content,
+				code: "",
+				mediaUrl: media?.url,
+			});
+			handleCloseDialog();
+		} catch (error) {
+			console.log("Failed to post tweet:", error);
+			throw error;
+		}
 	};
 
 	if (loading) {
