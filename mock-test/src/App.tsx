@@ -178,6 +178,7 @@ export default function Tester() {
 				setResponse({ message: "No results found" });
 			} else {
 				setResponse(data);
+				console.log(data);
 			}
 		} catch (error) {
 			console.error("リクエスト中にエラーが発生しました:", error);
@@ -239,7 +240,23 @@ export default function Tester() {
 					<h3>Response:</h3>
 					<pre>
 						<code>
-							{(response && JSON.stringify(response, null, 2)) ||
+							{(response &&
+								JSON.stringify(
+									response,
+									(key, value) => {
+										if (key === "profile_image_url") {
+											return "*****";
+										}
+										if (key === "password") {
+											return "*****";
+										}
+										if (key === "media") {
+											return "Media data";
+										}
+										return value;
+									},
+									2
+								)) ||
 								"No response yet"}
 						</code>
 					</pre>
