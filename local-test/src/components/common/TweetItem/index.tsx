@@ -74,7 +74,10 @@ export default function TweetItem({
 
 	return (
 		<Link href={`/tweets/${tweetData.TweetId}`} className="w-full">
-			<div ref={componentRef} className="flex items-start space-x-2">
+			<div
+				ref={componentRef}
+				className="flex items-start space-x-2 hover:bg-gray-100 p-4"
+			>
 				<div className="relative">
 					<UserAvatar
 						userId={tweetData.UserInfo.UserId}
@@ -137,8 +140,10 @@ export default function TweetItem({
 							<HashtagHighlighter text={tweetData.Content} />
 						)}
 						{tweetData.Code && (
-							<pre className="bg-gray-100 p-2 rounded-md overflow-x-auto">
-								<code>{tweetData.Code}</code>
+							<pre className="bg-black p-2 rounded-md overflow-x-auto">
+								<code className="text-yellow-500">
+									{tweetData.Code}
+								</code>
 							</pre>
 						)}
 						{tweetData.Media &&
