@@ -17,7 +17,7 @@ export default function useNotifications() {
 				const data = await getNotifications();
 				if (data) {
 					// JSON形式に変換し、Notification型に整形
-					const notificationData = data.map((notification: any) => {
+					const notificationList = data.map((notification: any) => {
 						const ret = {
 							NotificationId: notification.id,
 							Type: notification.type as NotificationType,
@@ -87,7 +87,7 @@ export default function useNotifications() {
 						return ret;
 					});
 
-					setNotifications(notificationData);
+					setNotifications(notificationList);
 				}
 			} catch (err) {
 				setError("Failed to fetch notifications");

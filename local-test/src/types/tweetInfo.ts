@@ -23,3 +23,10 @@ export type TweetInfo = {
 	HasRetweeted: boolean;
 	CreatedAt: string;
 };
+
+export type TweetNode = {
+	Tweet: TweetInfo;
+	OriginalTweet?: TweetInfo;
+	ParentReply?: TweetInfo;
+	OmittedReplyExist?: boolean;
+};

@@ -1,6 +1,6 @@
-import { MediaTypes, TweetInfo } from "@/types/tweetInfo";
+import { MediaTypes, TweetNode } from "@/types/tweetInfo";
 import TweetItem from "../TweetItem";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const sampleTweets = [
 	{
@@ -70,58 +70,67 @@ const sampleTweets = [
 	},
 ];
 
-export function TweetListExample() {
-	useEffect(() => {
-		console.log("TweetListExample rendered");
-	}, []);
-	return <TweetList tweets={sampleTweets} />;
-}
+// export function TweetListExample() {
+// 	return <TweetList tweets={sampleTweets} />;
+// }
 
-export default function TweetList({ tweets }: { tweets: TweetInfo[] }) {
-	const [tweetList, setTweets] = useState(tweets);
+export default function TweetList({ tweets }: { tweets: TweetNode[] }) {
+	// const handleLike = (tweetId: number) => {
+	// 	setTweets((prevTweets) =>
+	// 		prevTweets.map((tweet) =>
+	// 			tweet.TweetId === tweetId
+	// 				? {
+	// 						...tweet,
+	// 						HasLiked: !tweet.HasLiked,
+	// 						LikesCount: tweet.HasLiked
+	// 							? tweet.LikesCount - 1
+	// 							: tweet.LikesCount + 1,
+	// 				  }
+	// 				: tweet
+	// 		)
+	// 	);
+	// };
 
-	const handleLike = (tweetId: number) => {
-		setTweets((prevTweets) =>
-			prevTweets.map((tweet) =>
-				tweet.TweetId === tweetId
-					? {
-							...tweet,
-							HasLiked: !tweet.HasLiked,
-							LikesCount: tweet.HasLiked
-								? tweet.LikesCount - 1
-								: tweet.LikesCount + 1,
-					  }
-					: tweet
-			)
-		);
-	};
-
-	const handleRetweet = (tweetId: number) => {
-		setTweets((prevTweets) =>
-			prevTweets.map((tweet) =>
-				tweet.TweetId === tweetId
-					? {
-							...tweet,
-							HasRetweeted: !tweet.HasRetweeted,
-							RetweetsCount: tweet.HasRetweeted
-								? tweet.RetweetsCount - 1
-								: tweet.RetweetsCount + 1,
-					  }
-					: tweet
-			)
-		);
-	};
+	// const handleRetweet = (tweetId: number) => {
+	// 	setTweets((prevTweets) =>
+	// 		prevTweets.map((tweet) =>
+	// 			tweet.TweetId === tweetId
+	// 				? {
+	// 						...tweet,
+	// 						HasRetweeted: !tweet.HasRetweeted,
+	// 						RetweetsCount: tweet.HasRetweeted
+	// 							? tweet.RetweetsCount - 1
+	// 							: tweet.RetweetsCount + 1,
+	// 				  }
+	// 				: tweet
+	// 		)
+	// 	);
+	// };
 
 	return (
 		<div className="divide-y divide-gray-200">
-			{tweetList.map((tweet, index) => (
-				<div key={index} className="flex p-4">
-					<TweetItem
-						key={tweet.TweetId}
-						tweet={tweet}
-						onLike={() => handleLike(tweet.TweetId)}
-						onRetweet={() => handleRetweet(tweet.TweetId)}
-					/>
+			{tweets.map((tweet, index) => (
+				<div key={index} className="flex-col p-4">
+					{tweet.OriginalTweet && (
+						<TweetItem
+							tweet={tweet.OriginalTweet}
+							showThreadLine={true}
+						/>
+					)}
+					{tweet.OmittedReplyExist && (
+						<div className="flex items-center justify-center w-8 h-8">
+							<div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+							<div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+							<div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+						</div>
+					)}
+					{tweet.ParentReply && (
+						<TweetItem
+							tweet={tweet.ParentReply}
+							showThreadLine={true}
+						/>
+					)}
+					<TweetItem tweet={tweet.Tweet} />
 				</div>
 			))}
 		</div>

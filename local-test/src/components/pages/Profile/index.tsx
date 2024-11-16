@@ -1,21 +1,36 @@
 import DynamicTabs from "@/components/elements/DynamicTab";
-import { TweetListExample } from "@/components/elements/TweetList";
 import MainLayout from "@/components/layouts/MainLayout";
 import useProfile from "@/hooks/useProfile";
 import UserHeader from "./components/UserHeader";
+import { useState } from "react";
+import useUserTweets from "@/hooks/useUserTweets";
+import TweetList from "@/components/elements/TweetList";
 
 interface ProfilePageProps {
 	userId: string;
 }
 
 export default function ProfilePage({ userId }: ProfilePageProps) {
-	const { profile, loading, error } = useProfile(userId);
+	const tabs = [
+		{ Name: "ツイート", Url: `/profile/${userId}/tweets` },
+		{ Name: "返信", Url: `/profile/${userId}/replies` },
+		{ Name: "リツイート", Url: `/profile/${userId}/retweets` },
+		{ Name: "いいね", Url: `/profile/${userId}/likes` },
+	];
 
-	if (loading) {
+	const [activeTab, setActiveTab] = useState(tabs[0].Name);
+	const { profile, loading, error } = useProfile(userId);
+	const {
+		tweets,
+		loading: tweetsLoading,
+		error: tweetsError,
+	} = useUserTweets(userId);
+
+	if (loading || tweetsLoading) {
 		return <div>Loading...</div>;
 	}
 
-	if (error) {
+	if (error || tweetsError) {
 		return <div>{error}</div>;
 	}
 
@@ -24,17 +39,13 @@ export default function ProfilePage({ userId }: ProfilePageProps) {
 			<div className="max-w-2xl mx-auto">
 				{profile && <UserHeader profile={profile} />}
 				<DynamicTabs
-					tabs={[
-						{ Name: "ツイート", Url: `/profile/${userId}/tweets` },
-						{ Name: "返信", Url: `/profile/${userId}/replies` },
-						{
-							Name: "リツイート",
-							Url: `/profile/${userId}/retweets`,
-						},
-						{ Name: "いいね", Url: `/profile/${userId}/likes` },
-					]}
+					tabs={tabs}
+					activeTab={activeTab}
+					setActiveTab={setActiveTab}
 				/>
-				<TweetListExample />
+				{activeTab === "ツイート" && tweets && (
+					<TweetList tweets={tweets} />
+				)}
 			</div>
 		</MainLayout>
 	);

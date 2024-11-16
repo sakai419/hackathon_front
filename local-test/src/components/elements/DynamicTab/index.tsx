@@ -5,11 +5,15 @@ import { TabItem } from "@/types/tabItem";
 
 interface DynamicTabsProps {
 	tabs: TabItem[];
+	activeTab: string;
+	setActiveTab: (tabName: string) => void;
 }
 
-export default function DynamicTabs({ tabs }: DynamicTabsProps) {
-	const [activeTab, setActiveTab] = React.useState(tabs[0].Name);
-
+export default function DynamicTabs({
+	tabs,
+	activeTab,
+	setActiveTab,
+}: DynamicTabsProps) {
 	return (
 		<div className="border-b">
 			<nav className="flex -mb-px">
