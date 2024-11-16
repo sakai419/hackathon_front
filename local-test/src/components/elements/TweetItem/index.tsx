@@ -26,10 +26,6 @@ export default function TweetItem({
 	const profileImage =
 		tweet.UserInfo.ProfileImageUrl || "/images/default_image.png";
 
-	useEffect(() => {
-		console.log(tweet);
-	}, []);
-
 	const handleUserNameCLick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();

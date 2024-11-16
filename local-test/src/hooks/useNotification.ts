@@ -23,6 +23,7 @@ export default function useNotifications() {
 							Type: notification.type as NotificationType,
 							Content: notification.content,
 							IsRead: notification.is_read,
+							CreatedAt: notification.created_at,
 						} as Notification;
 
 						if (notification.sender_info) {
