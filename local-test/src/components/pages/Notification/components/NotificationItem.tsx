@@ -4,6 +4,7 @@ import { Notification } from "@/types/notification";
 import { NotificationIcon } from "./NotificationIcon";
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
 import RelatedTweetCard from "@/components/elements/RelatedTweetCard";
+import { Lock, Shield } from "lucide-react";
 
 export default function NotificationItem({
 	notification,
@@ -29,10 +30,10 @@ export default function NotificationItem({
 			message = `${notification.SenderInfo?.UserName}さんがあなたのツイートをリツイートしました`;
 			break;
 		case "reply":
-			message = `${notification.SenderInfo?.UserName}さんがあなたのツイートにリプライしました`;
+			message = `${notification.SenderInfo?.UserName}さんがあなたのツイートに返信しました`;
 			break;
 		case "quote":
-			message = `${notification.SenderInfo?.UserName}さんがあなたのツイートを引用リツイートしました`;
+			message = `${notification.SenderInfo?.UserName}さんがあなたのツイートを引用しました`;
 			break;
 		case "follow_request":
 			message = `${notification.SenderInfo?.UserName}さんがあなたにフォローリクエストを送りました`;
@@ -72,6 +73,18 @@ export default function NotificationItem({
 					<span className="text-gray-500">
 						@{notification.SenderInfo?.UserId}
 					</span>
+					{notification.SenderInfo?.IsPrivate && (
+						<Lock
+							className="w-4 h-4 text-gray-500"
+							aria-label="非公開アカウント"
+						/>
+					)}
+					{notification.SenderInfo?.IsAdmin && (
+						<Shield
+							className="w-4 h-4 text-blue-500"
+							aria-label="管理者"
+						/>
+					)}
 				</div>
 				<p>{message}</p>
 				<p className="text-sm text-gray-500">{relativeTime}</p>

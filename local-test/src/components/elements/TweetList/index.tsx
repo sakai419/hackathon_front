@@ -1,4 +1,4 @@
-import { TweetInfo } from "@/types/tweetInfo";
+import { MediaTypes, TweetInfo } from "@/types/tweetInfo";
 import TweetItem from "../TweetItem";
 import { useEffect, useState } from "react";
 
@@ -34,7 +34,7 @@ const sampleTweets = [
 		},
 		Content: "新しい料理のレシピを試してみました！",
 		Media: {
-			type: "image",
+			type: "image" as MediaTypes,
 			url: "/images/default_image.png",
 		},
 		LikesCount: 30,
@@ -115,12 +115,14 @@ export default function TweetList({ tweets }: { tweets: TweetInfo[] }) {
 	return (
 		<div className="divide-y divide-gray-200">
 			{tweetList.map((tweet, index) => (
-				<TweetItem
-					key={tweet.TweetId}
-					tweet={tweet}
-					onLike={() => handleLike(tweet.TweetId)}
-					onRetweet={() => handleRetweet(tweet.TweetId)}
-				/>
+				<div key={index} className="flex p-4">
+					<TweetItem
+						key={tweet.TweetId}
+						tweet={tweet}
+						onLike={() => handleLike(tweet.TweetId)}
+						onRetweet={() => handleRetweet(tweet.TweetId)}
+					/>
+				</div>
 			))}
 		</div>
 	);

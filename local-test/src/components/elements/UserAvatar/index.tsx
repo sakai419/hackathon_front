@@ -1,5 +1,6 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type UserAvatarProps = {
 	withLink?: boolean;
@@ -16,16 +17,22 @@ export default function UserAvatar({
 	alt,
 	size = "w-10 h-10",
 }: UserAvatarProps) {
+	const router = useRouter();
+	const handleCLick = (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		router.push(`/${userId}`);
+	};
+
 	const avatar = (
-		<Avatar className={`${size} border-2`}>
+		<Avatar
+			className={`${size} border-2`}
+			onClick={withLink ? handleCLick : undefined}
+		>
 			<AvatarImage src={src} alt={alt} />
 			<AvatarFallback>{alt[0]}</AvatarFallback>
 		</Avatar>
 	);
-
-	if (withLink) {
-		return <Link href={`/${userId}`}>{avatar}</Link>;
-	}
 
 	return avatar;
 }
