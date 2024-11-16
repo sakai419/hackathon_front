@@ -18,20 +18,26 @@ export default function useNotifications() {
 				if (data) {
 					// JSON形式に変換し、Notification型に整形
 					const notificationData = data.map((notification: any) => {
-						return {
-							NotificationId: notification.notification_id,
-							Type: notification.notification_type as NotificationType,
-							CreatedAt: notification.created_at,
+						const ret = {
+							NotificationId: notification.id,
+							Type: notification.type as NotificationType,
+							Content: notification.content,
 							IsRead: notification.is_read,
-							SenderInfo: {
+						} as Notification;
+
+						if (notification.sender_info) {
+							ret.SenderInfo = {
 								UserId: notification.sender_info.user_id,
 								UserName: notification.sender_info.user_name,
 								ProfileImageUrl:
 									notification.sender_info.profile_image_url,
 								IsPrivate: notification.sender_info.is_private,
 								IsAdmin: notification.sender_info.is_admin,
-							} as UserInfoWithoutBio,
-							RelatedTweet: {
+							} as UserInfoWithoutBio;
+						}
+
+						if (notification.related_tweet) {
+							ret.RelatedTweet = {
 								TweetId: notification.related_tweet.tweet_id,
 								UserInfo: {
 									UserId: notification.related_tweet.user_info
@@ -49,12 +55,6 @@ export default function useNotifications() {
 										notification.related_tweet.user_info
 											.is_admin,
 								} as UserInfoWithoutBio,
-								Content: notification.related_tweet.content,
-								Code: notification.related_tweet.code,
-								Media: {
-									type: notification.related_tweet.media.type,
-									url: notification.related_tweet.media.url,
-								} as Media,
 								LikesCount:
 									notification.related_tweet.likes_count,
 								RetweetsCount:
@@ -69,8 +69,21 @@ export default function useNotifications() {
 									notification.related_tweet.has_retweeted,
 								CreatedAt:
 									notification.related_tweet.created_at,
-							} as TweetInfo,
-						} as Notification;
+							} as TweetInfo;
+
+							ret.RelatedTweet.Content =
+								notification.related_tweet.content;
+							ret.RelatedTweet.Code =
+								notification.related_tweet.code;
+							if (notification.related_tweet.media) {
+								ret.RelatedTweet.Media = {
+									type: notification.related_tweet.media.type,
+									url: notification.related_tweet.media.url,
+								} as Media;
+							}
+						}
+
+						return ret;
 					});
 
 					setNotifications(notificationData);

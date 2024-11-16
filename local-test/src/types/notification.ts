@@ -16,7 +16,7 @@ export type NotificationType =
 
 export type Notification = {
 	NotificationId: number;
-	SenderInfo: UserInfoWithoutBio;
+	SenderInfo?: UserInfoWithoutBio;
 	Type: NotificationType;
 	Content?: string;
 	RelatedTweet?: TweetInfo;
