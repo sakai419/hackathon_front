@@ -1,4 +1,4 @@
-import { MultiStepDialog } from "@/components/elements/MultiStepDialog";
+import { MultiStepDialog } from "@/components/common/MultiStepDialog";
 import { Button } from "@/components/ui/button";
 import { EditProfileData } from "@/types/profile";
 import { useState } from "react";

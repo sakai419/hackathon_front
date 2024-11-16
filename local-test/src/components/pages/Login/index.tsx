@@ -1,4 +1,4 @@
-import FormCard from "@/components/elements/FormCard";
+import FormCard from "@/components/common/FormCard";
 import LoginCardContent from "./components/LoginCardContent";
 import SignUpLink from "./components/SignUpLink";
 

@@ -3,7 +3,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import MainLayout from "@/components/layouts/MainLayout";
 import NotificationItem from "./components/NotificationItem";
 import useNotifications from "@/hooks/useNotification";
-import Header from "@/components/elements/Header";
+import Header from "@/components/common/Header";
 
 export default function NotificationPage() {
 	const { notifications, loading, error } = useNotifications();

@@ -1,4 +1,4 @@
-import Header from "@/components/elements/Header";
+import Header from "@/components/common/Header";
 import { ArrowLeft, Lock } from "lucide-react";
 import Link from "next/link";
 

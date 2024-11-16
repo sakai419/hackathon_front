@@ -1,6 +1,6 @@
 import Link from "next/link";
 import SignUpCardContent from "./components/SignUpCardContent";
-import FormCard from "@/components/elements/FormCard";
+import FormCard from "@/components/common/FormCard";
 import { useState } from "react";
 import SetUserInfoCardContent from "./components/SetUserInfoCardContent";
 

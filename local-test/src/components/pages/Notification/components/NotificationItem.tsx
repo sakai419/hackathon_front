@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Notification } from "@/types/notification";
 import { NotificationIcon } from "./NotificationIcon";
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
-import RelatedTweetCard from "@/components/elements/RelatedTweetCard";
+import RelatedTweetCard from "@/components/common/RelatedTweetCard";
 import { Lock, Shield } from "lucide-react";
 import { useEffect } from "react";
 

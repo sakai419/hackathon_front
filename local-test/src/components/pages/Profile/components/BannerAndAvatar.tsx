@@ -1,5 +1,5 @@
-import UserAvatar from "@/components/elements/UserAvatar";
-import EditProfileDialog from "@/components/elements/EditProfileDialog";
+import UserAvatar from "@/components/common/UserAvatar";
+import EditProfileDialog from "@/components/common/EditProfileDialog";
 
 interface BannerAndAvatarProps {
 	userId: string;

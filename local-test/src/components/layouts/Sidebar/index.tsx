@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { MenuIcon } from "lucide-react";
 import { useState } from "react";
 import { useSidebarInfo } from "@/hooks/useSidebarInfo";
-import TweetDialog from "@/components/elements/TweetDialog";
+import TweetDialog from "@/components/common/TweetDialog";
 import SidebarContent from "./components/SidebarContent";
 import TweetButton from "./components/TweetButton";
 import UserInfo from "./components/UserInfo";

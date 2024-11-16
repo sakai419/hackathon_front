@@ -1,10 +1,10 @@
-import DynamicTabs from "@/components/elements/DynamicTab";
+import DynamicTabs from "@/components/common/DynamicTab";
 import MainLayout from "@/components/layouts/MainLayout";
 import useProfile from "@/hooks/useProfile";
 import UserHeader from "./components/UserHeader";
 import { useState } from "react";
 import useUserTweets from "@/hooks/useUserTweets";
-import TweetList from "@/components/elements/TweetList";
+import TweetList from "@/components/common/TweetList";
 
 interface ProfilePageProps {
 	userId: string;
