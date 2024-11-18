@@ -15,16 +15,23 @@ export default function CodeEditor({
 	readOnly = false,
 }: CodeEditorProps) {
 	return (
-		<MonacoEditor
-			height="400px"
-			defaultLanguage={language}
-			defaultValue={value}
-			onChange={onChange}
-			options={{
-				readOnly: readOnly,
-				minimap: { enabled: false },
+		<div
+			onClick={(e) => {
+				e.stopPropagation();
+				e.preventDefault();
 			}}
-			theme="vs-dark"
-		/>
+		>
+			<MonacoEditor
+				height="400px"
+				defaultLanguage={language}
+				defaultValue={value}
+				onChange={onChange}
+				options={{
+					readOnly: readOnly,
+					minimap: { enabled: false },
+				}}
+				theme="vs-dark"
+			/>
+		</div>
 	);
 }
