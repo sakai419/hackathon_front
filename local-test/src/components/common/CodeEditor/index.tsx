@@ -28,7 +28,12 @@ export default function CodeEditor({
 				onChange={onChange}
 				options={{
 					readOnly: readOnly,
+					wordWrap: "on",
 					minimap: { enabled: false },
+					scrollBeyondLastLine: true,
+					automaticLayout: true,
+					fontSize: 14,
+					fontFamily: "JetBrains Mono",
 				}}
 				theme="vs-dark"
 			/>
