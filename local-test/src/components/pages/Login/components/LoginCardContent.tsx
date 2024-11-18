@@ -10,7 +10,6 @@ export default function LoginCardContent() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [errorMessage, setErrorMessage] = useState<string>("");
 	const [isError, setIsError] = useState(false);
 
 	const router = useRouter();

@@ -3,6 +3,7 @@ import { EditProfileData } from "@/types/profile";
 import { Label } from "@radix-ui/react-label";
 import { Loader2, Upload } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import Image from "next/image";
 
 interface EditBannerImageStepProps {
 	data: EditProfileData;
@@ -29,6 +30,7 @@ export default function EditBannerImageStep({
 					isUploading: false,
 				});
 			} catch (err) {
+				console.error(err);
 				updateData({
 					uploadError:
 						"バナー画像のアップロードに失敗しました。もう一度お試しください。",
@@ -45,10 +47,12 @@ export default function EditBannerImageStep({
 			<Label htmlFor="bannerImage">バナー画像</Label>
 			<div className="space-y-2">
 				<div className="relative w-full h-32 bg-gray-100 rounded-lg overflow-hidden">
-					<img
+					<Image
 						src={bannerImage}
 						alt="バナー画像"
-						className="w-full h-full object-cover"
+						layout="fill"
+						objectFit="cover"
+						className="object-cover w-full h-full"
 					/>
 				</div>
 				<Input

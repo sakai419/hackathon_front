@@ -29,6 +29,7 @@ export default function useUserInfoWithoutBio(): {
 				const userData = await fetchUserData();
 				setUserWithoutBio(userData);
 			} catch (err) {
+				console.error(err);
 				setError("ユーザーデータの取得に失敗しました");
 			} finally {
 				setLoading(false);

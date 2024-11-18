@@ -1,5 +1,6 @@
 import UserAvatar from "@/components/common/UserAvatar";
 import EditProfileDialog from "@/components/common/EditProfileDialog";
+import Image from "next/image";
 
 interface BannerAndAvatarProps {
 	userId: string;
@@ -19,10 +20,11 @@ export default function BannerAndAvatar({
 	return (
 		<div className="relative">
 			<div className="h-48 bg-muted">
-				<img
+				<Image
 					src={bannerImage}
-					alt=""
-					className="w-full h-full object-cover"
+					alt="Banner"
+					layout="fill"
+					objectFit="cover"
 				/>
 			</div>
 			<div className="absolute -bottom-12 left-4">

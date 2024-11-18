@@ -5,7 +5,6 @@ import {
 	Repeat,
 	UserPlus,
 	Mail,
-	Quote,
 	UserCheck,
 	Flag,
 	AlertTriangle,

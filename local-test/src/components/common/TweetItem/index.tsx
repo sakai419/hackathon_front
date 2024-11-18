@@ -1,14 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-	Heart,
-	MessageCircle,
-	Repeat,
-	Pin,
-	Lock,
-	Shield,
-	Hash,
-} from "lucide-react";
+import { Heart, MessageCircle, Repeat, Pin, Lock, Shield } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { TweetInfo } from "@/types/tweetInfo";
@@ -42,7 +34,7 @@ export default function TweetItem({
 			const height = componentRef.current.clientHeight;
 			setThreadLineHeight(height);
 		}
-	}, []);
+	}, [showThreadLine]);
 
 	const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();

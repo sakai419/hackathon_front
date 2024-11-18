@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import createAccount from "@/services/api/accounts/createAccount";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
+import isAPIError from "@/lib/utils/isAPIError";
 
 interface SetUserInfoCardContentProps {
 	onSubmit: () => void;
@@ -26,11 +27,21 @@ export default function SetUserInfoCardContent({
 			await createAccount({ userId, userName });
 			onSubmit();
 			router.push("/home");
-		} catch (error: AxiosError | any) {
+		} catch (error: unknown) {
 			console.log(error);
-			if (error.response.data.code === "DUPLICATE_ENTRY") {
-				setIsError(true);
-				setErrorMessage("このユーザーIDは既に使用されています");
+			if (axios.isAxiosError(error)) {
+				const errorResponse = error as AxiosError;
+				if (isAPIError(errorResponse.response?.data)) {
+					if (
+						errorResponse.response.data.code === "DUPLICATE_ENTRY"
+					) {
+						setIsError(true);
+						setErrorMessage("このユーザーIDは既に使用されています");
+					} else {
+						setIsError(true);
+						setErrorMessage(errorResponse.response.data.message);
+					}
+				}
 			} else {
 				setIsError(true);
 				setErrorMessage("エラーが発生しました");

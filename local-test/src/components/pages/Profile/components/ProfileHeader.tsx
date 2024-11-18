@@ -1,6 +1,5 @@
 import Header from "@/components/common/Header";
-import { ArrowLeft, Lock } from "lucide-react";
-import Link from "next/link";
+import { Lock } from "lucide-react";
 
 type ProfileHeaderProps = {
 	userId: string;

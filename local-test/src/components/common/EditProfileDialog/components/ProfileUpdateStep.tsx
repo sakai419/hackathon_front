@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Loader2, CheckCircle, XCircle } from "lucide-react";
 import { EditProfileData } from "@/types/profile";
 import updateProfiles from "@/services/api/profiles/updateProfiles";
 import { Button } from "@/components/ui/button";
+import isAPIError from "@/lib/utils/isAPIError";
+import axios from "axios";
 
 interface ProfileUpdateStepProps {
 	data: EditProfileData;
@@ -13,31 +15,33 @@ export default function ProfileUpdateStep({ data }: ProfileUpdateStepProps) {
 	const [updateSuccess, setUpdateSuccess] = useState<boolean | null>(null);
 	const [error, setError] = useState<string | null>(null);
 
-	const updateProfileData = async () => {
+	const updateProfileData = useCallback(async () => {
 		try {
 			const result = await updateProfiles({ data });
 			setIsUpdating(false);
 			setUpdateSuccess(result !== null);
-		} catch (error: Error | any) {
-			if (error.message === "profiles already exists") {
-				setError("ユーザーIDが既に存在しています");
+		} catch (error: unknown) {
+			if (axios.isAxiosError(error)) {
+				if (isAPIError(error.response?.data)) {
+					if (error.response.data.code === "DUPLICATE_ENTRY") {
+						setError("このユーザーIDは既に使用されています");
+					} else {
+						setError(error.response.data.message);
+					}
+				} else {
+					setError("エラーが発生しました");
+				}
 			} else {
-				setError(error.message);
+				setError("エラーが発生しました");
 			}
 			setIsUpdating(false);
 			setUpdateSuccess(false);
 		}
-	};
+	}, [data]);
 
 	useEffect(() => {
 		updateProfileData();
-	}, [
-		data.UserId,
-		data.UserName,
-		data.Bio,
-		data.ProfileImageUrl,
-		data.BannerImageUrl,
-	]);
+	}, [updateProfileData]);
 
 	if (isUpdating) {
 		return (

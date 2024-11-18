@@ -1,7 +1,6 @@
 import { EditProfileData } from "@/types/profile";
 import { PROFILE_ENDPOINT } from "../apiConfig";
 import { sendRequestWithRetry } from "../requests";
-import { AxiosError } from "axios";
 
 interface updateProfilesProps {
 	data: EditProfileData;
@@ -24,14 +23,8 @@ export default async function updateProfiles({ data }: updateProfilesProps) {
 			},
 		});
 		return response.data;
-	} catch (error: AxiosError | any) {
+	} catch (error: unknown) {
 		console.error("Failed to update profiles:", error);
-		if (error instanceof AxiosError) {
-			throw new Error(
-				error.response?.data?.message || "An unexpected error occurred."
-			);
-		} else {
-			throw new Error("An unexpected error occurred.");
-		}
+		throw error;
 	}
 }

@@ -7,7 +7,6 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
 
 interface Step<T> {
 	title: string;
@@ -33,7 +32,7 @@ export function MultiStepDialog<T>({
 }: MultiStepDialogProps<T>) {
 	const [currentStep, setCurrentStep] = useState(0);
 	const [formData, setFormData] = useState<T>(initialData);
-	const [isPending, startTransition] = useTransition();
+	const [isPending] = useTransition();
 
 	const updateData = (newData: Partial<T>) => {
 		setFormData((prevData) => ({ ...prevData, ...newData }));

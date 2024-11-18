@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { auth } from "@/services/firebase/firebase";
 
 const refreshToken = async (): Promise<string | null> => {
@@ -36,24 +36,26 @@ export const sendRequestWithRetry = async (config: AxiosRequestConfig) => {
 		// リクエストを送信
 		const response = await axios(config);
 		return response;
-	} catch (error: any) {
+	} catch (error: unknown) {
 		// トークンが期限切れで403エラーが発生した場合
-		if (error.response && error.response.status === 403) {
-			console.log("Token expired. Refreshing token...");
-			const newToken = await refreshToken();
-			if (newToken) {
-				// 新しいトークンをヘッダーに追加して再送信
-				if (!config.headers) {
-					config.headers = {};
+		if (axios.isAxiosError(error)) {
+			const axiosError = error as AxiosError;
+			if (axiosError.response && axiosError.response.status === 403) {
+				console.log("Token expired. Refreshing token...");
+				const newToken = await refreshToken();
+				if (newToken) {
+					// 新しいトークンをヘッダーに追加して再送信
+					if (!config.headers) {
+						config.headers = {};
+					}
+
+					config.headers.Authorization = `Bearer ${newToken}`;
+
+					const response = await axios(config);
+					return response;
 				}
-
-				config.headers.Authorization = `Bearer ${newToken}`;
-
-				const response = await axios(config);
-				return response;
 			}
 		}
-		// その他のエラーはそのままスロー
 		throw error;
 	}
 };

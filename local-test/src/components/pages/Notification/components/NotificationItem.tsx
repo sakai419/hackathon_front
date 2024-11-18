@@ -17,7 +17,7 @@ export default function NotificationItem({
 	const profileImage =
 		notification.SenderInfo?.ProfileImageUrl || "/images/default_image.png";
 
-	var message = "";
+	let message = "";
 
 	switch (notification.Type) {
 		case "follow":

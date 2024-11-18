@@ -26,6 +26,7 @@ export default function EditProfileImageStep({
 					isUploading: false,
 				});
 			} catch (err) {
+				console.error(err);
 				updateData({
 					uploadError:
 						"画像のアップロードに失敗しました。もう一度お試しください。",

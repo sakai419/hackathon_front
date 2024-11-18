@@ -28,8 +28,13 @@ export default function SignUpCardContent({
 		try {
 			await handleSignup({ email, password });
 			onSubmit();
-		} catch (error: FirebaseError | any) {
+		} catch (error: unknown) {
 			setIsError(true);
+			if (!(error instanceof FirebaseError)) {
+				setErrorMessage("エラーが発生しました");
+				console.log(error);
+				return;
+			}
 			if (error.code === "auth/email-already-in-use") {
 				setErrorMessage("このメールアドレスは既に使用されています");
 			} else if (error.code === "auth/weak-password") {

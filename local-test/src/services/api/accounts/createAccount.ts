@@ -21,7 +21,7 @@ export default async function createAccount({
 		});
 		return response.data;
 	} catch (error) {
-		console.log("Failed to create account:", error);
+		console.error("Failed to create account:", error);
 		throw error;
 	}
 }

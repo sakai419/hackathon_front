@@ -35,6 +35,7 @@ export default function useProfile(userId: string): {
 				} as Profile;
 				setProfileData(profile);
 			} catch (err) {
+				console.error(err);
 				setError("ユーザーデータの取得に失敗しました");
 			} finally {
 				setLoading(false);

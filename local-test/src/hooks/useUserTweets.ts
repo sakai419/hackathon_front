@@ -1,5 +1,10 @@
 import getUserTweets from "@/services/api/users/getUserTweets";
-import { MediaTypes, TweetInfo, TweetNode } from "@/types/tweetInfo";
+import {
+	APITweetNode,
+	MediaTypes,
+	TweetInfo,
+	TweetNode,
+} from "@/types/tweetInfo";
 import { UserInfoWithoutBio } from "@/types/userInfoWithoutBio";
 import { useEffect, useState } from "react";
 
@@ -14,7 +19,7 @@ export default function useUserTweets(userId: string) {
 				setLoading(true);
 				const data = await getUserTweets(userId);
 				if (data) {
-					const tweetList = data.map((node: any) => {
+					const tweetList = data.map((node: APITweetNode) => {
 						const tweetItem = node.tweet;
 						const tweet = {
 							TweetId: tweetItem.tweet_id,
@@ -166,7 +171,7 @@ export default function useUserTweets(userId: string) {
 			}
 		};
 		fetchUserTweets();
-	}, []);
+	}, [userId]);
 
 	return { tweets, loading, error };
 }

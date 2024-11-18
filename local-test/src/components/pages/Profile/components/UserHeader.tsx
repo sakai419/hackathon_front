@@ -1,5 +1,3 @@
-"use client";
-
 import formatYearMonth from "@/lib/utils/formatYearMonth";
 import ProfileHeader from "./ProfileHeader";
 import BannerAndAvatar from "./BannerAndAvatar";
