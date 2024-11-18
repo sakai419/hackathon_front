@@ -5,7 +5,6 @@ import { NotificationIcon } from "./NotificationIcon";
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
 import RelatedTweetCard from "@/components/common/RelatedTweetCard";
 import { Lock, Shield } from "lucide-react";
-import { useEffect } from "react";
 
 export default function NotificationItem({
 	notification,
@@ -50,10 +49,6 @@ export default function NotificationItem({
 			break;
 		default:
 	}
-
-	useEffect(() => {
-		console.log(notification);
-	}, []);
 
 	return (
 		<div className="flex items-start space-x-4 p-4 hover:bg-gray-50">
