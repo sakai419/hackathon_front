@@ -155,6 +155,7 @@ export default function useUserTweets(userId: string) {
 						return ret;
 					});
 
+					console.log(tweetList);
 					setTweets(tweetList);
 				}
 			} catch (err) {

@@ -41,7 +41,6 @@ export default function TweetItem({
 			const height = componentRef.current.clientHeight;
 			setThreadLineHeight(height);
 		}
-		console.log(tweetData.Content);
 	}, []);
 
 	const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {

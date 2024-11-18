@@ -1,4 +1,4 @@
-import { MediaTypes, TweetNode } from "@/types/tweetInfo";
+import { TweetNode } from "@/types/tweetInfo";
 import TweetItem from "../TweetItem";
 
 export default function TweetList({ tweets }: { tweets: TweetNode[] }) {
@@ -13,10 +13,14 @@ export default function TweetList({ tweets }: { tweets: TweetNode[] }) {
 						/>
 					)}
 					{tweet.OmittedReplyExist && (
-						<div className="flex items-center justify-center w-8 h-8">
-							<div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-							<div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-							<div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+						<div className="flex items-start pt-4 pl-4 w-full">
+							<div className="relative w-10 h-4">
+								<div className="absolute top-2 left-1/2 w-0.5 h-0.5 bg-gray-400 -translate-x-1/2"></div>
+								<div className="absolute top-3 left-1/2 w-0.5 h-0.5 bg-gray-400 -translate-x-1/2"></div>
+								<div className="absolute top-4 left-1/2 w-0.5 h-0.5 bg-gray-400 -translate-x-1/2"></div>
+								<div className="absolute top-5 left-1/2 w-0.5 h-0.5 bg-gray-400 -translate-x-1/2"></div>
+								<div className="absolute top-6 left-1/2 w-0.5 h-0.5 bg-gray-400 -translate-x-1/2"></div>
+							</div>
 						</div>
 					)}
 					{tweet.ParentReply && (

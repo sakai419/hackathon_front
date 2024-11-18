@@ -1,5 +1,4 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 type UserAvatarProps = {
