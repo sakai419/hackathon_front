@@ -23,7 +23,7 @@ export default function HashtagHighlighter({ text }: HashtagHighlighterProps) {
 	};
 
 	return (
-		<p className="text-gray-800 leading-relaxed">
+		<p className="text-gray-800 leading-relaxed whitespace-pre-wrap">
 			{highlightHashtags(text)}
 		</p>
 	);
