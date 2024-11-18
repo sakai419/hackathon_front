@@ -17,6 +17,7 @@ import UserAvatar from "../UserAvatar";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import HashtagHighlighter from "../HashTagHighlighter";
+import CodeEditor from "../CodeEditor";
 
 type TweetItemProps = {
 	tweet: TweetInfo;
@@ -147,11 +148,11 @@ export default function TweetItem({
 							<HashtagHighlighter text={tweetData.Content} />
 						)}
 						{tweetData.Code && (
-							<pre className="bg-black p-2 rounded-md overflow-x-auto">
-								<code className="text-yellow-500">
-									{tweetData.Code}
-								</code>
-							</pre>
+							<CodeEditor
+								value={tweetData.Code}
+								language="c"
+								readOnly={true}
+							/>
 						)}
 						{tweetData.Media &&
 							tweetData.Media.type === "image" && (
