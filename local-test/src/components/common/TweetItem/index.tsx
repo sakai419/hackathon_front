@@ -40,7 +40,6 @@ export default function TweetItem({
 		if (showThreadLine && componentRef.current) {
 			const height = componentRef.current.clientHeight;
 			setThreadLineHeight(height);
-			console.log("height", height, "threadLineHeight", threadLineHeight);
 		}
 	}, []);
 
@@ -49,9 +48,13 @@ export default function TweetItem({
 		e.stopPropagation();
 		setTweetData((prev) => {
 			if (!prev) return prev;
-			prev.HasLiked = !prev.HasLiked;
-			prev.LikesCount += prev.HasLiked ? 1 : -1;
-			return prev;
+			return {
+				...prev,
+				HasLiked: !prev.HasLiked,
+				LikesCount: prev.HasLiked
+					? prev.LikesCount - 1
+					: prev.LikesCount + 1,
+			};
 		});
 	};
 
@@ -60,9 +63,13 @@ export default function TweetItem({
 		e.stopPropagation();
 		setTweetData((prev) => {
 			if (!prev) return prev;
-			prev.HasRetweeted = !prev.HasRetweeted;
-			prev.RetweetsCount += prev.HasRetweeted ? 1 : -1;
-			return prev;
+			return {
+				...prev,
+				HasRetweeted: !prev.HasRetweeted,
+				RetweetsCount: prev.HasRetweeted
+					? prev.RetweetsCount - 1
+					: prev.RetweetsCount + 1,
+			};
 		});
 	};
 

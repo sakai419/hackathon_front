@@ -13,7 +13,6 @@ export default function useUserTweets(userId: string) {
 			try {
 				setLoading(true);
 				const data = await getUserTweets(userId);
-				console.log(data);
 				if (data) {
 					const tweetList = data.map((node: any) => {
 						const tweetItem = node.tweet;
