@@ -11,13 +11,7 @@ export default async function updateProfiles({ data }: updateProfilesProps) {
 		const response = await sendRequestWithRetry({
 			url: `${PROFILE_ENDPOINT}`,
 			method: "PATCH",
-			data: JSON.stringify({
-				user_id: data.UserId,
-				user_name: data.UserName,
-				bio: data.Bio,
-				profile_image_url: data.ProfileImageUrl,
-				banner_image_url: data.BannerImageUrl,
-			}),
+			data: JSON.stringify(data),
 			headers: {
 				"Content-Type": "application/json",
 			},
