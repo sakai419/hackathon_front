@@ -26,7 +26,7 @@ export default function NotificationPage() {
 					<ScrollArea className="h-[calc(100vh-8rem)]">
 						{notifications.map((notification) => (
 							<NotificationItem
-								key={notification.NotificationId}
+								key={notification.id}
 								notification={notification}
 							/>
 						))}

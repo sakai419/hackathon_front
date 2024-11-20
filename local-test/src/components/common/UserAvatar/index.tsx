@@ -1,4 +1,4 @@
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
 
 type UserAvatarProps = {
@@ -29,7 +29,6 @@ export default function UserAvatar({
 			onClick={withLink ? handleCLick : undefined}
 		>
 			<AvatarImage src={src} alt={alt} />
-			<AvatarFallback>{alt[0]}</AvatarFallback>
 		</Avatar>
 	);
 

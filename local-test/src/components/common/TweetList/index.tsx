@@ -6,13 +6,13 @@ export default function TweetList({ tweets }: { tweets: TweetNode[] }) {
 		<div className="divide-y divide-gray-200">
 			{tweets.map((tweet, index) => (
 				<div key={index} className="flex-col p-4">
-					{tweet.OriginalTweet && (
+					{tweet.originalTweet && (
 						<TweetItem
-							tweet={tweet.OriginalTweet}
+							tweet={tweet.originalTweet}
 							showThreadLine={true}
 						/>
 					)}
-					{tweet.OmittedReplyExist && (
+					{tweet.omittedReplyExist && (
 						<div className="flex items-start pt-4 pl-4 w-full">
 							<div className="relative w-10 h-4">
 								<div className="absolute top-2 left-1/2 w-0.5 h-0.5 bg-gray-400 -translate-x-1/2"></div>
@@ -23,13 +23,13 @@ export default function TweetList({ tweets }: { tweets: TweetNode[] }) {
 							</div>
 						</div>
 					)}
-					{tweet.ParentReply && (
+					{tweet.parentReply && (
 						<TweetItem
-							tweet={tweet.ParentReply}
+							tweet={tweet.parentReply}
 							showThreadLine={true}
 						/>
 					)}
-					<TweetItem tweet={tweet.Tweet} />
+					<TweetItem tweet={tweet.tweet} />
 				</div>
 			))}
 		</div>

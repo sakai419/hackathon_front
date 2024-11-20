@@ -14,7 +14,7 @@ interface UserInfoProps {
 }
 
 export default function UserInfo({ user }: UserInfoProps) {
-	const profileImage = user.ProfileImageUrl || "/images/default_image.png";
+	const profileImage = user.profileImageUrl || "/images/default_image.png";
 
 	return (
 		<Popover>
@@ -22,22 +22,22 @@ export default function UserInfo({ user }: UserInfoProps) {
 				<Button variant="ghost" className="w-full justify-start p-8">
 					<UserAvatar
 						withLink={false}
-						userId={user.UserId}
+						userId={user.userId}
 						src={profileImage}
-						alt={user.UserName}
+						alt={user.userName}
 						size="md"
 					/>
 					<div className="flex-grow text-left">
-						<p className="font-bold text-sm">{user.UserName}</p>
-						<p className="text-xs text-gray-500">@{user.UserId}</p>
+						<p className="font-bold text-sm">{user.userName}</p>
+						<p className="text-xs text-gray-500">@{user.userId}</p>
 					</div>
-					{user.IsPrivate && (
+					{user.isPrivate && (
 						<LockIcon
 							className="w-4 h-4 text-gray-500"
 							aria-label="非公開アカウント"
 						/>
 					)}
-					{user.IsAdmin && (
+					{user.isAdmin && (
 						<Shield
 							className="w-4 h-4 text-blue-500"
 							aria-label="管理者"
@@ -46,7 +46,7 @@ export default function UserInfo({ user }: UserInfoProps) {
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="w-auto p-4 rounded-xl shadow-[0_0_15px_rgba(0,0,0,0.1)]">
-				<PopoverLogoutContent userId={user.UserId} />
+				<PopoverLogoutContent userId={user.userId} />
 			</PopoverContent>
 		</Popover>
 	);

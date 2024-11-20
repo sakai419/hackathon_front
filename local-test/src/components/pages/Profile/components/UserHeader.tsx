@@ -9,30 +9,30 @@ interface UserProfileProps {
 }
 
 export default function UserHeader({ profile }: UserProfileProps) {
-	const bannerImage = profile.BannerImageUrl || "/images/default_image.png";
+	const bannerImage = profile.bannerImageUrl || "/images/default_image.png";
 	const profileImage =
-		profile.UserInfo.ProfileImageUrl || "/images/default_image.png";
-	const Date = formatYearMonth(profile.CreatedAt);
+		profile.userInfo.profileImageUrl || "/images/default_image.png";
+	const Date = formatYearMonth(profile.createdAt);
 
 	return (
 		<div className="relative">
 			<ProfileHeader
-				userId={profile.UserInfo.UserId}
-				tweetCount={profile.TweetCount}
+				userId={profile.userInfo.userId}
+				tweetCount={profile.tweetCount}
 			/>
 			<BannerAndAvatar
-				userId={profile.UserInfo.UserId}
-				userName={profile.UserInfo.UserName}
-				bio={profile.UserInfo.Bio}
+				userId={profile.userInfo.userId}
+				userName={profile.userInfo.userName}
+				bio={profile.userInfo.bio}
 				bannerImage={bannerImage}
 				profileImage={profileImage}
 			/>
 			<ProfileInfo
-				userId={profile.UserInfo.UserId}
-				userName={profile.UserInfo.UserName}
-				followingCount={profile.FollowingCount}
-				followerCount={profile.FollowerCount}
-				bio={profile.UserInfo.Bio}
+				userId={profile.userInfo.userId}
+				userName={profile.userInfo.userName}
+				followingCount={profile.followingCount}
+				followerCount={profile.followerCount}
+				bio={profile.userInfo.bio}
 				date={Date}
 			/>
 		</div>

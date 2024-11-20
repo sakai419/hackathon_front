@@ -61,13 +61,13 @@ export default function Sidebar() {
 					}`}
 				>
 					<SidebarContent
-						UnreadConversationCount={
-							sidebarInfo?.UnreadConversationCount
+						unreadConversationCount={
+							sidebarInfo?.unreadConversationCount
 						}
-						UnreadNotificationCount={
-							sidebarInfo?.UnreadNotificationCount
+						unreadNotificationCount={
+							sidebarInfo?.unreadNotificationCount
 						}
-						UserId={sidebarInfo?.UserInfo.UserId}
+						userId={sidebarInfo?.userInfo.userId}
 					/>
 					<TweetButton
 						onClick={handleOpenDialog}
@@ -77,11 +77,11 @@ export default function Sidebar() {
 						isOpen={isDialogOpen}
 						onClose={handleCloseDialog}
 						onTweet={handleTweet}
-						userInfo={sidebarInfo?.UserInfo}
+						userInfo={sidebarInfo?.userInfo}
 					/>
 					<div className="mt-auto">
 						{sidebarInfo && (
-							<UserInfo user={sidebarInfo?.UserInfo} />
+							<UserInfo user={sidebarInfo?.userInfo} />
 						)}
 					</div>
 				</div>

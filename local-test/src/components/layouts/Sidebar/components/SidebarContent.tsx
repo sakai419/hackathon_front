@@ -9,15 +9,15 @@ import {
 import SidebarItem from "./SidebarItem";
 
 interface SidebarContentProps {
-	UnreadConversationCount?: number;
-	UnreadNotificationCount?: number;
-	UserId?: string;
+	unreadConversationCount?: number;
+	unreadNotificationCount?: number;
+	userId?: string;
 }
 
 export default function SidebarContent({
-	UnreadConversationCount,
-	UnreadNotificationCount,
-	UserId,
+	unreadConversationCount,
+	unreadNotificationCount,
+	userId,
 }: SidebarContentProps) {
 	return (
 		<nav className="space-y-2">
@@ -27,18 +27,18 @@ export default function SidebarContent({
 				icon={BellIcon}
 				label="通知"
 				href="/notifications"
-				count={UnreadNotificationCount}
+				count={unreadNotificationCount}
 			/>
 			<SidebarItem
 				icon={MailIcon}
 				label="メッセージ"
 				href="/messages"
-				count={UnreadConversationCount}
+				count={unreadConversationCount}
 			/>
 			<SidebarItem
 				icon={UserIcon}
 				label="プロフィール"
-				href={`/${UserId}`}
+				href={`/${userId}`}
 			/>
 			<SidebarItem icon={SettingsIcon} label="設定" href="/settings" />
 		</nav>

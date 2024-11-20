@@ -22,10 +22,10 @@ export default function TweetItem({
 }: TweetItemProps) {
 	const router = useRouter();
 	const [tweetData, setTweetData] = useState<TweetInfo>(tweet);
-	const tweetDate = new Date(tweetData.CreatedAt);
+	const tweetDate = new Date(tweetData.createdAt);
 	const relativeTime = getRelativeTimeString(tweetDate);
 	const profileImage =
-		tweetData.UserInfo.ProfileImageUrl || "/images/default_image.png";
+		tweetData.userInfo.profileImageUrl || "/images/default_image.png";
 	const componentRef = useRef<HTMLDivElement>(null);
 	const [threadLineHeight, setThreadLineHeight] = useState(0);
 
@@ -43,10 +43,10 @@ export default function TweetItem({
 			if (!prev) return prev;
 			return {
 				...prev,
-				HasLiked: !prev.HasLiked,
-				LikesCount: prev.HasLiked
-					? prev.LikesCount - 1
-					: prev.LikesCount + 1,
+				HasLiked: !prev.hasLiked,
+				LikesCount: prev.hasLiked
+					? prev.likesCount - 1
+					: prev.likesCount + 1,
 			};
 		});
 	};
@@ -58,10 +58,10 @@ export default function TweetItem({
 			if (!prev) return prev;
 			return {
 				...prev,
-				HasRetweeted: !prev.HasRetweeted,
-				RetweetsCount: prev.HasRetweeted
-					? prev.RetweetsCount - 1
-					: prev.RetweetsCount + 1,
+				HasRetweeted: !prev.hasRetweeted,
+				RetweetsCount: prev.hasRetweeted
+					? prev.retweetsCount - 1
+					: prev.retweetsCount + 1,
 			};
 		});
 	};
@@ -69,20 +69,20 @@ export default function TweetItem({
 	const handleUserNameClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
-		router.push(`/${tweetData.UserInfo.UserId}`);
+		router.push(`/${tweetData.userInfo.userId}`);
 	};
 
 	return (
-		<Link href={`/tweets/${tweetData.TweetId}`} className="w-full">
+		<Link href={`/tweets/${tweetData.tweetId}`} className="w-full">
 			<div
 				ref={componentRef}
 				className="flex items-start space-x-2 hover:bg-gray-100 p-4"
 			>
 				<div className="relative">
 					<UserAvatar
-						userId={tweetData.UserInfo.UserId}
+						userId={tweetData.userInfo.userId}
 						src={profileImage}
-						alt={tweetData.UserInfo?.UserName}
+						alt={tweetData.userInfo?.userName}
 					/>
 					{showThreadLine && (
 						<div
@@ -104,15 +104,15 @@ export default function TweetItem({
 								className="font-semibold hover:underline cursor-pointer"
 								onClick={handleUserNameClick}
 							>
-								{tweetData.UserInfo.UserName}
+								{tweetData.userInfo.userName}
 							</span>
-							{tweetData.UserInfo.IsPrivate && (
+							{tweetData.userInfo.isPrivate && (
 								<Lock
 									className="w-4 h-4 text-gray-500"
 									aria-label="非公開アカウント"
 								/>
 							)}
-							{tweetData.UserInfo.IsAdmin && (
+							{tweetData.userInfo.isAdmin && (
 								<Shield
 									className="w-4 h-4 text-blue-500"
 									aria-label="管理者"
@@ -120,12 +120,12 @@ export default function TweetItem({
 							)}
 							<span className="text-gray-500">
 								@
-								{tweetData.UserInfo.UserId +
+								{tweetData.userInfo.userId +
 									"・" +
 									relativeTime}
 							</span>
 						</div>
-						{tweetData.IsPinned && (
+						{tweetData.isPinned && (
 							<Badge
 								variant="outline"
 								className="flex items-center"
@@ -136,20 +136,20 @@ export default function TweetItem({
 						)}
 					</div>
 					<div className="mt-2">
-						{tweetData.Content && (
-							<HashtagHighlighter text={tweetData.Content} />
+						{tweetData.content && (
+							<HashtagHighlighter text={tweetData.content} />
 						)}
-						{tweetData.Code && (
+						{tweetData.code && (
 							<CodeEditor
-								value={tweetData.Code}
+								value={tweetData.code}
 								language="c"
 								readOnly={true}
 							/>
 						)}
-						{tweetData.Media &&
-							tweetData.Media.type === "image" && (
+						{tweetData.media &&
+							tweetData.media.type === "image" && (
 								<Image
-									src={tweetData.Media.url}
+									src={tweetData.media.url}
 									alt="ツイートの画像"
 									width={500}
 									height={300}
@@ -164,7 +164,7 @@ export default function TweetItem({
 							className="flex items-center space-x-2 hover:bg-sky-100 hover:text-sky-500"
 						>
 							<MessageCircle className="w-4 h-4" />
-							<span>{tweetData.RepliesCount}</span>
+							<span>{tweetData.repliesCount}</span>
 							<span className="sr-only">返信</span>
 						</Button>
 						<Button
@@ -172,11 +172,11 @@ export default function TweetItem({
 							size="sm"
 							onClick={handleRetweet}
 							className={`flex items-center space-x-2 hover:bg-green-100 hover:text-green-500 ${
-								tweetData.HasRetweeted ? "text-green-500" : ""
+								tweetData.hasRetweeted ? "text-green-500" : ""
 							}`}
 						>
 							<Repeat className="w-4 h-4" />
-							<span>{tweetData.RetweetsCount}</span>
+							<span>{tweetData.retweetsCount}</span>
 							<span className="sr-only">リツイート</span>
 						</Button>
 						<Button
@@ -184,10 +184,10 @@ export default function TweetItem({
 							size="sm"
 							onClick={handleLike}
 							className={`flex items-center space-x-2 hover:bg-red-100 hover:text-red-500 ${
-								tweetData.HasLiked ? "text-red-500" : ""
+								tweetData.hasLiked ? "text-red-500" : ""
 							}`}
 							aria-label={
-								tweetData.HasLiked
+								tweetData.hasLiked
 									? "いいねを取り消す"
 									: "いいねする"
 							}
@@ -195,13 +195,13 @@ export default function TweetItem({
 							<Heart
 								className="w-4 h-4"
 								fill={
-									tweetData.HasLiked ? "currentColor" : "none"
+									tweetData.hasLiked ? "currentColor" : "none"
 								}
 								stroke={
-									tweetData.HasLiked ? "none" : "currentColor"
+									tweetData.hasLiked ? "none" : "currentColor"
 								}
 							/>
-							<span>{tweetData.LikesCount}</span>
+							<span>{tweetData.likesCount}</span>
 							<span className="sr-only">いいね</span>
 						</Button>
 					</div>

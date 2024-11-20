@@ -18,8 +18,8 @@ export default function EditUserInfoStep({
 				<Label htmlFor="user_id">ユーザーID</Label>
 				<Input
 					id="user_id"
-					value={data.UserId}
-					onChange={(e) => updateData({ UserId: e.target.value })}
+					value={data.userId}
+					onChange={(e) => updateData({ userId: e.target.value })}
 					placeholder="ユーザーID"
 					required
 				/>
@@ -28,8 +28,8 @@ export default function EditUserInfoStep({
 				<Label htmlFor="user_name">ユーザー名</Label>
 				<Input
 					id="user_name"
-					value={data.UserName}
-					onChange={(e) => updateData({ UserName: e.target.value })}
+					value={data.userName}
+					onChange={(e) => updateData({ userName: e.target.value })}
 					placeholder="ユーザー名"
 					required
 				/>
@@ -38,8 +38,8 @@ export default function EditUserInfoStep({
 				<Label htmlFor="bio">自己紹介</Label>
 				<Textarea
 					id="bio"
-					value={data.Bio}
-					onChange={(e) => updateData({ Bio: e.target.value })}
+					value={data.bio}
+					onChange={(e) => updateData({ bio: e.target.value })}
 					placeholder="自己紹介"
 					required
 				/>

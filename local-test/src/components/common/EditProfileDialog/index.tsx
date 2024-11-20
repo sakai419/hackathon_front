@@ -34,7 +34,7 @@ export default function EditProfileDialog({
 				return <EditUserInfoStep data={data} updateData={updateData} />;
 			},
 			validate: (data: EditProfileData) => {
-				return data.UserId !== "" && data.UserName !== "";
+				return data.userId !== "" && data.userName !== "";
 			},
 		},
 		{
@@ -71,11 +71,11 @@ export default function EditProfileDialog({
 	];
 
 	const initialData: EditProfileData = {
-		UserId: userId,
-		UserName: userName,
-		Bio: bio,
-		ProfileImageUrl: profileImageUrl,
-		BannerImageUrl: bannerImageUrl,
+		userId: userId,
+		userName: userName,
+		bio: bio,
+		profileImageUrl: profileImageUrl,
+		bannerImageUrl: bannerImageUrl,
 		isUploading: false,
 		uploadError: null,
 	};

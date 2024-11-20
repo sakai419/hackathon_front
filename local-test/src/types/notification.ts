@@ -1,8 +1,5 @@
-import { APITweetInfo, TweetInfo } from "./tweetInfo";
-import {
-	APIUserInfoWithoutBio,
-	UserInfoWithoutBio,
-} from "./userInfoWithoutBio";
+import { TweetInfo } from "./tweetInfo";
+import { UserInfoWithoutBio } from "./userInfoWithoutBio";
 
 export type NotificationType =
 	| "follow"
@@ -18,21 +15,11 @@ export type NotificationType =
 	| "other";
 
 export type Notification = {
-	NotificationId: number;
-	SenderInfo?: UserInfoWithoutBio;
-	Type: NotificationType;
-	Content?: string;
-	RelatedTweet?: TweetInfo;
-	IsRead: boolean;
-	CreatedAt: string;
-};
-
-export type APINotification = {
 	id: number;
-	sender_info?: APIUserInfoWithoutBio;
-	type: string;
+	senderInfo?: UserInfoWithoutBio;
+	type: NotificationType;
 	content?: string;
-	related_tweet?: APITweetInfo;
-	is_read: boolean;
-	created_at: string;
+	relatedTweet?: TweetInfo;
+	isRead: boolean;
+	createdAt: string;
 };

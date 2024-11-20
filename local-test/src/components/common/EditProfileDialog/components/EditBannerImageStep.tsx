@@ -26,7 +26,7 @@ export default function EditBannerImageStep({
 			try {
 				const url = await uploadFile(file);
 				updateData({
-					BannerImageUrl: url,
+					bannerImageUrl: url,
 					isUploading: false,
 				});
 			} catch (err) {
@@ -40,7 +40,7 @@ export default function EditBannerImageStep({
 		}
 	};
 
-	const bannerImage = data.BannerImageUrl || "/images/default_image.png";
+	const bannerImage = data.bannerImageUrl || "/images/default_image.png";
 
 	return (
 		<div className="space-y-4">

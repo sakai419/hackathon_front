@@ -1,6 +1,6 @@
+import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
 import getSidebarInfo from "@/services/api/sidebar/getSidebarInfo";
 import { SidebarInfo } from "@/types/sidebar";
-import { UserInfoWithoutBio } from "@/types/userInfoWithoutBio";
 import { useState, useEffect } from "react";
 
 export function useSidebarInfo() {
@@ -9,27 +9,14 @@ export function useSidebarInfo() {
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		const fetchSidebarData = async () => {
+		const fetchSidebarInfo = async () => {
 			try {
 				setLoading(true);
 				const data = await getSidebarInfo();
 				if (data) {
-					// JSON形式に変換し、SidebarInfo型に整形
-					const sidebarData: SidebarInfo = {
-						UserInfo: {
-							UserId: data.user_info.user_id,
-							UserName: data.user_info.user_name,
-							ProfileImageUrl: data.user_info.profile_image_url,
-							IsPrivate: data.user_info.is_private,
-							IsAdmin: data.user_info.is_admin,
-						} as UserInfoWithoutBio,
-						UnreadConversationCount:
-							data.unread_conversation_count || 0,
-						UnreadNotificationCount:
-							data.unread_notification_count || 0,
-					};
-
-					setSidebarInfo(sidebarData);
+					const camelCaseData =
+						transformKeysToCamelCase<SidebarInfo>(data);
+					setSidebarInfo(camelCaseData);
 				}
 			} catch (err) {
 				setError("Failed to fetch sidebar info");
@@ -39,8 +26,8 @@ export function useSidebarInfo() {
 			}
 		};
 
-		fetchSidebarData(); // 初回のデータ取得
-	}, []); // 初回マウント時に実行
+		fetchSidebarInfo();
+	}, []);
 
 	return { sidebarInfo, loading, error };
 }

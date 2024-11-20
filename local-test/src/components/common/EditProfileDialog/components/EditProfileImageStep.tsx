@@ -22,7 +22,7 @@ export default function EditProfileImageStep({
 			try {
 				const url = await uploadFile(file);
 				updateData({
-					ProfileImageUrl: url,
+					profileImageUrl: url,
 					isUploading: false,
 				});
 			} catch (err) {
@@ -36,7 +36,7 @@ export default function EditProfileImageStep({
 		}
 	};
 
-	const profileImage = data.ProfileImageUrl || "/images/default_image.png";
+	const profileImage = data.profileImageUrl || "/images/default_image.png";
 
 	return (
 		<div className="space-y-4">
@@ -44,9 +44,9 @@ export default function EditProfileImageStep({
 			<div className="flex items-center space-x-4">
 				<UserAvatar
 					withLink={false}
-					userId={data.UserId}
+					userId={data.userId}
 					src={profileImage}
-					alt={data.UserName}
+					alt={data.userName}
 					size="w-24 h-24"
 				/>
 				<div>

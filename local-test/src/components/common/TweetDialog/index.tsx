@@ -115,7 +115,7 @@ export default function TweetDialog({
 	};
 
 	const profileImage =
-		userInfo?.ProfileImageUrl || "/images/default_image.png";
+		userInfo?.profileImageUrl || "/images/default_image.png";
 
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
@@ -128,9 +128,9 @@ export default function TweetDialog({
 				<div className="flex space-x-4">
 					<UserAvatar
 						withLink={false}
-						userId={userInfo?.UserId || ""}
+						userId={userInfo?.userId || ""}
 						src={profileImage}
-						alt={userInfo?.UserName || ""}
+						alt={userInfo?.userName || ""}
 						size="w-12 h-12"
 					/>
 					<div className="flex-1 space-y-4">

@@ -11,75 +11,75 @@ export default function NotificationItem({
 }: {
 	notification: Notification;
 }) {
-	const date = new Date(notification.CreatedAt);
+	const date = new Date(notification.createdAt);
 	const relativeTime = getRelativeTimeString(date);
 
 	const profileImage =
-		notification.SenderInfo?.ProfileImageUrl || "/images/default_image.png";
+		notification.senderInfo?.profileImageUrl || "/images/default_image.png";
 
 	let message = "";
 
-	switch (notification.Type) {
+	switch (notification.type) {
 		case "follow":
-			message = `${notification.SenderInfo?.UserName}さんがあなたをフォローしました`;
+			message = `${notification.senderInfo?.userName}さんがあなたをフォローしました`;
 			break;
 		case "like":
-			message = `${notification.SenderInfo?.UserName}さんがあなたのツイートをいいねしました`;
+			message = `${notification.senderInfo?.userName}さんがあなたのツイートをいいねしました`;
 			break;
 		case "retweet":
-			message = `${notification.SenderInfo?.UserName}さんがあなたのツイートをリツイートしました`;
+			message = `${notification.senderInfo?.userName}さんがあなたのツイートをリツイートしました`;
 			break;
 		case "reply":
-			message = `${notification.SenderInfo?.UserName}さんがあなたのツイートに返信しました`;
+			message = `${notification.senderInfo?.userName}さんがあなたのツイートに返信しました`;
 			break;
 		case "quote":
-			message = `${notification.SenderInfo?.UserName}さんがあなたのツイートを引用しました`;
+			message = `${notification.senderInfo?.userName}さんがあなたのツイートを引用しました`;
 			break;
 		case "follow_request":
-			message = `${notification.SenderInfo?.UserName}さんがあなたにフォローリクエストを送りました`;
+			message = `${notification.senderInfo?.userName}さんがあなたにフォローリクエストを送りました`;
 			break;
 		case "request_accepted":
-			message = `${notification.SenderInfo?.UserName}さんがあなたのフォローリクエストを承認しました`;
+			message = `${notification.senderInfo?.userName}さんがあなたのフォローリクエストを承認しました`;
 			break;
 		case "warning":
 			message = "あなたに警告を送りました";
 			break;
 		case "other":
-			message = notification.Content || "";
+			message = notification.content || "";
 			break;
 		default:
 	}
 
 	return (
 		<div className="flex items-start space-x-4 p-4 hover:bg-gray-50">
-			<NotificationIcon type={notification.Type} />
+			<NotificationIcon type={notification.type} />
 			<div className="flex-1 space-y-1">
 				<div className="flex items-center space-x-2">
 					<Avatar className="w-10 h-10">
 						<AvatarImage
 							src={profileImage}
-							alt={notification.SenderInfo?.UserName}
+							alt={notification.senderInfo?.userName}
 						/>
 						<AvatarFallback>
-							{notification.SenderInfo?.UserName[0]}
+							{notification.senderInfo?.userName[0]}
 						</AvatarFallback>
 					</Avatar>
 					<Link
-						href={`/profile/${notification.SenderInfo?.UserName}`}
+						href={`/profile/${notification.senderInfo?.userName}`}
 						className="font-semibold hover:underline"
 					>
-						{notification.SenderInfo?.UserName}
+						{notification.senderInfo?.userName}
 					</Link>
 					<span className="text-gray-500">
-						@{notification.SenderInfo?.UserId}
+						@{notification.senderInfo?.userId}
 					</span>
-					{notification.SenderInfo?.IsPrivate && (
+					{notification.senderInfo?.isPrivate && (
 						<Lock
 							className="w-4 h-4 text-gray-500"
 							aria-label="非公開アカウント"
 						/>
 					)}
-					{notification.SenderInfo?.IsAdmin && (
+					{notification.senderInfo?.isAdmin && (
 						<Shield
 							className="w-4 h-4 text-blue-500"
 							aria-label="管理者"
@@ -88,8 +88,8 @@ export default function NotificationItem({
 				</div>
 				<p>{message}</p>
 				<p className="text-sm text-gray-500">{relativeTime}</p>
-				{notification.RelatedTweet && (
-					<RelatedTweetCard tweet={notification.RelatedTweet} />
+				{notification.relatedTweet && (
+					<RelatedTweetCard tweet={notification.relatedTweet} />
 				)}
 			</div>
 		</div>
