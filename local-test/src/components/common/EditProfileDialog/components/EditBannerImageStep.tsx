@@ -29,8 +29,8 @@ export default function EditBannerImageStep({
 					bannerImageUrl: url,
 					isUploading: false,
 				});
-			} catch (err) {
-				console.error(err);
+			} catch (error) {
+				console.error(error);
 				updateData({
 					uploadError:
 						"バナー画像のアップロードに失敗しました。もう一度お試しください。",

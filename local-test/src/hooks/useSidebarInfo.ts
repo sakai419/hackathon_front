@@ -5,29 +5,29 @@ import { useState, useEffect } from "react";
 
 export function useSidebarInfo() {
 	const [sidebarInfo, setSidebarInfo] = useState<SidebarInfo | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		const fetchSidebarInfo = async () => {
 			try {
-				setLoading(true);
+				setIsLoading(true);
 				const data = await getSidebarInfo();
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<SidebarInfo>(data);
 					setSidebarInfo(camelCaseData);
 				}
-			} catch (err) {
+			} catch (error) {
 				setError("Failed to fetch sidebar info");
-				console.error(err);
+				console.error(error);
 			} finally {
-				setLoading(false);
+				setIsLoading(false);
 			}
 		};
 
 		fetchSidebarInfo();
 	}, []);
 
-	return { sidebarInfo, loading, error };
+	return { sidebarInfo, isLoading, error };
 }

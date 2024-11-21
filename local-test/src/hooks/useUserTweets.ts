@@ -4,29 +4,45 @@ import { TweetNode } from "@/types/tweetInfo";
 import { useEffect, useState } from "react";
 
 export default function useUserTweets(userId: string) {
-	const [tweets, setTweets] = useState<TweetNode[] | null>(null);
-	const [loading, setLoading] = useState<boolean>(true);
+	const [tweets, setTweets] = useState<TweetNode[]>([]);
+	const [page, setPage] = useState(1);
+	const [isLoading, setIsLoading] = useState(false);
+	const [hasMore, setHasMore] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		const fetchUserTweets = async () => {
+			if (isLoading || !hasMore) return;
+			setIsLoading(true);
 			try {
-				setLoading(true);
-				const data = await getUserTweets(userId);
+				const data = await getUserTweets(userId, page);
 				if (data) {
-					const camelCaseData =
-						transformKeysToCamelCase<TweetNode[]>(data);
-					setTweets(camelCaseData);
+					if (data.length === 0) {
+						setHasMore(false);
+					} else {
+						const camelCaseData =
+							transformKeysToCamelCase<TweetNode[]>(data);
+						setTweets((prev) => [...prev, ...camelCaseData]);
+						if (camelCaseData.length < 10) {
+							setHasMore(false);
+						}
+					}
 				}
-			} catch (err) {
-				console.error(err);
+			} catch (error) {
+				console.error(error);
 				setError("ユーザーのツイートの取得に失敗しました");
 			} finally {
-				setLoading(false);
+				setIsLoading(false);
 			}
 		};
 		fetchUserTweets();
-	}, [userId]);
+	}, [userId, page]);
 
-	return { tweets, loading, error };
+	const loadMore = () => {
+		if (hasMore && !isLoading) {
+			setPage((prev) => prev + 1);
+		}
+	};
+
+	return { tweets, isLoading, hasMore, loadMore, error };
 }

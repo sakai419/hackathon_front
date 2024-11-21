@@ -5,6 +5,7 @@ import UserHeader from "./components/UserHeader";
 import { useState } from "react";
 import useUserTweets from "@/hooks/useUserTweets";
 import TweetList from "@/components/common/TweetList";
+import { Button } from "@/components/ui/button";
 
 interface ProfilePageProps {
 	userId: string;
@@ -19,33 +20,53 @@ export default function ProfilePage({ userId }: ProfilePageProps) {
 	];
 
 	const [activeTab, setActiveTab] = useState(tabs[0].Name);
-	const { profile, loading, error } = useProfile(userId);
+	const {
+		profile,
+		isLoading: isProfileLoading,
+		error: profileError,
+	} = useProfile(userId);
 	const {
 		tweets,
-		loading: tweetsLoading,
+		isLoading: isTweetsLoading,
+		hasMore,
+		loadMore,
 		error: tweetsError,
 	} = useUserTweets(userId);
 
-	if (loading || tweetsLoading) {
-		return <div>Loading...</div>;
-	}
-
-	if (error || tweetsError) {
-		return <div>{error}</div>;
+	if (profileError || tweetsError) {
+		return <div>エラーが発生しました</div>;
 	}
 
 	return (
 		<MainLayout>
 			<div className="max-w-2xl mx-auto">
 				{profile && <UserHeader profile={profile} />}
+				{isProfileLoading && <div>Loading...</div>}
 				<DynamicTabs
 					tabs={tabs}
 					activeTab={activeTab}
 					setActiveTab={setActiveTab}
 				/>
 				{activeTab === "ツイート" && tweets && (
-					<TweetList tweets={tweets} />
+					<>
+						<TweetList tweets={tweets} />
+						<Button
+							onClick={loadMore}
+							className="w-full"
+							disabled={!hasMore}
+						>
+							{isTweetsLoading
+								? "Loading..."
+								: hasMore
+								? "もっと見る"
+								: "これ以上ツイートはありません"}
+						</Button>
+					</>
 				)}
+				{activeTab === "返信" && <div>返信</div>}
+				{activeTab === "リツイート" && <div>リツイート</div>}
+				{activeTab === "いいね" && <div>いいね</div>}
+				{isTweetsLoading && <div>Loading...</div>}
 			</div>
 		</MainLayout>
 	);

@@ -7,30 +7,30 @@ export default function useNotifications() {
 	const [notifications, setNotifications] = useState<Notification[] | null>(
 		[]
 	);
-	const [loading, setLoading] = useState<boolean>(true);
+	const [isLoading, setisLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
 	useEffect(() => {
 		const fetchNotifications = async () => {
 			try {
-				setLoading(true);
+				setisLoading(true);
 				const data = await getNotifications();
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<Notification[]>(data);
 					setNotifications(camelCaseData);
 				}
-			} catch (err) {
-				console.error(err);
+			} catch (error) {
+				console.error(error);
 				setError("Failed to fetch notifications");
 			} finally {
-				setLoading(false);
+				setisLoading(false);
 			}
 		};
 		fetchNotifications();
 	}, []);
 	return {
 		notifications,
-		loading,
+		isLoading,
 		error,
 	};
 }
