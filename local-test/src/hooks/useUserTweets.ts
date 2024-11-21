@@ -1,7 +1,7 @@
 import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
 import getUserTweets from "@/services/api/users/getUserTweets";
 import { TweetNode } from "@/types/tweetInfo";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function useUserTweets(userId: string) {
 	const [tweets, setTweets] = useState<TweetNode[]>([]);
@@ -10,9 +10,15 @@ export default function useUserTweets(userId: string) {
 	const [hasMore, setHasMore] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
+	const isLoadingRef = useRef(isLoading);
+
+	useEffect(() => {
+		isLoadingRef.current = isLoading;
+	}, [isLoading]);
+
 	useEffect(() => {
 		const fetchUserTweets = async () => {
-			if (isLoading || !hasMore) return;
+			if (isLoadingRef.current || !hasMore) return;
 			setIsLoading(true);
 			try {
 				const data = await getUserTweets(userId, page);
@@ -36,7 +42,7 @@ export default function useUserTweets(userId: string) {
 			}
 		};
 		fetchUserTweets();
-	}, [userId, page]);
+	}, [userId, page, hasMore]);
 
 	const loadMore = () => {
 		if (hasMore && !isLoading) {
