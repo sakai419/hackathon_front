@@ -6,13 +6,14 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { ImageIcon, X } from "lucide-react";
+import { Code2Icon, ImageIcon, X } from "lucide-react";
 import Image from "next/image";
 import UserAvatar from "../UserAvatar";
 import { useState, useRef } from "react";
 import { UserInfoWithoutBio } from "@/types/userInfoWithoutBio";
 import { uploadFile } from "@/services/upload/upload";
 import { Media, MediaTypes } from "@/types/tweetInfo";
+import ButtonWithTooltip from "../ButtonWithTooltip";
 
 interface TweetDialogProps {
 	isOpen: boolean;
@@ -170,14 +171,18 @@ export default function TweetDialog({
 							accept="image/*"
 							className="hidden"
 						/>
-						<Button
-							size="icon"
-							variant="ghost"
-							className="text-primary hover:bg-primary/10 rounded-full"
+						<ButtonWithTooltip
+							description="画像を追加"
 							onClick={handleMediaClick}
-						>
-							<ImageIcon className="h-5 w-5" />
-						</Button>
+							buttonSize={"icon"}
+							content={<ImageIcon className="h-5 w-5" />}
+						/>
+						<ButtonWithTooltip
+							description="ソースコードを追加"
+							onClick={handleMediaClick}
+							buttonSize={"icon"}
+							content={<Code2Icon className="h-5 w-5" />}
+						/>
 					</div>
 					<Button
 						onClick={handleTweet}

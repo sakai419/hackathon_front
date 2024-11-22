@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Heart, MessageCircle, Repeat, Pin, Lock, Shield } from "lucide-react";
 import Image from "next/image";
@@ -6,10 +5,11 @@ import Link from "next/link";
 import { TweetInfo } from "@/types/tweetInfo";
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
 import UserAvatar from "../UserAvatar";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import HashtagHighlighter from "../HashTagHighlighter";
 import CodeEditor from "../CodeEditor";
+import ButtonWithTooltip from "../ButtonWithTooltip";
 
 type TweetItemProps = {
 	tweet: TweetInfo;
@@ -36,6 +36,10 @@ export default function TweetItem({
 		}
 	}, [showThreadLine]);
 
+	useEffect(() => {
+		console.log("TweetItem re-rendered with tweetData:", tweetData);
+	}, [tweetData]);
+
 	const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
@@ -54,6 +58,7 @@ export default function TweetItem({
 	const handleRetweet = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
+		console.log("handleRetweet");
 		setTweetData((prev) => {
 			if (!prev) return prev;
 			return {
@@ -158,52 +163,64 @@ export default function TweetItem({
 							)}
 					</div>
 					<div className="flex justify-between text-gray-500 mt-4">
-						<Button
-							variant="ghost"
-							size="sm"
-							className="flex items-center space-x-2 hover:bg-sky-100 hover:text-sky-500"
-						>
-							<MessageCircle className="w-4 h-4" />
-							<span>{tweetData.repliesCount}</span>
-							<span className="sr-only">返信</span>
-						</Button>
-						<Button
-							variant="ghost"
-							size="sm"
+						<ButtonWithTooltip
+							description="返信"
+							onClick={() => {}}
+							content={
+								<>
+									<MessageCircle className="w-4 h-4" />
+									<span>{tweetData.repliesCount}</span>
+								</>
+							}
+							buttonClassName="flex items-center space-x-2 hover:bg-sky-100 hover:text-sky-500"
+						/>
+						<ButtonWithTooltip
+							description="リツイート"
 							onClick={handleRetweet}
-							className={`flex items-center space-x-2 hover:bg-green-100 hover:text-green-500 ${
+							content={useMemo(() => {
+								return (
+									<>
+										<Repeat className="w-4 h-4" />
+										<span>{tweetData.retweetsCount}</span>
+									</>
+								);
+							}, [tweetData.retweetsCount])}
+							buttonClassName={`flex items-center space-x-2 hover:bg-green-100 hover:text-green-500 ${
 								tweetData.hasRetweeted ? "text-green-500" : ""
 							}`}
-						>
-							<Repeat className="w-4 h-4" />
-							<span>{tweetData.retweetsCount}</span>
-							<span className="sr-only">リツイート</span>
-						</Button>
-						<Button
-							variant="ghost"
-							size="sm"
+						/>
+						<ButtonWithTooltip
+							description="いいね"
 							onClick={handleLike}
-							className={`flex items-center space-x-2 hover:bg-red-100 hover:text-red-500 ${
+							content={
+								<>
+									<Heart
+										className="w-4 h-4"
+										fill={
+											tweetData.hasLiked
+												? "currentColor"
+												: "none"
+										}
+										stroke={
+											tweetData.hasLiked
+												? "none"
+												: "currentColor"
+										}
+									/>
+									<span>{tweetData.likesCount}</span>
+								</>
+							}
+							buttonClassName={`flex items-center space-x-2 hover:bg-red-100 hover:text-red-500 ${
 								tweetData.hasLiked ? "text-red-500" : ""
 							}`}
-							aria-label={
-								tweetData.hasLiked
-									? "いいねを取り消す"
-									: "いいねする"
-							}
-						>
-							<Heart
-								className="w-4 h-4"
-								fill={
-									tweetData.hasLiked ? "currentColor" : "none"
-								}
-								stroke={
-									tweetData.hasLiked ? "none" : "currentColor"
-								}
-							/>
-							<span>{tweetData.likesCount}</span>
-							<span className="sr-only">いいね</span>
-						</Button>
+						/>
+						<div>
+							<p>{tweetData.content}</p>
+							<p>Likes: {tweetData.likesCount}</p>
+							<p>
+								Has Liked: {tweetData.hasLiked ? "Yes" : "No"}
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
