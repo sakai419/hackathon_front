@@ -196,11 +196,6 @@ export default function TweetItem({
 								tweet.hasLiked ? "text-red-500" : ""
 							}`}
 						/>
-						<div>
-							<p>{tweet.content}</p>
-							<p>Likes: {tweet.likesCount}</p>
-							<p>Has Liked: {tweet.hasLiked ? "Yes" : "No"}</p>
-						</div>
 					</div>
 				</div>
 			</div>

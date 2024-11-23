@@ -6,9 +6,9 @@ import useNotifications from "@/hooks/useNotification";
 import Header from "@/components/common/Header";
 
 export default function NotificationPage() {
-	const { notifications, loading, error } = useNotifications();
+	const { notifications, isLoading, error } = useNotifications();
 
-	if (loading) {
+	if (isLoading) {
 		return <div>Loading...</div>;
 	}
 
