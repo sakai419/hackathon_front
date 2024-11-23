@@ -1,14 +1,41 @@
-import { TweetNode } from "@/types/tweetInfo";
+import { TweetInfo, TweetNode } from "@/types/tweetInfo";
 import TweetItem from "../TweetItem";
+import { useState, useEffect } from "react";
 
 export default function TweetList({ tweets }: { tweets: TweetNode[] }) {
+	const [tweetNodes, setTweetNodes] = useState<TweetNode[]>(tweets);
+
+	useEffect(() => {
+		setTweetNodes(tweets);
+	}, [tweets]);
+
+	const updateTweet = (
+		tweet: TweetInfo,
+		updateFields: Partial<TweetInfo>
+	) => {
+		setTweetNodes((prev) => {
+			return prev.map((node) => {
+				if (node.tweet.tweetId === tweet.tweetId) {
+					return {
+						...node,
+						tweet: {
+							...node.tweet,
+							...updateFields,
+						},
+					};
+				}
+				return node;
+			});
+		});
+	};
 	return (
 		<div className="divide-y divide-gray-200">
-			{tweets.map((tweet, index) => (
+			{tweetNodes.map((tweet, index) => (
 				<div key={index} className="flex-col p-4">
 					{tweet.originalTweet && (
 						<TweetItem
 							tweet={tweet.originalTweet}
+							updateTweet={updateTweet}
 							showThreadLine={true}
 						/>
 					)}
@@ -26,10 +53,11 @@ export default function TweetList({ tweets }: { tweets: TweetNode[] }) {
 					{tweet.parentReply && (
 						<TweetItem
 							tweet={tweet.parentReply}
+							updateTweet={updateTweet}
 							showThreadLine={true}
 						/>
 					)}
-					<TweetItem tweet={tweet.tweet} />
+					<TweetItem tweet={tweet.tweet} updateTweet={updateTweet} />
 				</div>
 			))}
 		</div>

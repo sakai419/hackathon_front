@@ -1,3 +1,4 @@
+import { setDefaultImageOfProfile } from "@/lib/utils/setDefaultImage";
 import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
 import getUserProfile from "@/services/api/users/getUserProfile";
 import { Profile } from "@/types/profile";
@@ -16,6 +17,7 @@ export default function useProfile(userId: string) {
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<Profile>(data);
+					setDefaultImageOfProfile(camelCaseData);
 					setProfile(camelCaseData);
 				}
 			} catch (error) {

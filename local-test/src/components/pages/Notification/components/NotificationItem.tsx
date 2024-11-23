@@ -14,9 +14,6 @@ export default function NotificationItem({
 	const date = new Date(notification.createdAt);
 	const relativeTime = getRelativeTimeString(date);
 
-	const profileImage =
-		notification.senderInfo?.profileImageUrl || "/images/default_image.png";
-
 	let message = "";
 
 	switch (notification.type) {
@@ -57,7 +54,7 @@ export default function NotificationItem({
 				<div className="flex items-center space-x-2">
 					<Avatar className="w-10 h-10">
 						<AvatarImage
-							src={profileImage}
+							src={notification.senderInfo?.profileImageUrl}
 							alt={notification.senderInfo?.userName}
 						/>
 						<AvatarFallback>

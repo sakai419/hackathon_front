@@ -9,9 +9,6 @@ interface UserProfileProps {
 }
 
 export default function UserHeader({ profile }: UserProfileProps) {
-	const bannerImage = profile.bannerImageUrl || "/images/default_image.png";
-	const profileImage =
-		profile.userInfo.profileImageUrl || "/images/default_image.png";
 	const Date = formatYearMonth(profile.createdAt);
 
 	return (
@@ -24,8 +21,8 @@ export default function UserHeader({ profile }: UserProfileProps) {
 				userId={profile.userInfo.userId}
 				userName={profile.userInfo.userName}
 				bio={profile.userInfo.bio}
-				bannerImage={bannerImage}
-				profileImage={profileImage}
+				bannerImage={profile.bannerImageUrl}
+				profileImage={profile.userInfo.profileImageUrl}
 			/>
 			<ProfileInfo
 				userId={profile.userInfo.userId}

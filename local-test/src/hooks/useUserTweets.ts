@@ -1,3 +1,4 @@
+import { setDefaultImageOfTweetNodes } from "@/lib/utils/setDefaultImage";
 import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
 import getUserTweets from "@/services/api/users/getUserTweets";
 import { TweetNode } from "@/types/tweetInfo";
@@ -28,6 +29,7 @@ export default function useUserTweets(userId: string) {
 					} else {
 						const camelCaseData =
 							transformKeysToCamelCase<TweetNode[]>(data);
+						setDefaultImageOfTweetNodes(camelCaseData);
 						setTweets((prev) => [...prev, ...camelCaseData]);
 						if (camelCaseData.length < 10) {
 							setHasMore(false);

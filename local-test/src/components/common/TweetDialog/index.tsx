@@ -115,9 +115,6 @@ export default function TweetDialog({
 		}
 	};
 
-	const profileImage =
-		userInfo?.profileImageUrl || "/images/default_image.png";
-
 	return (
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent className="sm:max-w-[600px]">
@@ -130,7 +127,7 @@ export default function TweetDialog({
 					<UserAvatar
 						withLink={false}
 						userId={userInfo?.userId || ""}
-						src={profileImage}
+						src={userInfo?.profileImageUrl || ""}
 						alt={userInfo?.userName || ""}
 						size="w-12 h-12"
 					/>

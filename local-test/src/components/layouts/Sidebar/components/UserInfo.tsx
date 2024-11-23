@@ -14,8 +14,6 @@ interface UserInfoProps {
 }
 
 export default function UserInfo({ user }: UserInfoProps) {
-	const profileImage = user.profileImageUrl || "/images/default_image.png";
-
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
@@ -23,7 +21,7 @@ export default function UserInfo({ user }: UserInfoProps) {
 					<UserAvatar
 						withLink={false}
 						userId={user.userId}
-						src={profileImage}
+						src={user.profileImageUrl}
 						alt={user.userName}
 						size="md"
 					/>

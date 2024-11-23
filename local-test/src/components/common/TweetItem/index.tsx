@@ -14,18 +14,17 @@ import ButtonWithTooltip from "../ButtonWithTooltip";
 type TweetItemProps = {
 	tweet: TweetInfo;
 	showThreadLine?: boolean;
+	updateTweet: (tweet: TweetInfo, updateFields: Partial<TweetInfo>) => void;
 };
 
 export default function TweetItem({
 	tweet,
 	showThreadLine = false,
+	updateTweet,
 }: TweetItemProps) {
 	const router = useRouter();
-	const [tweetData, setTweetData] = useState<TweetInfo>(tweet);
-	const tweetDate = new Date(tweetData.createdAt);
+	const tweetDate = new Date(tweet.createdAt);
 	const relativeTime = getRelativeTimeString(tweetDate);
-	const profileImage =
-		tweetData.userInfo.profileImageUrl || "/images/default_image.png";
 	const componentRef = useRef<HTMLDivElement>(null);
 	const [threadLineHeight, setThreadLineHeight] = useState(0);
 
@@ -36,58 +35,45 @@ export default function TweetItem({
 		}
 	}, [showThreadLine]);
 
-	useEffect(() => {
-		console.log("TweetItem re-rendered with tweetData:", tweetData);
-	}, [tweetData]);
-
 	const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
-		setTweetData((prev) => {
-			if (!prev) return prev;
-			return {
-				...prev,
-				HasLiked: !prev.hasLiked,
-				LikesCount: prev.hasLiked
-					? prev.likesCount - 1
-					: prev.likesCount + 1,
-			};
+		updateTweet(tweet, {
+			hasLiked: !tweet.hasLiked,
+			likesCount: tweet.hasLiked
+				? tweet.likesCount - 1
+				: tweet.likesCount + 1,
 		});
 	};
 
 	const handleRetweet = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
-		console.log("handleRetweet");
-		setTweetData((prev) => {
-			if (!prev) return prev;
-			return {
-				...prev,
-				HasRetweeted: !prev.hasRetweeted,
-				RetweetsCount: prev.hasRetweeted
-					? prev.retweetsCount - 1
-					: prev.retweetsCount + 1,
-			};
+		updateTweet(tweet, {
+			hasRetweeted: !tweet.hasRetweeted,
+			retweetsCount: tweet.hasRetweeted
+				? tweet.retweetsCount - 1
+				: tweet.retweetsCount + 1,
 		});
 	};
 
 	const handleUserNameClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
-		router.push(`/${tweetData.userInfo.userId}`);
+		router.push(`/${tweet.userInfo.userId}`);
 	};
 
 	return (
-		<Link href={`/tweets/${tweetData.tweetId}`} className="w-full">
+		<Link href={`/tweets/${tweet.tweetId}`} className="w-full">
 			<div
 				ref={componentRef}
 				className="flex items-start space-x-2 hover:bg-gray-100 p-4"
 			>
 				<div className="relative">
 					<UserAvatar
-						userId={tweetData.userInfo.userId}
-						src={profileImage}
-						alt={tweetData.userInfo?.userName}
+						userId={tweet.userInfo.userId}
+						src={tweet.userInfo.profileImageUrl}
+						alt={tweet.userInfo?.userName}
 					/>
 					{showThreadLine && (
 						<div
@@ -109,28 +95,25 @@ export default function TweetItem({
 								className="font-semibold hover:underline cursor-pointer"
 								onClick={handleUserNameClick}
 							>
-								{tweetData.userInfo.userName}
+								{tweet.userInfo.userName}
 							</span>
-							{tweetData.userInfo.isPrivate && (
+							{tweet.userInfo.isPrivate && (
 								<Lock
 									className="w-4 h-4 text-gray-500"
 									aria-label="非公開アカウント"
 								/>
 							)}
-							{tweetData.userInfo.isAdmin && (
+							{tweet.userInfo.isAdmin && (
 								<Shield
 									className="w-4 h-4 text-blue-500"
 									aria-label="管理者"
 								/>
 							)}
 							<span className="text-gray-500">
-								@
-								{tweetData.userInfo.userId +
-									"・" +
-									relativeTime}
+								@{tweet.userInfo.userId + "・" + relativeTime}
 							</span>
 						</div>
-						{tweetData.isPinned && (
+						{tweet.isPinned && (
 							<Badge
 								variant="outline"
 								className="flex items-center"
@@ -141,26 +124,25 @@ export default function TweetItem({
 						)}
 					</div>
 					<div className="mt-2">
-						{tweetData.content && (
-							<HashtagHighlighter text={tweetData.content} />
+						{tweet.content && (
+							<HashtagHighlighter text={tweet.content} />
 						)}
-						{tweetData.code && (
+						{tweet.code && (
 							<CodeEditor
-								value={tweetData.code}
+								value={tweet.code}
 								language="c"
 								readOnly={true}
 							/>
 						)}
-						{tweetData.media &&
-							tweetData.media.type === "image" && (
-								<Image
-									src={tweetData.media.url}
-									alt="ツイートの画像"
-									width={500}
-									height={300}
-									className="rounded-md mt-2 object-cover"
-								/>
-							)}
+						{tweet.media && tweet.media.type === "image" && (
+							<Image
+								src={tweet.media.url}
+								alt="ツイートの画像"
+								width={500}
+								height={300}
+								className="rounded-md mt-2 object-cover"
+							/>
+						)}
 					</div>
 					<div className="flex justify-between text-gray-500 mt-4">
 						<ButtonWithTooltip
@@ -169,7 +151,7 @@ export default function TweetItem({
 							content={
 								<>
 									<MessageCircle className="w-4 h-4" />
-									<span>{tweetData.repliesCount}</span>
+									<span>{tweet.repliesCount}</span>
 								</>
 							}
 							buttonClassName="flex items-center space-x-2 hover:bg-sky-100 hover:text-sky-500"
@@ -181,12 +163,12 @@ export default function TweetItem({
 								return (
 									<>
 										<Repeat className="w-4 h-4" />
-										<span>{tweetData.retweetsCount}</span>
+										<span>{tweet.retweetsCount}</span>
 									</>
 								);
-							}, [tweetData.retweetsCount])}
+							}, [tweet.retweetsCount])}
 							buttonClassName={`flex items-center space-x-2 hover:bg-green-100 hover:text-green-500 ${
-								tweetData.hasRetweeted ? "text-green-500" : ""
+								tweet.hasRetweeted ? "text-green-500" : ""
 							}`}
 						/>
 						<ButtonWithTooltip
@@ -197,29 +179,27 @@ export default function TweetItem({
 									<Heart
 										className="w-4 h-4"
 										fill={
-											tweetData.hasLiked
+											tweet.hasLiked
 												? "currentColor"
 												: "none"
 										}
 										stroke={
-											tweetData.hasLiked
+											tweet.hasLiked
 												? "none"
 												: "currentColor"
 										}
 									/>
-									<span>{tweetData.likesCount}</span>
+									<span>{tweet.likesCount}</span>
 								</>
 							}
 							buttonClassName={`flex items-center space-x-2 hover:bg-red-100 hover:text-red-500 ${
-								tweetData.hasLiked ? "text-red-500" : ""
+								tweet.hasLiked ? "text-red-500" : ""
 							}`}
 						/>
 						<div>
-							<p>{tweetData.content}</p>
-							<p>Likes: {tweetData.likesCount}</p>
-							<p>
-								Has Liked: {tweetData.hasLiked ? "Yes" : "No"}
-							</p>
+							<p>{tweet.content}</p>
+							<p>Likes: {tweet.likesCount}</p>
+							<p>Has Liked: {tweet.hasLiked ? "Yes" : "No"}</p>
 						</div>
 					</div>
 				</div>
