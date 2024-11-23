@@ -4,12 +4,17 @@ import MainLayout from "@/components/layouts/MainLayout";
 import NotificationItem from "./components/NotificationItem";
 import useNotifications from "@/hooks/useNotification";
 import Header from "@/components/common/Header";
+import LoadingScreen from "@/components/common/LoadingScreen";
 
 export default function NotificationPage() {
 	const { notifications, isLoading, error } = useNotifications();
 
 	if (isLoading) {
-		return <div>Loading...</div>;
+		return (
+			<MainLayout>
+				<LoadingScreen />
+			</MainLayout>
+		);
 	}
 
 	if (error) {

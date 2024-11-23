@@ -1,10 +1,10 @@
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import Link from "next/link";
 import { Notification } from "@/types/notification";
 import { NotificationIcon } from "./NotificationIcon";
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
 import RelatedTweetCard from "@/components/common/RelatedTweetCard";
 import { Lock, Shield } from "lucide-react";
+import UserAvatar from "@/components/common/UserAvatar";
 
 export default function NotificationItem({
 	notification,
@@ -52,17 +52,16 @@ export default function NotificationItem({
 			<NotificationIcon type={notification.type} />
 			<div className="flex-1 space-y-1">
 				<div className="flex items-center space-x-2">
-					<Avatar className="w-10 h-10">
-						<AvatarImage
-							src={notification.senderInfo?.profileImageUrl}
-							alt={notification.senderInfo?.userName}
+					{notification.senderInfo && (
+						<UserAvatar
+							userId={notification.senderInfo.userId}
+							src={notification.senderInfo.profileImageUrl}
+							alt={notification.senderInfo.userName}
+							size="w-10 h-10"
 						/>
-						<AvatarFallback>
-							{notification.senderInfo?.userName[0]}
-						</AvatarFallback>
-					</Avatar>
+					)}
 					<Link
-						href={`/profile/${notification.senderInfo?.userName}`}
+						href={`/${notification.senderInfo?.userName}`}
 						className="font-semibold hover:underline"
 					>
 						{notification.senderInfo?.userName}
