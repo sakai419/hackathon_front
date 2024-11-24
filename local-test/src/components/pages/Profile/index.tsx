@@ -6,6 +6,7 @@ import { useState } from "react";
 import useUserTweets from "@/hooks/useUserTweets";
 import TweetList from "@/components/common/TweetList";
 import { Button } from "@/components/ui/button";
+import LoadingScreen from "@/components/common/LoadingScreen";
 
 interface ProfilePageProps {
 	userId: string;
@@ -39,9 +40,9 @@ export default function ProfilePage({ userId }: ProfilePageProps) {
 
 	return (
 		<MainLayout>
+			{(isProfileLoading || isTweetsLoading) && <LoadingScreen />}
 			<div className="max-w-2xl mx-auto">
 				{profile && <UserHeader profile={profile} />}
-				{isProfileLoading && <div>Loading...</div>}
 				<DynamicTabs
 					tabs={tabs}
 					activeTab={activeTab}
@@ -55,9 +56,7 @@ export default function ProfilePage({ userId }: ProfilePageProps) {
 							className="w-full"
 							disabled={!hasMore}
 						>
-							{isTweetsLoading
-								? "Loading..."
-								: hasMore
+							{hasMore
 								? "もっと見る"
 								: "これ以上ツイートはありません"}
 						</Button>
@@ -66,7 +65,6 @@ export default function ProfilePage({ userId }: ProfilePageProps) {
 				{activeTab === "返信" && <div>返信</div>}
 				{activeTab === "リツイート" && <div>リツイート</div>}
 				{activeTab === "いいね" && <div>いいね</div>}
-				{isTweetsLoading && <div>Loading...</div>}
 			</div>
 		</MainLayout>
 	);

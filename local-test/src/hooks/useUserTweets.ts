@@ -24,16 +24,12 @@ export default function useUserTweets(userId: string) {
 			try {
 				const data = await getUserTweets(userId, page);
 				if (data) {
-					if (data.length === 0) {
+					const camelCaseData =
+						transformKeysToCamelCase<TweetNode[]>(data);
+					setDefaultImageOfTweetNodes(camelCaseData);
+					setTweets((prev) => [...prev, ...camelCaseData]);
+					if (camelCaseData.length < 10) {
 						setHasMore(false);
-					} else {
-						const camelCaseData =
-							transformKeysToCamelCase<TweetNode[]>(data);
-						setDefaultImageOfTweetNodes(camelCaseData);
-						setTweets((prev) => [...prev, ...camelCaseData]);
-						if (camelCaseData.length < 10) {
-							setHasMore(false);
-						}
 					}
 				}
 			} catch (error) {
