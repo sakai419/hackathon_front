@@ -1,5 +1,10 @@
 import { UserInfoWithoutBio } from "./userInfoWithoutBio";
 
+export type Code = {
+	language: string;
+	content: string;
+};
+
 export type MediaTypes = "image" | "video";
 
 export type Media = {
@@ -11,7 +16,7 @@ export type TweetInfo = {
 	tweetId: number;
 	userInfo: UserInfoWithoutBio;
 	content?: string;
-	code?: string;
+	code?: Code;
 	media?: Media;
 	likesCount: number;
 	retweetsCount: number;

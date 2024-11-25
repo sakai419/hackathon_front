@@ -129,8 +129,8 @@ export default function TweetItem({
 						)}
 						{tweet.code && (
 							<CodeEditor
-								value={tweet.code}
-								language="c"
+								value={tweet.code.content}
+								language={tweet.code.language}
 								readOnly={true}
 							/>
 						)}

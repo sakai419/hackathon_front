@@ -1,26 +1,18 @@
+import { Code, Media } from "@/types/tweetInfo";
 import { TWEET_ENDPOINT } from "../apiConfig";
 import { sendRequestWithRetry } from "../requests";
 
 interface PostTweetRequest {
 	content: string;
-	code: string;
-	mediaUrl?: string;
+	code?: Code;
+	media?: Media;
 }
 
 export default async function postTweet({
 	content,
 	code,
-	mediaUrl,
+	media,
 }: PostTweetRequest) {
-	let media = null;
-
-	if (mediaUrl) {
-		media = {
-			url: mediaUrl,
-			type: "image",
-		};
-	}
-
 	try {
 		const response = await sendRequestWithRetry({
 			url: `${TWEET_ENDPOINT}`,

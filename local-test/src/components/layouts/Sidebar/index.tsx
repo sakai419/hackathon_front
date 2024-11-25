@@ -6,7 +6,7 @@ import TweetDialog from "@/components/common/TweetDialog";
 import SidebarContent from "./components/SidebarContent";
 import TweetButton from "./components/TweetButton";
 import UserInfo from "./components/UserInfo";
-import { Media } from "@/types/tweetInfo";
+import { Code, Media } from "@/types/tweetInfo";
 import postTweet from "@/services/api/tweets/postTweet";
 
 export default function Sidebar() {
@@ -17,12 +17,12 @@ export default function Sidebar() {
 	const handleOpenDialog = () => setIsDialogOpen(true);
 	const handleCloseDialog = () => setIsDialogOpen(false);
 
-	const handleTweet = async (content: string, media?: Media) => {
+	const handleTweet = async (content: string, code?: Code, media?: Media) => {
 		try {
 			await postTweet({
 				content,
-				code: "",
-				mediaUrl: media?.url,
+				code,
+				media,
 			});
 			handleCloseDialog();
 		} catch (error) {
