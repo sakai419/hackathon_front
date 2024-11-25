@@ -1,5 +1,4 @@
 import formatYearMonth from "@/lib/utils/formatYearMonth";
-import ProfileHeader from "./ProfileHeader";
 import BannerAndAvatar from "./BannerAndAvatar";
 import ProfileInfo from "./ProfileInfo";
 import { Profile } from "@/types/profile";
@@ -13,10 +12,6 @@ export default function UserHeader({ profile }: UserProfileProps) {
 
 	return (
 		<div className="relative">
-			<ProfileHeader
-				userId={profile.userInfo.userId}
-				tweetCount={profile.tweetCount}
-			/>
 			<BannerAndAvatar
 				userId={profile.userInfo.userId}
 				userName={profile.userInfo.userName}

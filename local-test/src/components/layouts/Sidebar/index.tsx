@@ -11,7 +11,7 @@ import postTweet from "@/services/api/tweets/postTweet";
 
 export default function Sidebar() {
 	const [isOpen, setIsOpen] = useState(false);
-	const { sidebarInfo, loading, error } = useSidebarInfo();
+	const { sidebarInfo, isLoading, error } = useSidebarInfo();
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 	const handleOpenDialog = () => setIsDialogOpen(true);
@@ -31,7 +31,7 @@ export default function Sidebar() {
 		}
 	};
 
-	if (loading) {
+	if (isLoading) {
 		return <div>Loading...</div>;
 	}
 
@@ -40,7 +40,7 @@ export default function Sidebar() {
 	}
 
 	return (
-		<>
+		<div className="z-50">
 			<Button
 				variant="outline"
 				size="icon"
@@ -86,6 +86,6 @@ export default function Sidebar() {
 					</div>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 }

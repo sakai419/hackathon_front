@@ -7,6 +7,7 @@ import useUserTweets from "@/hooks/useUserTweets";
 import TweetList from "@/components/common/TweetList";
 import { Button } from "@/components/ui/button";
 import LoadingScreen from "@/components/common/LoadingScreen";
+import ProfileHeader from "./components/ProfileHeader";
 
 interface ProfilePageProps {
 	userId: string;
@@ -39,7 +40,16 @@ export default function ProfilePage({ userId }: ProfilePageProps) {
 	}
 
 	return (
-		<MainLayout>
+		<MainLayout
+			header={
+				profile && (
+					<ProfileHeader
+						userId={profile.userInfo.userId}
+						tweetCount={profile.tweetCount}
+					></ProfileHeader>
+				)
+			}
+		>
 			{(isProfileLoading || isTweetsLoading) && <LoadingScreen />}
 			<div className="max-w-2xl mx-auto">
 				{profile && <UserHeader profile={profile} />}
