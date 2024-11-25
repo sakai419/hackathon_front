@@ -12,15 +12,19 @@ import UserAvatar from "../UserAvatar";
 import { useState, useRef, useEffect } from "react";
 import { UserInfoWithoutBio } from "@/types/userInfoWithoutBio";
 import { uploadFile } from "@/services/upload/upload";
-import { Code, Media, MediaTypes } from "@/types/tweetInfo";
+import { Code, Media, MediaTypes, TweetInfo } from "@/types/tweetInfo";
 import ButtonWithTooltip from "../ButtonWithTooltip";
 import CodeEditor from "../CodeEditor";
+import RelatedTweetCard from "../RelatedTweetCard";
+import TweetItem from "../TweetItem";
 
 interface TweetDialogProps {
 	isOpen: boolean;
 	onClose: () => void;
 	onTweet: (content: string, code?: Code, media?: Media) => Promise<void>;
 	userInfo?: UserInfoWithoutBio;
+	relatedTweet?: TweetInfo;
+	tweetType?: "tweet" | "reply" | "quote";
 }
 
 export default function TweetDialog({
@@ -28,6 +32,8 @@ export default function TweetDialog({
 	onClose,
 	onTweet,
 	userInfo,
+	relatedTweet,
+	tweetType = "tweet",
 }: TweetDialogProps) {
 	const [content, setContent] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
@@ -150,6 +156,14 @@ export default function TweetDialog({
 						ツイートを作成
 					</DialogTitle>
 				</DialogHeader>
+				{tweetType === "reply" && relatedTweet && (
+					<TweetItem
+						tweet={relatedTweet}
+						showThreadLine={true}
+						updateTweet={() => {}}
+						readOnly={true}
+					/>
+				)}
 				<div className="flex space-x-4">
 					<UserAvatar
 						withLink={false}
@@ -183,6 +197,9 @@ export default function TweetDialog({
 									<X className="h-4 w-4 text-white" />
 								</Button>
 							</div>
+						)}
+						{tweetType === "quote" && relatedTweet && (
+							<RelatedTweetCard tweet={relatedTweet} />
 						)}
 					</div>
 				</div>
