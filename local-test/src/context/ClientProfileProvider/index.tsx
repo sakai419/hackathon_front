@@ -1,16 +1,11 @@
+"use client";
+
 import useClientProfile from "@/hooks/useClientProfile";
 import { Profile } from "@/types/profile";
-import React, {
-	createContext,
-	useContext,
-	useState,
-	ReactNode,
-	useEffect,
-} from "react";
+import React, { createContext, useContext, ReactNode } from "react";
 
 interface ClientProfileContextType {
 	clientProfile: Profile | null;
-	setClientProfile: React.Dispatch<React.SetStateAction<Profile | null>>;
 	isLoading: boolean;
 	error: string | null;
 }
@@ -24,20 +19,12 @@ export const ClientProfileProvider = ({
 }: {
 	children: ReactNode;
 }) => {
-	const [clientProfile, setClientProfile] = useState<Profile | null>(null);
-	const { profile, isLoading, error } = useClientProfile();
-
-	useEffect(() => {
-		if (profile) {
-			setClientProfile(profile);
-		}
-	}, [profile]);
+	const { profile: clientProfile, isLoading, error } = useClientProfile();
 
 	return (
 		<ClientProfileContext.Provider
 			value={{
 				clientProfile,
-				setClientProfile,
 				isLoading,
 				error,
 			}}

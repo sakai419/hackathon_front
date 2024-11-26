@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthProvider";
 import Sidebar from "@/components/layouts/Sidebar";
+import { ClientProfileProvider } from "@/context/ClientProfileProvider";
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
@@ -31,8 +32,10 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
 				<AuthProvider>
-					<Sidebar />
-					{children}
+					<ClientProfileProvider>
+						<Sidebar />
+						{children}
+					</ClientProfileProvider>
 				</AuthProvider>
 			</body>
 		</html>
