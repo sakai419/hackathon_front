@@ -1,5 +1,4 @@
 import DynamicTabs from "@/components/common/DynamicTab";
-import MainLayout from "@/components/layouts/MainLayout";
 import useProfile from "@/hooks/useProfile";
 import UserHeader from "./components/UserHeader";
 import { useEffect, useState } from "react";
@@ -7,13 +6,47 @@ import useUserTweets from "@/hooks/useUserTweets";
 import TweetList from "@/components/common/TweetList";
 import { Button } from "@/components/ui/button";
 import LoadingScreen from "@/components/common/LoadingScreen";
-import ProfileHeader from "./components/ProfileHeader";
+import { Lock } from "lucide-react";
+import Header from "@/components/common/Header";
+
+interface ProfileHeaderProps {
+	userId: string;
+}
 
 interface ProfilePageProps {
 	userId: string;
 }
 
-export default function ProfilePage({ userId }: ProfilePageProps) {
+export function ProfileHeader({ userId }: ProfileHeaderProps) {
+	const { profile, isLoading, error } = useProfile(userId);
+	if (isLoading) {
+		return <LoadingScreen />;
+	}
+
+	if (error) {
+		return <div>エラーが発生しました</div>;
+	}
+
+	return (
+		<Header
+			title={
+				<div className="flex flex-col">
+					<div className="flex items-center gap-1">
+						<span className="font-bold">{userId}</span>
+						{profile?.userInfo.isPrivate && (
+							<Lock className="w-4 h-4 text-primary" />
+						)}
+					</div>
+					<span className="text-sm text-muted-foreground">
+						{profile?.tweetCount}件のポスト
+					</span>
+				</div>
+			}
+		/>
+	);
+}
+
+export function ProfilePage({ userId }: ProfilePageProps) {
 	const tabs = [
 		{ Name: "ツイート", Url: `/profile/${userId}/tweets` },
 		{ Name: "返信", Url: `/profile/${userId}/replies` },
@@ -44,16 +77,7 @@ export default function ProfilePage({ userId }: ProfilePageProps) {
 	}
 
 	return (
-		<MainLayout
-			header={
-				profile && (
-					<ProfileHeader
-						userId={profile.userInfo.userId}
-						tweetCount={profile.tweetCount}
-					></ProfileHeader>
-				)
-			}
-		>
+		<>
 			{(isProfileLoading || isTweetsLoading) && <LoadingScreen />}
 			<div className="max-w-2xl mx-auto">
 				{profile && <UserHeader profile={profile} />}
@@ -80,6 +104,6 @@ export default function ProfilePage({ userId }: ProfilePageProps) {
 				{activeTab === "リツイート" && <div>リツイート</div>}
 				{activeTab === "いいね" && <div>いいね</div>}
 			</div>
-		</MainLayout>
+		</>
 	);
 }

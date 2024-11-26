@@ -1,26 +1,23 @@
 import { Button } from "@/components/ui/button";
-import MainLayout from "@/components/layouts/MainLayout";
 import NotificationItem from "./components/NotificationItem";
 import useNotifications from "@/hooks/useNotification";
 import Header from "@/components/common/Header";
 import LoadingScreen from "@/components/common/LoadingScreen";
+import { useEffect } from "react";
 
-export default function NotificationPage() {
+export function NotificationHeader() {
+	return <Header title={<h1 className="text-xl font-semibold">通知</h1>} />;
+}
+
+export function NotificationPage() {
 	const { notifications, isLoading, hasMore, loadMore, error } =
 		useNotifications();
 
+	useEffect(() => {
+		console.log("NotificationPage rendered", notifications);
+	}, [notifications]);
 	if (isLoading) {
-		return (
-			<MainLayout
-				header={
-					<Header
-						title={<h1 className="text-xl font-semibold">通知</h1>}
-					/>
-				}
-			>
-				<LoadingScreen />
-			</MainLayout>
-		);
+		return <LoadingScreen />;
 	}
 
 	if (error) {
@@ -28,33 +25,17 @@ export default function NotificationPage() {
 	}
 
 	return (
-		<MainLayout
-			header={
-				<Header
-					title={<h1 className="text-xl font-semibold">通知</h1>}
-				/>
-			}
-		>
-			{isLoading ? (
-				<LoadingScreen />
-			) : (
-				<div className="max-w-2xl mx-auto">
-					{notifications &&
-						notifications.map((notification) => (
-							<NotificationItem
-								key={notification.id}
-								notification={notification}
-							/>
-						))}
-					<Button
-						onClick={loadMore}
-						className="w-full"
-						disabled={!hasMore}
-					>
-						{hasMore ? "もっと見る" : "これ以上通知はありません"}
-					</Button>
-				</div>
-			)}
-		</MainLayout>
+		<div className="max-w-2xl mx-auto">
+			{notifications &&
+				notifications.map((notification) => (
+					<NotificationItem
+						key={notification.id}
+						notification={notification}
+					/>
+				))}
+			<Button onClick={loadMore} className="w-full" disabled={!hasMore}>
+				{hasMore ? "もっと見る" : "これ以上通知はありません"}
+			</Button>
+		</div>
 	);
 }

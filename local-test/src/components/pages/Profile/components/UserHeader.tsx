@@ -26,6 +26,7 @@ export default function UserHeader({ profile }: UserProfileProps) {
 				followerCount={profile.followerCount}
 				bio={profile.userInfo.bio}
 				date={Date}
+				isPrivate={profile.userInfo.isPrivate}
 			/>
 		</div>
 	);

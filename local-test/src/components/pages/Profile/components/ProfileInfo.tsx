@@ -7,6 +7,7 @@ interface ProfileInfoProps {
 	followerCount: number;
 	bio: string;
 	date: string;
+	isPrivate: boolean;
 }
 
 export default function ProfileInfo({
@@ -16,13 +17,14 @@ export default function ProfileInfo({
 	followerCount,
 	bio,
 	date,
+	isPrivate,
 }: ProfileInfoProps) {
 	return (
 		<div className="mt-14 px-4 space-y-3">
 			<div>
 				<div className="flex items-center gap-1">
 					<span className="text-xl font-bold">{userName}</span>
-					<Lock className="h-4 w-4" />
+					{isPrivate && <Lock className="w-4 h-4 text-primary" />}
 				</div>
 				<div className="text-muted-foreground">@{userId}</div>
 			</div>
