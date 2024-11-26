@@ -1,5 +1,5 @@
 import DynamicTabs from "@/components/common/DynamicTab";
-import useProfile from "@/hooks/useProfile";
+import useUserProfile from "@/hooks/useUserProfile";
 import UserHeader from "./components/UserHeader";
 import { useEffect, useState } from "react";
 import useUserTweets from "@/hooks/useUserTweets";
@@ -18,7 +18,7 @@ interface ProfilePageProps {
 }
 
 export function ProfileHeader({ userId }: ProfileHeaderProps) {
-	const { profile, isLoading, error } = useProfile(userId);
+	const { profile, isLoading, error } = useUserProfile(userId);
 	if (isLoading) {
 		return <LoadingScreen />;
 	}
@@ -59,7 +59,7 @@ export function ProfilePage({ userId }: ProfilePageProps) {
 		profile,
 		isLoading: isProfileLoading,
 		error: profileError,
-	} = useProfile(userId);
+	} = useUserProfile(userId);
 	const {
 		tweets,
 		isLoading: isTweetsLoading,

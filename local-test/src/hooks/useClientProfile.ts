@@ -1,35 +1,32 @@
-import { setDefaultImageOfProfile } from "@/lib/utils/setDefaultImage";
 import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
-import getUserProfile from "@/services/api/users/getUserProfile";
+import getClientProfile from "@/services/api/users/getClientProfile";
 import { Profile } from "@/types/profile";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function useProfile(userId: string) {
+export default function useClientProfile() {
 	const [profile, setProfile] = useState<Profile | null>(null);
-	const [isLoading, setisLoading] = useState<boolean>(true);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		const fetchProfileData = async () => {
 			try {
-				setisLoading(true);
-				const data = await getUserProfile(userId);
+				const data = await getClientProfile();
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<Profile>(data);
-					setDefaultImageOfProfile(camelCaseData);
 					setProfile(camelCaseData);
 				}
 			} catch (error) {
 				console.error(error);
-				setError("ユーザーデータの取得に失敗しました");
+				setError("Failed to fetch client profile");
 			} finally {
-				setisLoading(false);
+				setIsLoading(false);
 			}
 		};
 
 		fetchProfileData();
-	}, [userId]);
+	});
 
 	return { profile, isLoading, error };
 }
