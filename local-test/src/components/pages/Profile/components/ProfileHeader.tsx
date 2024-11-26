@@ -1,10 +1,10 @@
 import Header from "@/components/common/Header";
 import { Lock } from "lucide-react";
 
-type ProfileHeaderProps = {
+interface ProfileHeaderProps {
 	userId: string;
 	tweetCount: number;
-};
+}
 
 export default function ProfileHeader({
 	userId,

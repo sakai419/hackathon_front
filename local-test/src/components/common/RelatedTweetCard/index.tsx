@@ -3,9 +3,9 @@ import { TweetInfo } from "@/types/tweetInfo";
 import TweetItem from "../TweetItem";
 import { useState } from "react";
 
-type RelatedTweetCardProps = {
+interface RelatedTweetCardProps {
 	tweet: TweetInfo;
-};
+}
 
 export default function RelatedTweetCard({ tweet }: RelatedTweetCardProps) {
 	const [tweetInfo, setTweetInfo] = useState<TweetInfo>(tweet);

@@ -14,12 +14,12 @@ import TweetDialog from "../TweetDialog";
 import { useClientProfileContext } from "@/context/ClientProfileProvider";
 import postReply from "@/services/api/tweets/postReply";
 
-type TweetItemProps = {
+interface TweetItemProps {
 	tweet: TweetInfo;
 	showThreadLine?: boolean;
 	updateTweet: (tweet: TweetInfo, updateFields: Partial<TweetInfo>) => void;
 	readOnly?: boolean;
-};
+}
 
 export default function TweetItem({
 	tweet,

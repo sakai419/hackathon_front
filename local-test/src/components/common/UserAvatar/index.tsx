@@ -1,13 +1,13 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
 
-type UserAvatarProps = {
+interface UserAvatarProps {
 	withLink?: boolean;
 	userId: string;
 	src: string;
 	alt: string;
 	size?: string;
-};
+}
 
 export default function UserAvatar({
 	withLink = true,
