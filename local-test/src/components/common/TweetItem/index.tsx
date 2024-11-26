@@ -11,6 +11,7 @@ import HashtagHighlighter from "../HashTagHighlighter";
 import CodeEditor from "../CodeEditor";
 import ButtonWithTooltip from "../ButtonWithTooltip";
 import TweetDialog from "../TweetDialog";
+import { useClientProfileContext } from "@/context/ClientProfileProvider";
 
 type TweetItemProps = {
 	tweet: TweetInfo;
@@ -31,6 +32,8 @@ export default function TweetItem({
 	const componentRef = useRef<HTMLDivElement>(null);
 	const [threadLineHeight, setThreadLineHeight] = useState(0);
 	const [isOpen, setIsOpen] = useState(false);
+
+	const clientProfile = useClientProfileContext().profile;
 
 	useEffect(() => {
 		if (showThreadLine && componentRef.current) {
@@ -172,6 +175,7 @@ export default function TweetItem({
 							) => {
 								console.log(content, code, media);
 							}}
+							userInfo={clientProfile?.userInfo}
 						/>
 						<ButtonWithTooltip
 							description="リツイート"
