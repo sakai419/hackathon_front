@@ -31,7 +31,6 @@ export default function Sidebar() {
 			});
 			handleCloseDialog();
 		} catch (error) {
-			console.log("Failed to post tweet:", error);
 			throw error;
 		}
 	};
@@ -89,6 +88,7 @@ export default function Sidebar() {
 							<UserInfo user={clientProfile?.userInfo} />
 						)}
 					</div>
+					{error && <div>{error}</div>}
 				</div>
 			</div>
 		</div>

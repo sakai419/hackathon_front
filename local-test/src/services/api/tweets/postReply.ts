@@ -2,20 +2,22 @@ import { Code, Media } from "@/types/tweetInfo";
 import { TWEET_ENDPOINT } from "../apiConfig";
 import { sendRequestWithRetry } from "../requests";
 
-interface PostTweetRequest {
+interface PostReplyRequest {
+	tweetId: number;
 	content?: string;
 	code?: Code;
 	media?: Media;
 }
 
-export default async function postTweet({
+export default async function postReply({
+	tweetId,
 	content,
 	code,
 	media,
-}: PostTweetRequest) {
+}: PostReplyRequest) {
 	try {
 		const response = await sendRequestWithRetry({
-			url: `${TWEET_ENDPOINT}`,
+			url: `${TWEET_ENDPOINT}/${tweetId}/reply`,
 			method: "POST",
 			data: JSON.stringify({
 				content,
@@ -25,7 +27,7 @@ export default async function postTweet({
 		});
 		return response.data;
 	} catch (error) {
-		console.log("Failed to post tweet:", error);
+		console.log("Failed to post reply:", error);
 		throw error;
 	}
 }

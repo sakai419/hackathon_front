@@ -12,6 +12,7 @@ import CodeEditor from "../CodeEditor";
 import ButtonWithTooltip from "../ButtonWithTooltip";
 import TweetDialog from "../TweetDialog";
 import { useClientProfileContext } from "@/context/ClientProfileProvider";
+import postReply from "@/services/api/tweets/postReply";
 
 type TweetItemProps = {
 	tweet: TweetInfo;
@@ -42,13 +43,27 @@ export default function TweetItem({
 		}
 	}, [showThreadLine]);
 
-	const handleReply = (e: React.MouseEvent<HTMLButtonElement>) => {
+	const handleReplyClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
 		setIsOpen(true);
 	};
 
-	const handleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
+	const handleReply = async (content: string, code?: Code, media?: Media) => {
+		try {
+			await postReply({
+				tweetId: tweet.tweetId,
+				content,
+				code,
+				media,
+			});
+			setIsOpen(false);
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const handleLikeClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
 		updateTweet(tweet, {
@@ -59,7 +74,7 @@ export default function TweetItem({
 		});
 	};
 
-	const handleRetweet = (e: React.MouseEvent<HTMLButtonElement>) => {
+	const handleRetweetClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
 		updateTweet(tweet, {
@@ -154,7 +169,7 @@ export default function TweetItem({
 					<div className="flex justify-between text-gray-500 mt-4">
 						<ButtonWithTooltip
 							description="返信"
-							onClick={handleReply}
+							onClick={handleReplyClick}
 							content={
 								<>
 									<MessageCircle className="w-4 h-4" />
@@ -163,23 +178,9 @@ export default function TweetItem({
 							}
 							buttonClassName="flex items-center space-x-2 hover:bg-sky-100 hover:text-sky-500"
 						/>
-						<TweetDialog
-							tweetType="reply"
-							relatedTweet={tweet}
-							isOpen={isOpen}
-							onClose={() => setIsOpen(false)}
-							onTweet={async (
-								content: string,
-								code?: Code,
-								media?: Media
-							) => {
-								console.log(content, code, media);
-							}}
-							userInfo={clientProfile?.userInfo}
-						/>
 						<ButtonWithTooltip
 							description="リツイート"
-							onClick={handleRetweet}
+							onClick={handleRetweetClick}
 							content={
 								<>
 									<Repeat className="w-4 h-4" />
@@ -192,7 +193,7 @@ export default function TweetItem({
 						/>
 						<ButtonWithTooltip
 							description="いいね"
-							onClick={handleLike}
+							onClick={handleLikeClick}
 							content={
 								<>
 									<Heart
@@ -226,8 +227,18 @@ export default function TweetItem({
 	}
 
 	return (
-		<Link href={`/tweets/${tweet.tweetId}`} className="w-full">
-			{content}
-		</Link>
+		<>
+			<Link href={`/tweets/${tweet.tweetId}`} className="w-full">
+				{content}
+			</Link>
+			<TweetDialog
+				tweetType="reply"
+				relatedTweet={tweet}
+				isOpen={isOpen}
+				onClose={() => setIsOpen(false)}
+				onTweet={handleReply}
+				userInfo={clientProfile?.userInfo}
+			/>
+		</>
 	);
 }
