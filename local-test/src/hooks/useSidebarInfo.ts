@@ -1,4 +1,3 @@
-import { setDefaultImageOfSidebarInfo } from "@/lib/utils/setDefaultImage";
 import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
 import getSidebarInfo from "@/services/api/sidebar/getSidebarInfo";
 import { SidebarInfo } from "@/types/sidebar";
@@ -14,10 +13,10 @@ export function useSidebarInfo() {
 			try {
 				setIsLoading(true);
 				const data = await getSidebarInfo();
+				console.log(data);
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<SidebarInfo>(data);
-					setDefaultImageOfSidebarInfo(camelCaseData);
 					setSidebarInfo(camelCaseData);
 				}
 			} catch (error) {
