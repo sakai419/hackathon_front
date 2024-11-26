@@ -16,7 +16,7 @@ import { Code, Media, MediaTypes, TweetInfo } from "@/types/tweetInfo";
 import ButtonWithTooltip from "../ButtonWithTooltip";
 import CodeEditor from "../CodeEditor";
 import RelatedTweetCard from "../RelatedTweetCard";
-import TweetItem from "../TweetItem";
+import TweetContent from "../TweetContent";
 
 interface TweetDialogProps {
 	isOpen: boolean;
@@ -46,6 +46,8 @@ export default function TweetDialog({
 	const [mediaType, setMediaType] = useState<MediaTypes | null>(null);
 	const [mediaPreview, setMediaPreview] = useState<string | null>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
+	const componentRef = useRef<HTMLDivElement>(null);
+	const [threadLineHeight, setThreadLineHeight] = useState(0);
 
 	const handleMediaClick = () => {
 		fileInputRef.current?.click();
@@ -54,6 +56,15 @@ export default function TweetDialog({
 	const handleEditorClick = () => {
 		setIsEditorOpen(!isEditorOpen);
 	};
+
+	useEffect(() => {
+		if (isOpen) {
+			if (componentRef.current) {
+				const height = componentRef.current.clientHeight;
+				setThreadLineHeight(height);
+			}
+		}
+	}, [isOpen]);
 
 	const handleMediaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
@@ -154,14 +165,16 @@ export default function TweetDialog({
 				</DialogHeader>
 				<div className="flex-grow">
 					{tweetType === "reply" && relatedTweet && (
-						<TweetItem
-							tweet={relatedTweet}
-							showThreadLine={true}
-							updateTweet={() => {}}
-							readOnly={true}
-						/>
+						<div ref={componentRef}>
+							<TweetContent
+								tweet={relatedTweet}
+								withLink={false}
+								showThreadLine={true}
+								threadLineHeight={threadLineHeight}
+							/>
+						</div>
 					)}
-					<div className="flex space-x-4">
+					<div className="flex items-start space-x-2 p-3">
 						<UserAvatar
 							withLink={false}
 							userId={userInfo?.userId || ""}

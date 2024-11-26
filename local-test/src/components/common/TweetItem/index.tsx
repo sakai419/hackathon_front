@@ -46,6 +46,7 @@ export default function TweetItem({
 	const handleReplyClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
+		if (!clientProfile) return;
 		setIsOpen(true);
 	};
 
