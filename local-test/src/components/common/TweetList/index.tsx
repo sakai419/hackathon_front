@@ -28,11 +28,12 @@ export default function TweetList({ tweets }: { tweets: TweetNode[] }) {
 			});
 		});
 	};
+
 	return (
 		<div className="divide-y divide-gray-200">
 			{tweetNodes.map((tweet, index) => (
 				<div key={index} className="flex-col p-4">
-					{tweet.originalTweet && (
+					{tweet.tweet.isReply && tweet.originalTweet && (
 						<TweetItem
 							tweet={tweet.originalTweet}
 							updateTweet={updateTweet}

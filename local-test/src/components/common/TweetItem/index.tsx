@@ -144,24 +144,26 @@ export default function TweetItem({
 						</Badge>
 					)}
 				</div>
-				<div className="mt-2">
+				<div className="mt-2 space-y-4">
 					{tweet.content && (
 						<HashtagHighlighter text={tweet.content} />
 					)}
+
+					{tweet.media && tweet.media.type === "image" && (
+						<Image
+							src={tweet.media.url}
+							alt="ツイートの画像"
+							width={600}
+							height={300}
+							className="rounded-md mt-2 object-cover"
+						/>
+					)}
+
 					{tweet.code && (
 						<CodeEditor
 							value={tweet.code.content}
 							language={tweet.code.language}
 							readOnly={true}
-						/>
-					)}
-					{tweet.media && tweet.media.type === "image" && (
-						<Image
-							src={tweet.media.url}
-							alt="ツイートの画像"
-							width={500}
-							height={300}
-							className="rounded-md mt-2 object-cover"
 						/>
 					)}
 				</div>

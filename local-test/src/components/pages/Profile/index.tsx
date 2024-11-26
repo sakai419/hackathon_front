@@ -69,7 +69,7 @@ export function ProfilePage({ userId }: ProfilePageProps) {
 	} = useUserTweets(userId);
 
 	useEffect(() => {
-		console.log("rendered");
+		console.log();
 	}, []);
 
 	if (profileError || tweetsError) {

@@ -1,6 +1,5 @@
 import { Notification } from "@/types/notification";
 import { Profile } from "@/types/profile";
-import { SidebarInfo } from "@/types/sidebar";
 import { TweetNode } from "@/types/tweetInfo";
 
 export function setDefaultImageOfTweetNodes(tweets: TweetNode[]) {
@@ -29,13 +28,6 @@ export function setDefaultImageOfProfile(profile: Profile) {
 		profile.userInfo.profileImageUrl = "/images/default_image.png";
 	}
 	return profile;
-}
-
-export function setDefaultImageOfSidebarInfo(sidebarInfo: SidebarInfo) {
-	if (!sidebarInfo.userInfo.profileImageUrl) {
-		sidebarInfo.userInfo.profileImageUrl = "/images/default_image.png";
-	}
-	return sidebarInfo;
 }
 
 export function setDefaultImageOfNotifications(notifications: Notification[]) {
