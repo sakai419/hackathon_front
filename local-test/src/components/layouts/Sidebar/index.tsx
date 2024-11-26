@@ -10,11 +10,14 @@ import TweetButton from "./components/TweetButton";
 import UserInfo from "./components/UserInfo";
 import { Code, Media } from "@/types/tweetInfo";
 import postTweet from "@/services/api/tweets/postTweet";
+import { useClientProfileContext } from "@/context/ClientProfileProvider";
 
 export default function Sidebar() {
 	const [isOpen, setIsOpen] = useState(false);
 	const { sidebarInfo, isLoading, error } = useSidebarInfo();
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+	const clientProfile = useClientProfileContext().profile;
 
 	const handleOpenDialog = () => setIsDialogOpen(true);
 	const handleCloseDialog = () => setIsDialogOpen(false);
@@ -69,7 +72,7 @@ export default function Sidebar() {
 						unreadNotificationCount={
 							sidebarInfo?.unreadNotificationCount
 						}
-						userId={sidebarInfo?.userInfo.userId}
+						userId={clientProfile?.userInfo.userId}
 					/>
 					<TweetButton
 						onClick={handleOpenDialog}
@@ -79,11 +82,11 @@ export default function Sidebar() {
 						isOpen={isDialogOpen}
 						onClose={handleCloseDialog}
 						onTweet={handleTweet}
-						userInfo={sidebarInfo?.userInfo}
+						userInfo={clientProfile?.userInfo}
 					/>
 					<div className="mt-auto">
-						{sidebarInfo && (
-							<UserInfo user={sidebarInfo?.userInfo} />
+						{clientProfile && (
+							<UserInfo user={clientProfile?.userInfo} />
 						)}
 					</div>
 				</div>

@@ -5,7 +5,7 @@ import { Profile } from "@/types/profile";
 import React, { createContext, useContext, ReactNode } from "react";
 
 interface ClientProfileContextType {
-	clientProfile: Profile | null;
+	profile: Profile | null;
 	isLoading: boolean;
 	error: string | null;
 }
@@ -19,12 +19,12 @@ export const ClientProfileProvider = ({
 }: {
 	children: ReactNode;
 }) => {
-	const { profile: clientProfile, isLoading, error } = useClientProfile();
+	const { profile, isLoading, error } = useClientProfile();
 
 	return (
 		<ClientProfileContext.Provider
 			value={{
-				clientProfile,
+				profile,
 				isLoading,
 				error,
 			}}
