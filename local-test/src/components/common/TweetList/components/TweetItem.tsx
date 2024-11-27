@@ -2,20 +2,24 @@ import { TweetInfo } from "@/types/tweetInfo";
 import { useState, useRef, useEffect } from "react";
 import TweetContent from "../../TweetContent";
 import TweetActions from "../../TweetActions";
+import { useRouter } from "next/navigation";
 
 interface TweetItemProps {
 	tweet: TweetInfo;
 	updateTweet: (tweet: TweetInfo, updateFields: Partial<TweetInfo>) => void;
 	showThreadLine?: boolean;
+	quotedTweet?: TweetInfo;
 }
 
 export default function TweetItem({
 	tweet,
 	updateTweet,
 	showThreadLine = false,
+	quotedTweet,
 }: TweetItemProps) {
 	const [threadLineHeight, setThreadLineHeight] = useState(0);
 	const componentRef = useRef<HTMLDivElement>(null);
+	const router = useRouter();
 
 	useEffect(() => {
 		if (showThreadLine && componentRef.current) {
@@ -24,18 +28,23 @@ export default function TweetItem({
 		}
 	}, [showThreadLine]);
 
+	const onTweetClick = (e: React.MouseEvent<HTMLDivElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		router.push(`/tweet/${tweet.tweetId}`);
+	};
+
 	return (
-		<div className="w-full">
-			<div ref={componentRef}>
-				<TweetContent
-					tweet={tweet}
-					showThreadLine={showThreadLine}
-					threadLineHeight={threadLineHeight}
-					tweetActions={
-						<TweetActions tweet={tweet} updateTweet={updateTweet} />
-					}
-				/>
-			</div>
+		<div ref={componentRef} onClick={onTweetClick}>
+			<TweetContent
+				tweet={tweet}
+				showThreadLine={showThreadLine}
+				threadLineHeight={threadLineHeight}
+				quotedTweet={quotedTweet}
+				tweetActions={
+					<TweetActions tweet={tweet} updateTweet={updateTweet} />
+				}
+			/>
 		</div>
 	);
 }

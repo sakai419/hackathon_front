@@ -3,6 +3,7 @@ import { TweetInfo } from "@/types/tweetInfo";
 import { useState } from "react";
 import TweetContent from "../TweetContent";
 import TweetActions from "../TweetActions";
+import Link from "next/link";
 
 interface RelatedTweetCardProps {
 	tweet: TweetInfo;
@@ -11,7 +12,7 @@ interface RelatedTweetCardProps {
 
 export default function RelatedTweetCard({
 	tweet,
-	withActions,
+	withActions = false,
 }: RelatedTweetCardProps) {
 	const [tweetInfo, setTweetInfo] = useState<TweetInfo>(tweet);
 	const updateTweet = (
@@ -24,20 +25,22 @@ export default function RelatedTweetCard({
 		});
 	};
 	return (
-		<Card className="w-full">
-			<CardContent className="pt-4">
-				<TweetContent
-					tweet={tweetInfo}
-					tweetActions={
-						withActions ? (
-							<TweetActions
-								tweet={tweetInfo}
-								updateTweet={updateTweet}
-							/>
-						) : null
-					}
-				/>
-			</CardContent>
-		</Card>
+		<Link href={`/tweet/${tweetInfo.tweetId}`}>
+			<Card className="w-full p-0">
+				<CardContent className="pt-4">
+					<TweetContent
+						tweet={tweetInfo}
+						tweetActions={
+							withActions ? (
+								<TweetActions
+									tweet={tweetInfo}
+									updateTweet={updateTweet}
+								/>
+							) : null
+						}
+					/>
+				</CardContent>
+			</Card>
+		</Link>
 	);
 }

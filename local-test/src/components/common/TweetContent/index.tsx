@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Lock, Pin, Shield } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
+import RelatedTweetCard from "../RelatedTweetCard";
 
 interface TweetContentProps {
 	tweet: TweetInfo;
@@ -14,6 +15,7 @@ interface TweetContentProps {
 	showThreadLine?: boolean;
 	threadLineHeight?: number;
 	tweetActions?: React.ReactNode;
+	quotedTweet?: TweetInfo;
 }
 
 export default function TweetContent({
@@ -22,6 +24,7 @@ export default function TweetContent({
 	threadLineHeight = 0,
 	withLink = true,
 	tweetActions = null,
+	quotedTweet,
 }: TweetContentProps) {
 	const router = useRouter();
 	const tweetDate = getRelativeTimeString(new Date(tweet.createdAt));
@@ -91,7 +94,6 @@ export default function TweetContent({
 					{tweet.content && (
 						<HashtagHighlighter text={tweet.content} />
 					)}
-
 					{tweet.media && tweet.media.type === "image" && (
 						<Image
 							src={tweet.media.url}
@@ -101,7 +103,6 @@ export default function TweetContent({
 							className="rounded-md mt-2 object-cover"
 						/>
 					)}
-
 					{tweet.code && (
 						<CodeEditor
 							value={tweet.code.content}
@@ -109,6 +110,7 @@ export default function TweetContent({
 							readOnly={true}
 						/>
 					)}
+					{quotedTweet && <RelatedTweetCard tweet={quotedTweet} />}
 				</div>
 				{tweetActions}
 			</div>

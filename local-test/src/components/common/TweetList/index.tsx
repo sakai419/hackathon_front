@@ -58,7 +58,13 @@ export default function TweetList({ tweets }: { tweets: TweetNode[] }) {
 							showThreadLine={true}
 						/>
 					)}
-					<TweetItem tweet={tweet.tweet} updateTweet={updateTweet} />
+					<TweetItem
+						tweet={tweet.tweet}
+						updateTweet={updateTweet}
+						{...(tweet.tweet.isQuote && {
+							quotedTweet: tweet.originalTweet,
+						})}
+					/>
 				</div>
 			))}
 		</div>
