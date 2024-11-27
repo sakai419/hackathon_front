@@ -1,13 +1,13 @@
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
 import { TweetInfo } from "@/types/tweetInfo";
 import UserAvatar from "../UserAvatar";
-import HashtagHighlighter from "../HashTagHighlighter";
 import CodeEditor from "../CodeEditor";
 import Image from "next/image";
 import { Lock, Pin, Shield } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
 import RelatedTweetCard from "../RelatedTweetCard";
+import HashtagHighlighter from "./components/HashtagHighlither";
 
 interface TweetContentProps {
 	tweet: TweetInfo;

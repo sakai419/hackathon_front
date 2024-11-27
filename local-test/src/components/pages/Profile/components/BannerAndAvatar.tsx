@@ -1,6 +1,6 @@
 import UserAvatar from "@/components/common/UserAvatar";
-import EditProfileDialog from "@/components/common/EditProfileDialog";
 import Image from "next/image";
+import EditProfileDialog from "./EditProfileDialog";
 
 interface BannerAndAvatarProps {
 	userId: string;
