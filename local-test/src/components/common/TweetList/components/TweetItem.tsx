@@ -1,4 +1,4 @@
-import { TweetInfo } from "@/types/tweetInfo";
+import { TweetInfo } from "@/types/tweet";
 import { useState, useRef, useEffect } from "react";
 import TweetContent from "../../TweetContent";
 import { useRouter } from "next/navigation";

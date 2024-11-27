@@ -8,7 +8,7 @@ import TweetDialog from "@/components/common/TweetDialog";
 import SidebarContent from "./components/SidebarContent";
 import TweetButton from "./components/TweetButton";
 import UserInfo from "./components/UserInfo";
-import { Code, Media } from "@/types/tweetInfo";
+import { Code, Media } from "@/types/tweet";
 import postTweet from "@/services/api/tweets/postTweet";
 import { useClientProfileContext } from "@/context/ClientProfileProvider";
 

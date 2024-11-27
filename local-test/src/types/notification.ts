@@ -1,4 +1,4 @@
-import { TweetInfo } from "./tweetInfo";
+import { TweetInfo } from "./tweet";
 import { UserInfoWithoutBio } from "./userInfoWithoutBio";
 
 export type NotificationType =

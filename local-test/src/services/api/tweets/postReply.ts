@@ -1,4 +1,4 @@
-import { Code, Media } from "@/types/tweetInfo";
+import { Code, Media } from "@/types/tweet";
 import { TWEET_ENDPOINT } from "../apiConfig";
 import { sendRequestWithRetry } from "../requests";
 

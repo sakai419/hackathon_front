@@ -11,7 +11,7 @@ import Image from "next/image";
 import UserAvatar from "../UserAvatar";
 import { useState, useRef, useEffect } from "react";
 import { uploadFile } from "@/services/upload/upload";
-import { Code, Media, MediaTypes, TweetInfo } from "@/types/tweetInfo";
+import { Code, Media, MediaTypes, TweetInfo } from "@/types/tweet";
 import ButtonWithTooltip from "../ButtonWithTooltip";
 import CodeEditor from "../CodeEditor";
 import RelatedTweetCard from "../RelatedTweetCard";

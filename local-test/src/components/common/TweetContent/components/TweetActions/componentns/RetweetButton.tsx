@@ -6,7 +6,7 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { Code, Media, TweetInfo } from "@/types/tweetInfo";
+import { Code, Media, TweetInfo } from "@/types/tweet";
 import handleRetweet from "@/services/api/tweets/handleRetweet";
 import postQuote from "@/services/api/tweets/postQuote";
 import TweetDialog from "@/components/common/TweetDialog";

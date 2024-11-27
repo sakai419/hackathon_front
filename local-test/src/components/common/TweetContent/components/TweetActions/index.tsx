@@ -1,4 +1,4 @@
-import { Code, Media, TweetInfo } from "@/types/tweetInfo";
+import { Code, Media, TweetInfo } from "@/types/tweet";
 import { Heart, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import postReply from "@/services/api/tweets/postReply";

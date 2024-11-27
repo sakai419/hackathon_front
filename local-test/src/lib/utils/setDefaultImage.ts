@@ -1,6 +1,6 @@
 import { Notification } from "@/types/notification";
 import { Profile } from "@/types/profile";
-import { TweetNode } from "@/types/tweetInfo";
+import { TweetNode } from "@/types/tweet";
 
 export function setDefaultImageOfTweetNodes(tweets: TweetNode[]) {
 	return tweets.map((tweet) => {

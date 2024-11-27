@@ -1,7 +1,7 @@
 import { setDefaultImageOfTweetNodes } from "@/lib/utils/setDefaultImage";
 import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
 import getUserTweets from "@/services/api/users/getUserTweets";
-import { TweetNode } from "@/types/tweetInfo";
+import { TweetNode } from "@/types/tweet";
 import { useEffect, useRef, useState } from "react";
 
 export default function useUserTweets(userId: string) {

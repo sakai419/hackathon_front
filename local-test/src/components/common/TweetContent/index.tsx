@@ -1,5 +1,5 @@
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
-import { TweetInfo } from "@/types/tweetInfo";
+import { TweetInfo } from "@/types/tweet";
 import UserAvatar from "../UserAvatar";
 import CodeEditor from "../CodeEditor";
 import Image from "next/image";

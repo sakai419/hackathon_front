@@ -1,4 +1,4 @@
-import { TweetInfo, TweetNode } from "@/types/tweetInfo";
+import { TweetInfo, TweetNode } from "@/types/tweet";
 import { useState, useEffect } from "react";
 import TweetItem from "./components/TweetItem";
 
