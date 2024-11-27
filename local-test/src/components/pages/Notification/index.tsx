@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import NotificationItem from "./components/NotificationItem";
 import useNotifications from "@/hooks/useNotification";
-import Header from "@/components/common/Header";
+import Header from "@/components/layouts/Header";
 import LoadingScreen from "@/components/common/LoadingScreen";
 import { useEffect } from "react";
 

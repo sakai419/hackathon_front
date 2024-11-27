@@ -1,4 +1,4 @@
-import Header from "@/components/common/Header";
+import Header from "@/components/layouts/Header";
 
 export function HomeHeader() {
 	return <Header title={<h1>ホーム</h1>} withArrow={false} />;

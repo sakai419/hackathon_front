@@ -7,7 +7,7 @@ import TweetList from "@/components/common/TweetList";
 import { Button } from "@/components/ui/button";
 import LoadingScreen from "@/components/common/LoadingScreen";
 import { Lock } from "lucide-react";
-import Header from "@/components/common/Header";
+import Header from "@/components/layouts/Header";
 
 interface ProfileHeaderProps {
 	userId: string;
