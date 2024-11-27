@@ -81,7 +81,6 @@ export default function Sidebar() {
 						isOpen={isDialogOpen}
 						onClose={handleCloseDialog}
 						onTweet={handleTweet}
-						userInfo={clientProfile?.userInfo}
 					/>
 					<div className="mt-auto">
 						{clientProfile && (

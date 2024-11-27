@@ -1,6 +1,6 @@
 import { TweetInfo, TweetNode } from "@/types/tweetInfo";
-import TweetItem from "../TweetItem";
 import { useState, useEffect } from "react";
+import TweetItem from "./components/TweetItem";
 
 export default function TweetList({ tweets }: { tweets: TweetNode[] }) {
 	const [tweetNodes, setTweetNodes] = useState<TweetNode[]>(tweets);

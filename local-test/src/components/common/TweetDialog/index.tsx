@@ -10,19 +10,18 @@ import { Code2Icon, ImageIcon, X } from "lucide-react";
 import Image from "next/image";
 import UserAvatar from "../UserAvatar";
 import { useState, useRef, useEffect } from "react";
-import { UserInfoWithoutBio } from "@/types/userInfoWithoutBio";
 import { uploadFile } from "@/services/upload/upload";
 import { Code, Media, MediaTypes, TweetInfo } from "@/types/tweetInfo";
 import ButtonWithTooltip from "../ButtonWithTooltip";
 import CodeEditor from "../CodeEditor";
 import RelatedTweetCard from "../RelatedTweetCard";
 import TweetContent from "../TweetContent";
+import { useClientProfileContext } from "@/context/ClientProfileProvider";
 
 interface TweetDialogProps {
 	isOpen: boolean;
 	onClose: () => void;
 	onTweet: (content: string, code?: Code, media?: Media) => Promise<void>;
-	userInfo?: UserInfoWithoutBio;
 	relatedTweet?: TweetInfo;
 	tweetType?: "tweet" | "reply" | "quote";
 }
@@ -31,7 +30,6 @@ export default function TweetDialog({
 	isOpen,
 	onClose,
 	onTweet,
-	userInfo,
 	relatedTweet,
 	tweetType = "tweet",
 }: TweetDialogProps) {
@@ -48,6 +46,8 @@ export default function TweetDialog({
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const componentRef = useRef<HTMLDivElement>(null);
 	const [threadLineHeight, setThreadLineHeight] = useState(0);
+
+	const clientProfile = useClientProfileContext().profile;
 
 	const handleMediaClick = () => {
 		fileInputRef.current?.click();
@@ -177,9 +177,9 @@ export default function TweetDialog({
 					<div className="flex items-start space-x-2 p-3">
 						<UserAvatar
 							withLink={false}
-							userId={userInfo?.userId || ""}
-							src={userInfo?.profileImageUrl || ""}
-							alt={userInfo?.userName || ""}
+							userId={clientProfile?.userInfo.userId || ""}
+							src={clientProfile?.userInfo.profileImageUrl || ""}
+							alt={clientProfile?.userInfo.userName || ""}
 							size="w-12 h-12"
 						/>
 						<div className="flex-1 space-y-4">

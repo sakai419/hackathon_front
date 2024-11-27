@@ -1,13 +1,18 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { TweetInfo } from "@/types/tweetInfo";
-import TweetItem from "../TweetItem";
 import { useState } from "react";
+import TweetContent from "../TweetContent";
+import TweetActions from "../TweetActions";
 
 interface RelatedTweetCardProps {
 	tweet: TweetInfo;
+	withActions?: boolean;
 }
 
-export default function RelatedTweetCard({ tweet }: RelatedTweetCardProps) {
+export default function RelatedTweetCard({
+	tweet,
+	withActions,
+}: RelatedTweetCardProps) {
 	const [tweetInfo, setTweetInfo] = useState<TweetInfo>(tweet);
 	const updateTweet = (
 		tweet: TweetInfo,
@@ -21,7 +26,17 @@ export default function RelatedTweetCard({ tweet }: RelatedTweetCardProps) {
 	return (
 		<Card className="w-full">
 			<CardContent className="pt-4">
-				<TweetItem tweet={tweetInfo} updateTweet={updateTweet} />
+				<TweetContent
+					tweet={tweetInfo}
+					tweetActions={
+						withActions ? (
+							<TweetActions
+								tweet={tweetInfo}
+								updateTweet={updateTweet}
+							/>
+						) : null
+					}
+				/>
 			</CardContent>
 		</Card>
 	);

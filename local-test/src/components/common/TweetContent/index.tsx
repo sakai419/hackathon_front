@@ -13,6 +13,7 @@ interface TweetContentProps {
 	withLink?: boolean;
 	showThreadLine?: boolean;
 	threadLineHeight?: number;
+	tweetActions?: React.ReactNode;
 }
 
 export default function TweetContent({
@@ -20,6 +21,7 @@ export default function TweetContent({
 	showThreadLine = false,
 	threadLineHeight = 0,
 	withLink = true,
+	tweetActions = null,
 }: TweetContentProps) {
 	const router = useRouter();
 	const tweetDate = getRelativeTimeString(new Date(tweet.createdAt));
@@ -108,6 +110,7 @@ export default function TweetContent({
 						/>
 					)}
 				</div>
+				{tweetActions}
 			</div>
 		</div>
 	);
