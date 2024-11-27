@@ -30,7 +30,9 @@ export default function TweetItem({
 	const onTweetClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
-		router.push(`/tweet/${tweet.tweetId}`);
+		if (e.target === e.currentTarget) {
+			router.push(`/tweet/${tweet.tweetId}`);
+		}
 	};
 
 	return (
