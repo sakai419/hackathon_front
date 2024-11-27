@@ -13,7 +13,6 @@ export function useSidebarInfo() {
 			try {
 				setIsLoading(true);
 				const data = await getSidebarInfo();
-				console.log(data);
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<SidebarInfo>(data);
