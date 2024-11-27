@@ -8,13 +8,15 @@ import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
 import RelatedTweetCard from "../RelatedTweetCard";
 import HashtagHighlighter from "./components/HashtagHighlither";
+import TweetActions from "./components/TweetActions";
 
 interface TweetContentProps {
 	tweet: TweetInfo;
 	withLink?: boolean;
 	showThreadLine?: boolean;
 	threadLineHeight?: number;
-	tweetActions?: React.ReactNode;
+	withActions?: boolean;
+	updateTweet?: (tweet: TweetInfo, updateFields: Partial<TweetInfo>) => void;
 	quotedTweet?: TweetInfo;
 }
 
@@ -23,7 +25,8 @@ export default function TweetContent({
 	showThreadLine = false,
 	threadLineHeight = 0,
 	withLink = true,
-	tweetActions = null,
+	withActions = true,
+	updateTweet,
 	quotedTweet,
 }: TweetContentProps) {
 	const router = useRouter();
@@ -112,7 +115,9 @@ export default function TweetContent({
 					)}
 					{quotedTweet && <RelatedTweetCard tweet={quotedTweet} />}
 				</div>
-				{tweetActions}
+				{withActions && updateTweet && (
+					<TweetActions tweet={tweet} updateTweet={updateTweet} />
+				)}
 			</div>
 		</div>
 	);

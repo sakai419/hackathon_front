@@ -1,7 +1,6 @@
 import { TweetInfo } from "@/types/tweetInfo";
 import { useState, useRef, useEffect } from "react";
 import TweetContent from "../../TweetContent";
-import TweetActions from "../../TweetActions";
 import { useRouter } from "next/navigation";
 
 interface TweetItemProps {
@@ -41,9 +40,8 @@ export default function TweetItem({
 				showThreadLine={showThreadLine}
 				threadLineHeight={threadLineHeight}
 				quotedTweet={quotedTweet}
-				tweetActions={
-					<TweetActions tweet={tweet} updateTweet={updateTweet} />
-				}
+				withActions={true}
+				updateTweet={updateTweet}
 			/>
 		</div>
 	);

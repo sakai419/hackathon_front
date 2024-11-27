@@ -1,11 +1,11 @@
 import { Code, Media, TweetInfo } from "@/types/tweetInfo";
 import { Heart, MessageCircle } from "lucide-react";
-import ButtonWithTooltip from "../ButtonWithTooltip";
-import TweetDialog from "../TweetDialog";
 import { useState } from "react";
 import postReply from "@/services/api/tweets/postReply";
 import handleLike from "@/services/api/tweets/handleLike";
 import { RetweetButton } from "./componentns/RetweetButton";
+import ButtonWithTooltip from "@/components/common/ButtonWithTooltip";
+import TweetDialog from "@/components/common/TweetDialog";
 
 interface TweetActionsProps {
 	tweet: TweetInfo;

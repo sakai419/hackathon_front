@@ -2,7 +2,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { TweetInfo } from "@/types/tweetInfo";
 import { useState } from "react";
 import TweetContent from "../TweetContent";
-import TweetActions from "../TweetActions";
 import Link from "next/link";
 
 interface RelatedTweetCardProps {
@@ -30,14 +29,8 @@ export default function RelatedTweetCard({
 				<CardContent className="pt-4">
 					<TweetContent
 						tweet={tweetInfo}
-						tweetActions={
-							withActions ? (
-								<TweetActions
-									tweet={tweetInfo}
-									updateTweet={updateTweet}
-								/>
-							) : null
-						}
+						withActions={withActions}
+						updateTweet={updateTweet}
 					/>
 				</CardContent>
 			</Card>

@@ -9,8 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Code, Media, TweetInfo } from "@/types/tweetInfo";
 import handleRetweet from "@/services/api/tweets/handleRetweet";
 import postQuote from "@/services/api/tweets/postQuote";
-import TweetDialog from "../../TweetDialog";
-// import ButtonWithTooltip from "../../ButtonWithTooltip";
+import TweetDialog from "@/components/common/TweetDialog";
 
 interface RetweetButtonProps {
 	tweet: TweetInfo;
