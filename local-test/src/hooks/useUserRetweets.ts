@@ -31,6 +31,8 @@ export default function useUserRetweets(userId: string) {
 					if (camelCaseData.length < 10) {
 						setHasMore(false);
 					}
+				} else {
+					setHasMore(false);
 				}
 			} catch (error) {
 				console.error(error);

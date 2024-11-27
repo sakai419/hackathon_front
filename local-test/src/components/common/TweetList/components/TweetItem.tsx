@@ -28,10 +28,8 @@ export default function TweetItem({
 	}, [showThreadLine]);
 
 	const onTweetClick = (e: React.MouseEvent<HTMLDivElement>) => {
-		e.preventDefault();
-		e.stopPropagation();
 		if (e.target === e.currentTarget) {
-			router.push(`/tweet/${tweet.tweetId}`);
+			router.push(`/tweets/${tweet.tweetId}`);
 		}
 	};
 

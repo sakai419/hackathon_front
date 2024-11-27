@@ -1,7 +1,7 @@
 import DynamicTabs from "@/components/common/DynamicTab";
 import useUserProfile from "@/hooks/useUserProfile";
 import UserHeader from "./components/UserHeader";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useUserTweets from "@/hooks/useUserTweets";
 import TweetList from "@/components/common/TweetList";
 import { Button } from "@/components/ui/button";
@@ -82,10 +82,6 @@ export function ProfilePage({ userId }: ProfilePageProps) {
 		loadMore: loadMoreLikes,
 		error: likesError,
 	} = useUserLikes(userId);
-
-	useEffect(() => {
-		console.log();
-	}, []);
 
 	if (profileError || tweetsError || likesError || retweetsError) {
 		return <div>エラーが発生しました</div>;

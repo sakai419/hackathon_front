@@ -24,7 +24,7 @@ export default function RelatedTweetCard({
 		});
 	};
 	return (
-		<Link href={`/tweet/${tweetInfo.tweetId}`}>
+		<Link href={`/tweets/${tweetInfo.tweetId}`}>
 			<Card className="w-full p-0">
 				<CardContent className="pt-4">
 					<TweetContent

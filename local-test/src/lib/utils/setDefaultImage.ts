@@ -1,6 +1,16 @@
 import { Notification } from "@/types/notification";
 import { Profile } from "@/types/profile";
-import { TweetNode } from "@/types/tweet";
+import { TweetInfo, TweetNode } from "@/types/tweet";
+
+export function setDefaultImageOfTweetInfos(tweets: TweetInfo[]) {
+	return tweets.map((tweet) => {
+		const ret = tweet;
+		if (!ret.userInfo.profileImageUrl) {
+			ret.userInfo.profileImageUrl = "/images/default_image.png";
+		}
+		return ret;
+	});
+}
 
 export function setDefaultImageOfTweetNodes(tweets: TweetNode[]) {
 	return tweets.map((tweet) => {
