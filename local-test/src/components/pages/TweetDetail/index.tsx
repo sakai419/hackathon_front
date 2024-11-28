@@ -5,6 +5,9 @@ import useReplyTweets from "@/hooks/useReplyTweets";
 import useTweetNode from "@/hooks/useTweetNode";
 import ReplyTweets from "./components/ReplyTweets";
 import { Button } from "@/components/ui/button";
+import { Code, Media } from "@/types/tweet";
+import postReply from "@/services/api/tweets/postReply";
+import ReplyBox from "./components/ReplyBox";
 
 interface TweetDetailPageProps {
 	tweetId: number;
@@ -36,6 +39,24 @@ export function TweetDetailPage({ tweetId }: TweetDetailPageProps) {
 		return <div>エラーが発生しました</div>;
 	}
 
+	const handleTweet = async (
+		content?: string,
+		code?: Code,
+		media?: Media
+	) => {
+		if (!tweet) return;
+		try {
+			await postReply({
+				tweetId: tweet.tweet.tweetId,
+				content,
+				code,
+				media,
+			});
+		} catch (error) {
+			throw error;
+		}
+	};
+
 	return (
 		<>
 			{(isTweetLoading || isRepliesLoading) && <LoadingScreen />}
@@ -43,16 +64,7 @@ export function TweetDetailPage({ tweetId }: TweetDetailPageProps) {
 				<div className="border-b">
 					{tweet && <TweetList tweets={[tweet]} />}
 				</div>
-				<div className="border-b p-4">
-					<div className="flex items-start space-x-4">
-						<div className="w-12 h-12 rounded-full bg-gray-200" />
-						<div className="flex-1">
-							<div className="min-h-[100px] rounded-2xl border p-4 text-gray-500">
-								返信をポスト
-							</div>
-						</div>
-					</div>
-				</div>
+				<ReplyBox onTweet={handleTweet} />
 				{replyTweets && <ReplyTweets replies={replyTweets} />}
 				<Button
 					onClick={loadMore}

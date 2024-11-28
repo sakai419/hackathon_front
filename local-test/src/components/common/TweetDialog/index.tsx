@@ -45,7 +45,6 @@ export default function TweetDialog({
 	const [errorMessage, setErrorMessage] = useState("");
 
 	const fileInputRef = useRef<HTMLInputElement>(null);
-	const componentRef = useRef<HTMLDivElement>(null);
 
 	const clientProfile = useClientProfileContext().profile;
 
@@ -156,13 +155,11 @@ export default function TweetDialog({
 				</DialogHeader>
 				<div className="flex-grow">
 					{tweetType === "reply" && relatedTweet && (
-						<div ref={componentRef}>
-							<TweetContent
-								tweet={relatedTweet}
-								withLink={false}
-								showThreadLine={true}
-							/>
-						</div>
+						<TweetContent
+							tweet={relatedTweet}
+							withLink={false}
+							showThreadLine={true}
+						/>
 					)}
 					<div className="flex items-start space-x-2 p-3">
 						<UserAvatar
