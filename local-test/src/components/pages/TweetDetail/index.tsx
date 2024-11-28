@@ -39,7 +39,7 @@ export function TweetDetailPage({ tweetId }: TweetDetailPageProps) {
 	return (
 		<>
 			{(isTweetLoading || isRepliesLoading) && <LoadingScreen />}
-			<div className="max-w-2xl mx-auto min-h-screen border-x">
+			<div className="max-w-2xl mx-auto border-x">
 				<div className="border-b">
 					{tweet && <TweetList tweets={[tweet]} />}
 				</div>
@@ -53,7 +53,7 @@ export function TweetDetailPage({ tweetId }: TweetDetailPageProps) {
 						</div>
 					</div>
 				</div>
-				<ReplyTweets replies={replyTweets} />
+				{replyTweets && <ReplyTweets replies={replyTweets} />}
 				<Button
 					onClick={loadMore}
 					disabled={!hasMore}

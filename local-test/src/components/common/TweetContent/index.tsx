@@ -9,12 +9,12 @@ import { useRouter } from "next/navigation";
 import RelatedTweetCard from "../RelatedTweetCard";
 import HashtagHighlighter from "./components/HashtagHighlither";
 import TweetActions from "./components/TweetActions";
+import { useEffect, useRef, useState } from "react";
 
 interface TweetContentProps {
 	tweet: TweetInfo;
 	withLink?: boolean;
 	showThreadLine?: boolean;
-	threadLineHeight?: number;
 	withActions?: boolean;
 	updateTweet?: (tweet: TweetInfo, updateFields: Partial<TweetInfo>) => void;
 	quotedTweet?: TweetInfo;
@@ -23,7 +23,6 @@ interface TweetContentProps {
 export default function TweetContent({
 	tweet,
 	showThreadLine = false,
-	threadLineHeight = 0,
 	withLink = true,
 	withActions = true,
 	updateTweet,
@@ -32,14 +31,34 @@ export default function TweetContent({
 	const router = useRouter();
 	const tweetDate = getRelativeTimeString(new Date(tweet.createdAt));
 
+	const [threadLineHeight, setThreadLineHeight] = useState(0);
+	const componentRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		if (showThreadLine && componentRef.current) {
+			const height = componentRef.current.clientHeight;
+			setThreadLineHeight(height);
+		}
+	}, [showThreadLine]);
+
 	const handleUserNameClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
 		router.push(`/${tweet.userInfo.userId}`);
 	};
 
+	const handleTweetClick = (e: React.MouseEvent<HTMLDivElement>) => {
+		if (e.target === e.currentTarget) {
+			router.push(`/tweets/${tweet.tweetId}`);
+		}
+	};
+
 	return (
-		<div className="flex items-start space-x-2 hover:bg-gray-100 p-4">
+		<div
+			className="flex items-start space-x-2 hover:bg-gray-100 p-4"
+			onClick={handleTweetClick}
+			ref={componentRef}
+		>
 			<div className="relative">
 				<UserAvatar
 					userId={tweet.userInfo.userId}

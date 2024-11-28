@@ -19,7 +19,7 @@ export default function useReplyTweets(tweetId: number) {
 
 	useEffect(() => {
 		const fetchReplyTweets = async () => {
-			if (isLoadingRef.current) return;
+			if (isLoadingRef.current || !hasMore) return;
 			setIsLoading(true);
 			try {
 				const data = await getReplyTweets(tweetId, page);

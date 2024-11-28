@@ -34,18 +34,18 @@ export default function TweetDialog({
 	tweetType = "tweet",
 }: TweetDialogProps) {
 	const [content, setContent] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
-	const [isError, setIsError] = useState(false);
-	const [isEditorOpen, setIsEditorOpen] = useState(false);
-	const [code, setCode] = useState("");
 	const [language, setLanguage] = useState("javascript");
-	const [errorMessage, setErrorMessage] = useState("");
+	const [code, setCode] = useState("");
 	const [mediaFile, setMediaFile] = useState<File | null>(null);
 	const [mediaType, setMediaType] = useState<MediaTypes | null>(null);
 	const [mediaPreview, setMediaPreview] = useState<string | null>(null);
+	const [isLoading, setIsLoading] = useState(false);
+	const [isError, setIsError] = useState(false);
+	const [isEditorOpen, setIsEditorOpen] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
+
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const componentRef = useRef<HTMLDivElement>(null);
-	const [threadLineHeight, setThreadLineHeight] = useState(0);
 
 	const clientProfile = useClientProfileContext().profile;
 
@@ -56,15 +56,6 @@ export default function TweetDialog({
 	const handleEditorClick = () => {
 		setIsEditorOpen(!isEditorOpen);
 	};
-
-	useEffect(() => {
-		if (isOpen) {
-			if (componentRef.current) {
-				const height = componentRef.current.clientHeight;
-				setThreadLineHeight(height);
-			}
-		}
-	}, [isOpen]);
 
 	const handleMediaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
@@ -170,7 +161,6 @@ export default function TweetDialog({
 								tweet={relatedTweet}
 								withLink={false}
 								showThreadLine={true}
-								threadLineHeight={threadLineHeight}
 							/>
 						</div>
 					)}

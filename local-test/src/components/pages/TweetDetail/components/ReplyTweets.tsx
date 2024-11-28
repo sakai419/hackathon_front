@@ -1,13 +1,19 @@
 import TweetItem from "@/components/common/TweetList/components/TweetItem";
 import { TweetInfo } from "@/types/tweet";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ReplyTweetsProps {
 	replies: TweetInfo[];
 }
 
 export default function ReplyTweets({ replies }: ReplyTweetsProps) {
-	const [replyTweets, setReplyTweets] = useState<TweetInfo[]>(replies);
+	const [replyTweets, setReplyTweets] = useState<TweetInfo[]>([]);
+
+	// Set initial reply tweets
+	useEffect(() => {
+		console.log(replies);
+		setReplyTweets(replies);
+	}, [replies]);
 
 	const updateTweet = (
 		tweet: TweetInfo,

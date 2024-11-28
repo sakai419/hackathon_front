@@ -1,7 +1,5 @@
 import { TweetInfo } from "@/types/tweet";
-import { useState, useRef, useEffect } from "react";
 import TweetContent from "../../TweetContent";
-import { useRouter } from "next/navigation";
 
 interface TweetItemProps {
 	tweet: TweetInfo;
@@ -16,33 +14,13 @@ export default function TweetItem({
 	showThreadLine = false,
 	quotedTweet,
 }: TweetItemProps) {
-	const [threadLineHeight, setThreadLineHeight] = useState(0);
-	const componentRef = useRef<HTMLDivElement>(null);
-	const router = useRouter();
-
-	useEffect(() => {
-		if (showThreadLine && componentRef.current) {
-			const height = componentRef.current.clientHeight;
-			setThreadLineHeight(height);
-		}
-	}, [showThreadLine]);
-
-	const onTweetClick = (e: React.MouseEvent<HTMLDivElement>) => {
-		if (e.target === e.currentTarget) {
-			router.push(`/tweets/${tweet.tweetId}`);
-		}
-	};
-
 	return (
-		<div ref={componentRef} onClick={onTweetClick}>
-			<TweetContent
-				tweet={tweet}
-				showThreadLine={showThreadLine}
-				threadLineHeight={threadLineHeight}
-				quotedTweet={quotedTweet}
-				withActions={true}
-				updateTweet={updateTweet}
-			/>
-		</div>
+		<TweetContent
+			tweet={tweet}
+			showThreadLine={showThreadLine}
+			quotedTweet={quotedTweet}
+			withActions={true}
+			updateTweet={updateTweet}
+		/>
 	);
 }
