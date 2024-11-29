@@ -11,6 +11,7 @@ import UserInfo from "./components/UserInfo";
 import { Code, Media } from "@/types/tweet";
 import postTweet from "@/services/api/tweets/postTweet";
 import { useClientProfileContext } from "@/context/ClientProfileProvider";
+import Link from "next/link";
 
 export default function Sidebar() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -64,6 +65,11 @@ export default function Sidebar() {
 						isOpen ? "w-64" : "w-0 md:w-64"
 					}`}
 				>
+					<Link href="/home">
+						<h1 className="text-3xl font-semibold pb-4 pl-2">
+							{"\u{1D54E}"}
+						</h1>
+					</Link>
 					<SidebarContent
 						unreadConversationCount={
 							sidebarInfo?.unreadConversationCount
