@@ -1,7 +1,12 @@
 import Header from "@/components/layouts/Header";
 
 export function HomeHeader() {
-	return <Header title={<h1>ホーム</h1>} withArrow={false} />;
+	return (
+		<Header
+			title={<h1 className="text-xl font-semibold">ホーム</h1>}
+			withArrow={false}
+		/>
+	);
 }
 
 export function HomePage() {

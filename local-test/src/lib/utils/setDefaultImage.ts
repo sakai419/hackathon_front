@@ -1,3 +1,4 @@
+import { Conversation } from "@/types/conversation";
 import { Notification } from "@/types/notification";
 import { Profile } from "@/types/profile";
 import { TweetInfo, TweetNode } from "@/types/tweet";
@@ -49,6 +50,16 @@ export function setDefaultImageOfNotifications(notifications: Notification[]) {
 		if (ret.relatedTweet && !ret.relatedTweet.userInfo.profileImageUrl) {
 			ret.relatedTweet.userInfo.profileImageUrl =
 				"/images/default_image.png";
+		}
+		return ret;
+	});
+}
+
+export function setDefaultImageOfConversations(conversations: Conversation[]) {
+	return conversations.map((conversation) => {
+		const ret = conversation;
+		if (!ret.opponentInfo.profileImageUrl) {
+			ret.opponentInfo.profileImageUrl = "/images/default_image.png";
 		}
 		return ret;
 	});

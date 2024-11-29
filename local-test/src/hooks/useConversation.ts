@@ -1,13 +1,11 @@
-import getNotifications from "@/services/api/notifications/getNotifications";
-import { useState, useEffect, useRef } from "react";
-import { Notification } from "@/types/notification";
+import { setDefaultImageOfConversations } from "@/lib/utils/setDefaultImage";
 import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
-import { setDefaultImageOfNotifications } from "@/lib/utils/setDefaultImage";
+import getConversations from "@/services/api/conversations/getConversations";
+import { Conversation } from "@/types/conversation";
+import { useEffect, useRef, useState } from "react";
 
-export default function useNotifications() {
-	const [notifications, setNotifications] = useState<Notification[] | null>(
-		[]
-	);
+export default function useConversation() {
+	const [conversations, setConversations] = useState<Conversation[]>([]);
 	const [page, setPage] = useState(1);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [hasMore, setHasMore] = useState(true);
@@ -20,28 +18,30 @@ export default function useNotifications() {
 	}, [isLoading]);
 
 	useEffect(() => {
-		const fetchNotifications = async () => {
+		const fetchConversations = async () => {
 			if (isLoadingRef.current || !hasMore) return;
 			try {
 				setIsLoading(true);
-				const data = await getNotifications(page);
+				const data = await getConversations(page);
 				if (data) {
 					const camelCaseData =
-						transformKeysToCamelCase<Notification[]>(data);
-					setDefaultImageOfNotifications(camelCaseData);
-					setNotifications(camelCaseData);
+						transformKeysToCamelCase<Conversation[]>(data);
+					setDefaultImageOfConversations(camelCaseData);
+					setConversations((prev) => [...prev, ...camelCaseData]);
 					if (camelCaseData.length < 10) {
 						setHasMore(false);
 					}
+				} else {
+					setHasMore(false);
 				}
 			} catch (error) {
 				console.error(error);
-				setError("Failed to fetch notifications");
+				setError("Failed to fetch conversations");
 			} finally {
 				setIsLoading(false);
 			}
 		};
-		fetchNotifications();
+		fetchConversations();
 	}, [page, hasMore]);
 
 	const loadMore = () => {
@@ -51,7 +51,7 @@ export default function useNotifications() {
 	};
 
 	return {
-		notifications,
+		conversations,
 		isLoading,
 		hasMore,
 		loadMore,
