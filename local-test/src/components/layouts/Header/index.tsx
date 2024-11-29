@@ -10,7 +10,11 @@ interface HeaderProps {
 export default function Header({ title, withArrow = true }: HeaderProps) {
 	const router = useRouter();
 	const goBack = () => {
-		router.back();
+		if (window.history.length > 1) {
+			router.back();
+		} else {
+			router.push("/");
+		}
 	};
 	return (
 		<header className="fixed top-0 left-72 right-0 z-50 bg-white bg-opacity-90 backdrop-blur-sm shadow-sm">
