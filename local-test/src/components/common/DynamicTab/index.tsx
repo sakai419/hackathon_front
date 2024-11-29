@@ -28,7 +28,7 @@ export default function DynamicTabs({
 						className={cn(
 							"flex-1 px-4 py-4 text-center text-sm font-medium border-b-2 transition-colors hover:bg-accent/5",
 							activeTab === tab.Name
-								? "text-primary border-primary"
+								? "text-primary border-primary border-b-4"
 								: "text-muted-foreground border-transparent hover:border-border"
 						)}
 						onClick={(e) => {
