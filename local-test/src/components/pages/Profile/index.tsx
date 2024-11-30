@@ -49,13 +49,9 @@ export function ProfileHeader({ userId }: ProfileHeaderProps) {
 }
 
 export function ProfilePage({ userId }: ProfilePageProps) {
-	const tabs = [
-		{ Name: "ツイート", Url: `/profile/${userId}/tweets` },
-		{ Name: "リツイート", Url: `/profile/${userId}/retweets` },
-		{ Name: "いいね", Url: `/profile/${userId}/likes` },
-	];
+	const tabNames = ["ツイート", "リツイート", "いいね"];
 
-	const [activeTab, setActiveTab] = useState(tabs[0].Name);
+	const [activeTab, setActiveTab] = useState(tabNames[0]);
 	const {
 		profile,
 		isLoading: isProfileLoading,
@@ -96,7 +92,7 @@ export function ProfilePage({ userId }: ProfilePageProps) {
 			<div className="max-w-2xl mx-auto">
 				{profile && <UserHeader profile={profile} />}
 				<DynamicTabs
-					tabs={tabs}
+					tabNames={tabNames}
 					activeTab={activeTab}
 					setActiveTab={setActiveTab}
 				/>
