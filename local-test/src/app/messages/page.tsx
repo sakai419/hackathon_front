@@ -1,6 +1,6 @@
 "use client";
 
-import { MessagePage } from "@/components/pages/Message";
+import { MessagePage } from "@/pages/Message";
 
 export default function Message() {
 	return <MessagePage />;

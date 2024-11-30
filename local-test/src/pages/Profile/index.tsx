@@ -1,15 +1,15 @@
 import DynamicTabs from "@/components/common/DynamicTab";
 import useUserProfile from "@/hooks/useUserProfile";
 import { useState } from "react";
-import useUserTweets from "@/hooks/useUserTweets";
 import { Button } from "@/components/ui";
-import LoadingScreen from "@/components/common/LoadingScreen";
+import { LoadingScreen } from "@/components/common";
 import { Lock } from "lucide-react";
 import Header from "@/components/layouts/Header";
 import useUserLikes from "@/hooks/useUserLikes";
 import useUserRetweets from "@/hooks/useUserRetweets";
 import UserHeader from "./components/UserHeader";
 import { TweetList } from "@/components/tweet";
+import UserTweets from "./components/UserTweets";
 
 interface ProfileHeaderProps {
 	userId: string;
@@ -58,13 +58,6 @@ export function ProfilePage({ userId }: ProfilePageProps) {
 		error: profileError,
 	} = useUserProfile(userId);
 	const {
-		tweets,
-		isLoading: isTweetsLoading,
-		hasMore: hasMoreTweets,
-		loadMore: loadMoreTweets,
-		error: tweetsError,
-	} = useUserTweets(userId);
-	const {
 		retweets,
 		isLoading: isRetweetsLoading,
 		hasMore: hasMoreRetweets,
@@ -79,16 +72,15 @@ export function ProfilePage({ userId }: ProfilePageProps) {
 		error: likesError,
 	} = useUserLikes(userId);
 
-	if (profileError || tweetsError || likesError || retweetsError) {
+	if (profileError || likesError || retweetsError) {
 		return <div>エラーが発生しました</div>;
 	}
 
 	return (
 		<>
-			{(isProfileLoading ||
-				isTweetsLoading ||
-				isLikesLoading ||
-				isRetweetsLoading) && <LoadingScreen />}
+			{(isProfileLoading || isLikesLoading || isRetweetsLoading) && (
+				<LoadingScreen />
+			)}
 			<div className="max-w-2xl mx-auto">
 				{profile && <UserHeader profile={profile} />}
 				<DynamicTabs
@@ -96,20 +88,7 @@ export function ProfilePage({ userId }: ProfilePageProps) {
 					activeTab={activeTab}
 					setActiveTab={setActiveTab}
 				/>
-				{activeTab === "ツイート" && tweets && (
-					<>
-						<TweetList tweets={tweets} />
-						<Button
-							onClick={loadMoreTweets}
-							className="w-full"
-							disabled={!hasMoreTweets}
-						>
-							{hasMoreTweets
-								? "もっと見る"
-								: "これ以上ツイートはありません"}
-						</Button>
-					</>
-				)}
+				{activeTab === "ツイート" && <UserTweets userId={userId} />}
 				{activeTab === "リツイート" && retweets && (
 					<>
 						<TweetList tweets={retweets} />

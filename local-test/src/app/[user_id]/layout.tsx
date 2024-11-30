@@ -1,7 +1,7 @@
 "use client";
 
 import Sidebar from "@/components/layouts/Sidebar";
-import { ProfileHeader } from "@/components/pages/Profile";
+import { ProfileHeader } from "@/pages/Profile";
 import { useParams } from "next/navigation";
 
 export default function ProfileLayout({

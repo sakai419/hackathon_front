@@ -1,6 +1,6 @@
 "use client";
 
-import SignupPage from "@/components/pages/SignUp";
+import SignupPage from "@/pages/SignUp";
 
 export default function Signup() {
 	return (

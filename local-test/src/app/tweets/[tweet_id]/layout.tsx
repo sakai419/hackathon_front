@@ -1,7 +1,7 @@
 "use client";
 
 import Sidebar from "@/components/layouts/Sidebar";
-import { TweetDetailHeader } from "@/components/pages/TweetDetail";
+import { TweetDetailHeader } from "@/pages/TweetDetail";
 
 export default function TweetDetailLayout({
 	children,

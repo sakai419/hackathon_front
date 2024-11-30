@@ -1,7 +1,7 @@
 "use client";
 
 import Sidebar from "@/components/layouts/Sidebar";
-import { NotificationHeader } from "@/components/pages/Notification";
+import { NotificationHeader } from "@/pages/Notification";
 
 export default function NotificationsLayout({
 	children,

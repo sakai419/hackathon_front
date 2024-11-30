@@ -1,6 +1,6 @@
 "use client";
 
-import SearchPage from "@/components/pages/Search";
+import SearchPage from "@/pages/Search";
 
 export default function Search() {
 	return <SearchPage />;

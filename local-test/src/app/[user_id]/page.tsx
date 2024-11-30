@@ -1,6 +1,6 @@
 "use client";
 
-import { ProfilePage } from "@/components/pages/Profile";
+import { ProfilePage } from "@/pages/Profile";
 import { useParams } from "next/navigation";
 
 export default function Profile() {

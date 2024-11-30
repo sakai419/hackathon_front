@@ -1,6 +1,6 @@
 "use client";
 
-import { TweetDetailPage } from "@/components/pages/TweetDetail";
+import { TweetDetailPage } from "@/pages/TweetDetail";
 import { useParams } from "next/navigation";
 
 export default function TweetDetail() {
