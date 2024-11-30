@@ -34,7 +34,9 @@ export function MessagePage() {
 		hasMore: hasMoreMessages,
 		loadMore: loadMoreMessages,
 		error: messageError,
-	} = useMessages(selectedConversation?.opponentInfo.userId || "");
+	} = useMessages({
+		userId: selectedConversation?.opponentInfo.userId || "",
+	});
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();

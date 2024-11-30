@@ -3,7 +3,11 @@ import getMessages from "@/services/api/conversations/getMessages";
 import { Message } from "@/types/message";
 import { useEffect, useRef, useState } from "react";
 
-export default function useMessages(userId: string) {
+interface UseMessagesProps {
+	userId: string;
+}
+
+export default function useMessages({ userId }: UseMessagesProps) {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [hasMore, setHasMore] = useState(true);

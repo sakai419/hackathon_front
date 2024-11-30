@@ -18,7 +18,7 @@ interface ProfilePageProps {
 }
 
 export function ProfileHeader({ userId }: ProfileHeaderProps) {
-	const { profile, isLoading, error } = useUserProfile(userId);
+	const { profile, isLoading, error } = useUserProfile({ userId });
 	if (isLoading) {
 		return <LoadingScreen />;
 	}
@@ -54,7 +54,7 @@ export function ProfilePage({ userId }: ProfilePageProps) {
 		profile,
 		isLoading: isProfileLoading,
 		error: profileError,
-	} = useUserProfile(userId);
+	} = useUserProfile({ userId });
 
 	if (profileError) {
 		return <div>エラーが発生しました</div>;

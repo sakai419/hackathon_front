@@ -8,8 +8,9 @@ interface UserTweetsProps {
 }
 
 export default function UserTweets({ userId }: UserTweetsProps) {
-	const { tweets, isLoading, hasMore, loadMore, error } =
-		useUserTweets(userId);
+	const { tweets, isLoading, hasMore, loadMore, error } = useUserTweets({
+		userId,
+	});
 
 	if (error) {
 		return <div>エラーが発生しました</div>;

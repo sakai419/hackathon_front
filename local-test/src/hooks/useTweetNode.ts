@@ -4,7 +4,11 @@ import getTweetNode from "@/services/api/tweets/getTweetNode";
 import { TweetNode } from "@/types/tweet";
 import { useEffect, useRef, useState } from "react";
 
-export default function useTweetNode(tweetId: number) {
+interface UseTweetNodeProps {
+	tweetId: number;
+}
+
+export default function useTweetNode({ tweetId }: UseTweetNodeProps) {
 	const [tweet, setTweet] = useState<TweetNode | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);

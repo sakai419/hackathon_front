@@ -4,7 +4,11 @@ import getUserRetweets from "@/services/api/users/getUserRetweets";
 import { TweetNode } from "@/types/tweet";
 import { useEffect, useRef, useState } from "react";
 
-export default function useUserRetweets(userId: string) {
+interface UseUserRetweetsProps {
+	userId: string;
+}
+
+export default function useUserRetweets({ userId }: UseUserRetweetsProps) {
 	const [retweets, setRetweets] = useState<TweetNode[]>([]);
 	const [page, setPage] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);

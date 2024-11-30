@@ -4,7 +4,11 @@ import getReplyTweets from "@/services/api/tweets/getReplyTweets";
 import { TweetInfo } from "@/types/tweet";
 import { useState, useEffect, useRef } from "react";
 
-export default function useReplyTweets(tweetId: number) {
+interface UseReplyTweetsProps {
+	tweetId: number;
+}
+
+export default function useReplyTweets({ tweetId }: UseReplyTweetsProps) {
 	const [replyTweets, setReplyTweets] = useState<TweetInfo[]>([]);
 	const [page, setPage] = useState(1);
 	const [isLoading, setIsLoading] = useState<boolean>(false);

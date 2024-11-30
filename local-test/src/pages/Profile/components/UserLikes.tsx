@@ -8,7 +8,9 @@ interface UserLikesProps {
 }
 
 export default function UserLikes({ userId }: UserLikesProps) {
-	const { likes, isLoading, hasMore, loadMore, error } = useUserLikes(userId);
+	const { likes, isLoading, hasMore, loadMore, error } = useUserLikes({
+		userId,
+	});
 
 	if (error) {
 		return <div>エラーが発生しました</div>;

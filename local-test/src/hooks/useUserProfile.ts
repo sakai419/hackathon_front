@@ -4,7 +4,11 @@ import getUserProfile from "@/services/api/users/getUserProfile";
 import { Profile } from "@/types/profile";
 import { useState, useEffect } from "react";
 
-export default function useUserProfile(userId: string) {
+interface UseUserProfileProps {
+	userId: string;
+}
+
+export default function useUserProfile({ userId }: UseUserProfileProps) {
 	const [profile, setProfile] = useState<Profile | null>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [error, setError] = useState<string | null>(null);

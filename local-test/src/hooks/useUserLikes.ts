@@ -4,7 +4,11 @@ import getUserLikes from "@/services/api/users/getUserLikes";
 import { TweetNode } from "@/types/tweet";
 import { useState, useRef, useEffect } from "react";
 
-export default function useUserLikes(userId: string) {
+interface UseUserLikesProps {
+	userId: string;
+}
+
+export default function useUserLikes({ userId }: UseUserLikesProps) {
 	const [likes, setLikes] = useState<TweetNode[]>([]);
 	const [page, setPage] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);

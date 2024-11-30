@@ -2,6 +2,7 @@ import { Conversation } from "@/types/conversation";
 import { Notification } from "@/types/notification";
 import { Profile } from "@/types/profile";
 import { TweetInfo, TweetNode } from "@/types/tweet";
+import { UserInfo } from "@/types/useInfo";
 
 export function setDefaultImageOfTweetInfos(tweets: TweetInfo[]) {
 	return tweets.map((tweet) => {
@@ -60,6 +61,16 @@ export function setDefaultImageOfConversations(conversations: Conversation[]) {
 		const ret = conversation;
 		if (!ret.opponentInfo.profileImageUrl) {
 			ret.opponentInfo.profileImageUrl = "/images/default_image.png";
+		}
+		return ret;
+	});
+}
+
+export function setDefaultImageOfUserInfos(users: UserInfo[]) {
+	return users.map((user) => {
+		const ret = user;
+		if (!ret.profileImageUrl) {
+			ret.profileImageUrl = "/images/default_image.png";
 		}
 		return ret;
 	});

@@ -26,14 +26,14 @@ export function TweetDetailPage({ tweetId }: TweetDetailPageProps) {
 		tweet,
 		isLoading: isTweetLoading,
 		error: tweetError,
-	} = useTweetNode(tweetId);
+	} = useTweetNode({ tweetId });
 	const {
 		replyTweets,
 		isLoading: isRepliesLoading,
 		hasMore,
 		loadMore,
 		error: repliesError,
-	} = useReplyTweets(tweetId);
+	} = useReplyTweets({ tweetId });
 
 	if (tweetError || repliesError) {
 		return <div>エラーが発生しました</div>;

@@ -3,16 +3,17 @@ import { Card, CardContent, Input } from "@/components/ui";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
+import UserResults from "./components/UserResults";
 
 export default function SearchPage() {
-	const [searchQuery, setSearchQuery] = useState("");
+	const [keyword, setKeyword] = useState("");
 	const [activeTab, setActiveTab] = useState("トップ");
 
 	const tabNames = ["トップ", "最新", "ユーザー"];
 
 	const handleSearch = (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log("Searching for:", searchQuery);
+		console.log("Searching for:", keyword);
 		// Here you would typically call an API to fetch search results
 	};
 
@@ -28,8 +29,8 @@ export default function SearchPage() {
 						<Input
 							type="search"
 							placeholder="検索"
-							value={searchQuery}
-							onChange={(e) => setSearchQuery(e.target.value)}
+							value={keyword}
+							onChange={(e) => setKeyword(e.target.value)}
 							className="pl-12 pr-4 py-3 w-full bg-transparent border-none focus-visible:ring-0 placeholder-gray-500"
 						/>
 					</form>
@@ -41,12 +42,14 @@ export default function SearchPage() {
 				setActiveTab={setActiveTab}
 			/>
 			{activeTab === "トップ" && (
-				<SearchResults type="top" query={searchQuery} />
+				<SearchResults type="top" query={keyword} />
 			)}
 			{activeTab === "最新" && (
-				<SearchResults type="latest" query={searchQuery} />
+				<SearchResults type="latest" query={keyword} />
 			)}
-			{activeTab === "ユーザー" && <UserResults query={searchQuery} />}
+			{activeTab === "ユーザー" ? (
+				<UserResults keyword={keyword} />
+			) : null}
 		</div>
 	);
 }
@@ -106,60 +109,6 @@ function SearchResults({
 									</span>
 								</div>
 								<p>{result.content}</p>
-							</div>
-						</div>
-					</CardContent>
-				</Card>
-			))}
-		</div>
-	);
-}
-
-function UserResults({ query }: { query: string }) {
-	// 実際のアプリケーションでは、この部分でAPIからユーザー結果を取得します
-	const users = [
-		{
-			id: 1,
-			name: "ユーザー1",
-			username: "@user1",
-			bio: "ユーザー1の自己紹介",
-		},
-		{
-			id: 2,
-			name: "ユーザー2",
-			username: "@user2",
-			bio: "ユーザー2の自己紹介",
-		},
-		{
-			id: 3,
-			name: "ユーザー3",
-			username: "@user3",
-			bio: "ユーザー3の自己紹介",
-		},
-	];
-
-	useEffect(() => {
-		console.log("UserResults", query);
-	});
-
-	return (
-		<div className="space-y-4">
-			{users.map((user) => (
-				<Card key={user.id}>
-					<CardContent className="p-4">
-						<div className="flex items-center space-x-4">
-							<Avatar>
-								<AvatarImage
-									src={`/placeholder.svg?height=40&width=40`}
-								/>
-								<AvatarFallback>{user.name[0]}</AvatarFallback>
-							</Avatar>
-							<div>
-								<h3 className="font-bold">{user.name}</h3>
-								<p className="text-sm text-gray-500">
-									{user.username}
-								</p>
-								<p className="text-sm mt-1">{user.bio}</p>
 							</div>
 						</div>
 					</CardContent>
