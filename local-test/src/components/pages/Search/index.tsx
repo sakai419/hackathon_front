@@ -1,6 +1,5 @@
 import DynamicTabs from "@/components/common/DynamicTab";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent, Input } from "@/components/ui";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";

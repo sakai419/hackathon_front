@@ -1,22 +1,20 @@
 import {
+	Button,
 	Dialog,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+	Textarea,
+} from "@/components/ui";
 import { Code2Icon, ImageIcon, X } from "lucide-react";
 import Image from "next/image";
-import UserAvatar from "../UserAvatar";
 import { useState, useRef, useEffect } from "react";
 import { uploadFile } from "@/services/upload/upload";
 import { Code, Media, MediaTypes, TweetInfo } from "@/types/tweet";
-import ButtonWithTooltip from "../ButtonWithTooltip";
-import CodeEditor from "../CodeEditor";
-import RelatedTweetCard from "../RelatedTweetCard";
-import TweetContent from "../TweetContent";
+import RelatedTweetCard from "./RelatedTweetCard";
+import TweetContent from "./TweetContent";
 import { useClientProfileContext } from "@/context/ClientProfileProvider";
+import { UserAvatar, CodeEditor, ButtonWithTooltip } from "../common";
 
 interface TweetDialogProps {
 	isOpen: boolean;

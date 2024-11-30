@@ -2,9 +2,9 @@ import Link from "next/link";
 import { Notification } from "@/types/notification";
 import { NotificationIcon } from "./NotificationIcon";
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
-import RelatedTweetCard from "@/components/common/RelatedTweetCard";
 import { Lock, Shield } from "lucide-react";
 import UserAvatar from "@/components/common/UserAvatar";
+import { RelatedTweetCard } from "@/components/tweet";
 
 export default function NotificationItem({
 	notification,

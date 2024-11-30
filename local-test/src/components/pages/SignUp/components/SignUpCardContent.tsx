@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button, Input } from "@/components/ui";
 import handleSignup from "@/services/auth/signup";
 import { Label } from "@radix-ui/react-label";
 import { FirebaseError } from "firebase/app";

@@ -1,4 +1,4 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui";
 import { useRouter } from "next/navigation";
 
 interface UserAvatarProps {

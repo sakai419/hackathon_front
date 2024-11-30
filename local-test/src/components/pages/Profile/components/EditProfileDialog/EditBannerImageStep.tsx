@@ -2,7 +2,7 @@ import { uploadFile } from "@/services/upload/upload";
 import { EditProfileData } from "@/types/profile";
 import { Label } from "@radix-ui/react-label";
 import { Loader2, Upload } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui";
 import Image from "next/image";
 
 interface EditBannerImageStepProps {

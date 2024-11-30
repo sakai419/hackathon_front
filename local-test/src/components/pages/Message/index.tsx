@@ -1,8 +1,13 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+	Button,
+	Card,
+	CardContent,
+	CardHeader,
+	CardTitle,
+	Input,
+	ScrollArea,
+} from "@/components/ui";
 import { ArrowLeft, Send } from "lucide-react";
 import { ConversationList } from "./components/ConversationList";
 import { Conversation } from "@/types/conversation";

@@ -1,5 +1,5 @@
 import { TweetInfo } from "@/types/tweet";
-import TweetContent from "../../TweetContent";
+import TweetContent from "./TweetContent";
 
 interface TweetItemProps {
 	tweet: TweetInfo;

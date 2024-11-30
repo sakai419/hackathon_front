@@ -1,15 +1,15 @@
 import DynamicTabs from "@/components/common/DynamicTab";
 import useUserProfile from "@/hooks/useUserProfile";
-import UserHeader from "./components/UserHeader";
 import { useState } from "react";
 import useUserTweets from "@/hooks/useUserTweets";
-import TweetList from "@/components/common/TweetList";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui";
 import LoadingScreen from "@/components/common/LoadingScreen";
 import { Lock } from "lucide-react";
 import Header from "@/components/layouts/Header";
 import useUserLikes from "@/hooks/useUserLikes";
 import useUserRetweets from "@/hooks/useUserRetweets";
+import UserHeader from "./components/UserHeader";
+import { TweetList } from "@/components/tweet";
 
 interface ProfileHeaderProps {
 	userId: string;

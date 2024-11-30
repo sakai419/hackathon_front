@@ -1,10 +1,9 @@
 import { handleLogin } from "@/services/auth/login";
 import { Label } from "@radix-ui/react-label";
-import { Input } from "@/components/ui/input";
+import { Input, Button } from "@/components/ui";
 import { useState } from "react";
 import { EyeOffIcon, EyeIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 
 export default function LoginCardContent() {
 	const [showPassword, setShowPassword] = useState(false);

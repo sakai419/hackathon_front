@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Loader2, CheckCircle, XCircle } from "lucide-react";
 import { EditProfileData } from "@/types/profile";
 import updateProfiles from "@/services/api/profiles/updateProfiles";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui";
 import isAPIError from "@/lib/utils/isAPIError";
 import axios from "axios";
 

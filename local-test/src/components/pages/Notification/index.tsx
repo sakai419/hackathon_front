@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui";
 import NotificationItem from "./components/NotificationItem";
 import useNotifications from "@/hooks/useNotifications";
 import Header from "@/components/layouts/Header";

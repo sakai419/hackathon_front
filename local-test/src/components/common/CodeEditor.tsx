@@ -5,8 +5,7 @@ import {
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "@/components/ui/select";
-
+} from "@/components/ui";
 const LANGUAGES = [
 	{ value: "javascript", label: "JavaScript" },
 	{ value: "typescript", label: "TypeScript" },

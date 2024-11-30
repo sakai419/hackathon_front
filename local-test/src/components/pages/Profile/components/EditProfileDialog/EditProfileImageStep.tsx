@@ -1,9 +1,8 @@
 import { uploadFile } from "@/services/upload/upload";
 import { EditProfileData } from "@/types/profile";
-import { Label } from "@/components/ui/label";
+import { Label, Input } from "@/components/ui";
 import { Loader2, Upload } from "lucide-react";
 import UserAvatar from "@/components/common/UserAvatar";
-import { Input } from "@/components/ui/input";
 
 interface EditProfileImageStepProps {
 	data: EditProfileData;

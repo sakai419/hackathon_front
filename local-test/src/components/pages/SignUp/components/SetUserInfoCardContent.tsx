@@ -1,6 +1,5 @@
-import { Button } from "@/components/ui/button";
+import { Button, Input } from "@/components/ui";
 import { Label } from "@radix-ui/react-label";
-import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import createAccount from "@/services/api/accounts/createAccount";

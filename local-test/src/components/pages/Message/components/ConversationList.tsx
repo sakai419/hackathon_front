@@ -1,5 +1,5 @@
 import UserAvatar from "@/components/common/UserAvatar";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui";
 import { Conversation } from "@/types/conversation";
 
 interface ConversationListProps {

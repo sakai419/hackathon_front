@@ -1,17 +1,17 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui";
 import { MenuIcon } from "lucide-react";
 import { useState } from "react";
 import { useSidebarInfo } from "@/hooks/useSidebarInfo";
-import TweetDialog from "@/components/common/TweetDialog";
-import SidebarContent from "./components/SidebarContent";
-import TweetButton from "./components/TweetButton";
-import UserInfo from "./components/UserInfo";
 import { Code, Media } from "@/types/tweet";
 import postTweet from "@/services/api/tweets/postTweet";
 import { useClientProfileContext } from "@/context/ClientProfileProvider";
 import Link from "next/link";
+import TweetDialog from "@/components/tweet/TweetDialog";
+import SidebarContent from "./SidebarContent";
+import TweetButton from "./TweetButton";
+import UserInfo from "./UserInfo";
 
 export default function Sidebar() {
 	const [isOpen, setIsOpen] = useState(false);

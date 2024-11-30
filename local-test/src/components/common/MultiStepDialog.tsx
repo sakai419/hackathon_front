@@ -1,12 +1,12 @@
 import React, { useState, useTransition } from "react";
 import {
+	Button,
 	Dialog,
 	DialogContent,
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui";
 
 interface Step<T> {
 	title: string;
@@ -24,7 +24,7 @@ interface MultiStepDialogProps<T> {
 	onClose: () => void;
 }
 
-export function MultiStepDialog<T>({
+export default function MultiStepDialog<T>({
 	steps,
 	initialData,
 	isOpen,

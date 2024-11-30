@@ -1,12 +1,11 @@
 import UserAvatar from "@/components/common/UserAvatar";
-import { Textarea } from "@/components/ui/textarea";
+import { Button, Textarea } from "@/components/ui";
 import { useClientProfileContext } from "@/context/ClientProfileProvider";
 import { uploadFile } from "@/services/upload/upload";
 import { Code, Media, MediaTypes } from "@/types/tweet";
 import { useRef, useState } from "react";
 import { Code2Icon, ImageIcon, X } from "lucide-react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import CodeEditor from "@/components/common/CodeEditor";
 import ButtonWithTooltip from "@/components/common/ButtonWithTooltip";
 

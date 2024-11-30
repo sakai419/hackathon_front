@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Repeat, MessageSquareQuote, Undo } from "lucide-react";
 import {
+	Button,
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui";
 import { Code, Media, TweetInfo } from "@/types/tweet";
 import handleRetweet from "@/services/api/tweets/handleRetweet";
 import postQuote from "@/services/api/tweets/postQuote";
-import TweetDialog from "@/components/common/TweetDialog";
+import TweetDialog from "../TweetDialog";
 
 interface RetweetButtonProps {
 	tweet: TweetInfo;

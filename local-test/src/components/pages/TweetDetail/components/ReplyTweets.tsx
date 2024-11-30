@@ -1,4 +1,4 @@
-import TweetItem from "@/components/common/TweetList/components/TweetItem";
+import { TweetItem } from "@/components/tweet";
 import { TweetInfo } from "@/types/tweet";
 import { useEffect, useState } from "react";
 

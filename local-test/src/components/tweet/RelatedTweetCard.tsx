@@ -1,7 +1,7 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui";
 import { TweetInfo } from "@/types/tweet";
 import { useState } from "react";
-import TweetContent from "../TweetContent";
+import TweetContent from "./TweetContent";
 import Link from "next/link";
 
 interface RelatedTweetCardProps {

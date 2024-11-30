@@ -2,8 +2,8 @@ import {
 	Popover,
 	PopoverTrigger,
 	PopoverContent,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
+	Button,
+} from "@/components/ui";
 import { PopoverLogoutContent } from "./PopoverLoggoutContent";
 import { UserInfoWithoutBio } from "@/types/userInfoWithoutBio";
 import UserAvatar from "@/components/common/UserAvatar";
