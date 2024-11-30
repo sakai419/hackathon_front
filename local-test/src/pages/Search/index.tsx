@@ -7,14 +7,14 @@ import UserResults from "./components/UserResults";
 
 export default function SearchPage() {
 	const [keyword, setKeyword] = useState("");
+	const [searchKeyword, setSearchKeyword] = useState("");
 	const [activeTab, setActiveTab] = useState("トップ");
 
 	const tabNames = ["トップ", "最新", "ユーザー"];
 
 	const handleSearch = (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log("Searching for:", keyword);
-		// Here you would typically call an API to fetch search results
+		setSearchKeyword(keyword);
 	};
 
 	return (
@@ -48,7 +48,7 @@ export default function SearchPage() {
 				<SearchResults type="latest" query={keyword} />
 			)}
 			{activeTab === "ユーザー" ? (
-				<UserResults keyword={keyword} />
+				<UserResults keyword={searchKeyword} />
 			) : null}
 		</div>
 	);
