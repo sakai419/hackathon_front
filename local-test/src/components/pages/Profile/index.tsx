@@ -8,6 +8,7 @@ import UserHeader from "./components/UserHeader";
 import UserTweets from "./components/UserTweets";
 import UserRetweets from "./components/UserRetweets";
 import UserLikes from "./components/UserLikes";
+import useClientProfile from "@/hooks/useClientProfile";
 
 interface ProfileHeaderProps {
 	userId: string;
@@ -47,7 +48,12 @@ export function ProfileHeader({ userId }: ProfileHeaderProps) {
 }
 
 export function ProfilePage({ userId }: ProfilePageProps) {
-	const tabNames = ["ツイート", "リツイート", "いいね"];
+	const clientProfile = useClientProfile().profile;
+	const isClient = userId === clientProfile?.userInfo.userId;
+	const tabNames = ["ツイート", "リツイート"];
+	if (isClient) {
+		tabNames.push("いいね");
+	}
 
 	const [activeTab, setActiveTab] = useState(tabNames[0]);
 	const {

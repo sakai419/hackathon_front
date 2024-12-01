@@ -73,8 +73,13 @@ export function TweetOptionsButton({
 								className="flex items-center justify-start space-x-2 w-full"
 								onClick={handleDeleteClick}
 							>
-								<Trash2 className="w-4 h-4" />
-								<span>削除</span>
+								<Trash2
+									className="w-4 h-4 font-semibold"
+									color="red"
+								/>
+								<span className="text-red-500 font-semibold">
+									削除
+								</span>
 							</Button>
 							<Button
 								variant="ghost"
@@ -83,13 +88,17 @@ export function TweetOptionsButton({
 							>
 								{isPinned ? (
 									<>
-										<Undo className="w-4 h-4" />
-										<span>ピン留めを解除する</span>
+										<Undo className="w-4 h-4 font-semibold" />
+										<span className="font-semibold">
+											ピン留めを解除する
+										</span>
 									</>
 								) : (
 									<>
-										<Pin className="w-4 h-4" />
-										<span>プロフィールにピン留めする</span>
+										<Pin className="w-4 h-4 font-semibold" />
+										<span className="font-semibold">
+											プロフィールにピン留めする
+										</span>
 									</>
 								)}
 							</Button>
@@ -101,24 +110,30 @@ export function TweetOptionsButton({
 								className="flex items-center justify-start space-x-2 w-full"
 								onClick={handleFollowClick}
 							>
-								<UserPlus className="w-4 h-4" />
-								<span>@{userId}さんをフォロー</span>
+								<UserPlus className="w-4 h-4 font-semibold" />
+								<span className="font-semibold">
+									@{userId}さんをフォロー
+								</span>
 							</Button>
 							<Button
 								variant="ghost"
 								className="flex items-center justify-start space-x-2 w-full"
 								onClick={handleBlockClick}
 							>
-								<UserX className="w-4 h-4" />
-								<span>@{userId}さんをブロック</span>
+								<UserX className="w-4 h-4 font-semibold" />
+								<span className="font-semibold">
+									@{userId}さんをブロック
+								</span>
 							</Button>
 							<Button
 								variant="ghost"
 								className="flex items-center justify-start space-x-2 w-full"
 								onClick={handleReportClick}
 							>
-								<Flag className="w-4 h-4" />
-								<span>@{userId}さんを通報</span>
+								<Flag className="w-4 h-4 font-semibold" />
+								<span className="font-semibold">
+									@{userId}さんを通報
+								</span>
 							</Button>
 						</>
 					)}
