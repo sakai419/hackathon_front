@@ -23,8 +23,8 @@ export default function BannerAndAvatar({
 				<Image
 					src={bannerImage}
 					alt="Banner"
-					layout="fill"
-					objectFit="cover"
+					fill
+					style={{ objectFit: "cover" }}
 				/>
 			</div>
 			<div className="absolute -bottom-12 left-4">

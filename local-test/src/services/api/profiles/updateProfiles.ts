@@ -1,6 +1,7 @@
 import { EditProfileData } from "@/types/profile";
 import { PROFILE_ENDPOINT } from "../apiConfig";
 import { sendRequestWithRetry } from "../requests";
+import { transformKeysToSnakeCase } from "@/lib/utils/transformKeys";
 
 export default async function updateProfiles(data: EditProfileData) {
 	try {
@@ -8,7 +9,7 @@ export default async function updateProfiles(data: EditProfileData) {
 		const response = await sendRequestWithRetry({
 			url: `${PROFILE_ENDPOINT}`,
 			method: "PATCH",
-			data: JSON.stringify(data),
+			data: JSON.stringify(transformKeysToSnakeCase(data)),
 			headers: {
 				"Content-Type": "application/json",
 			},

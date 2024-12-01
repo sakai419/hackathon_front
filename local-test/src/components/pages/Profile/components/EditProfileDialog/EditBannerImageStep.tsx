@@ -52,9 +52,9 @@ export default function EditBannerImageStep({
 					<Image
 						src={bannerImage}
 						alt="バナー画像"
-						layout="fill"
-						objectFit="cover"
+						fill
 						className="object-cover w-full h-full"
+						style={{ objectFit: "cover" }}
 					/>
 				</div>
 				<Input
