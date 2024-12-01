@@ -12,7 +12,7 @@ import { useState, useRef, useEffect } from "react";
 import { uploadFile } from "@/services/upload/upload";
 import { Code, Media, MediaTypes, TweetInfo } from "@/types/tweet";
 import RelatedTweetCard from "./RelatedTweetCard";
-import TweetContent from "./TweetContent";
+import TweetContent from "./TweetItem";
 import { useClientProfileContext } from "@/context/ClientProfileProvider";
 import { UserAvatar, CodeEditor, ButtonWithTooltip } from "../common";
 

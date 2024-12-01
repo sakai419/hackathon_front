@@ -4,14 +4,15 @@ import Image from "next/image";
 import { Lock, Pin, Shield } from "lucide-react";
 import { Badge } from "@/components/ui";
 import { useRouter } from "next/navigation";
-import HashtagHighlighter from "./HashtagHighlither";
 import TweetActions from "./TweetActions";
 import { useEffect, useRef, useState } from "react";
 import RelatedTweetCard from "../RelatedTweetCard";
 import { UserAvatar, CodeEditor } from "@/components/common";
+import Highlighter from "./Highlighter";
 
-interface TweetContentProps {
+interface TweetItemProps {
 	tweet: TweetInfo;
+	highlightWord?: string;
 	withLink?: boolean;
 	showThreadLine?: boolean;
 	withActions?: boolean;
@@ -19,14 +20,15 @@ interface TweetContentProps {
 	quotedTweet?: TweetInfo;
 }
 
-export default function TweetContent({
+export default function TweetItem({
 	tweet,
+	highlightWord,
 	showThreadLine = false,
 	withLink = true,
 	withActions = true,
 	updateTweet,
 	quotedTweet,
-}: TweetContentProps) {
+}: TweetItemProps) {
 	const router = useRouter();
 	const tweetDate = getRelativeTimeString(new Date(tweet.createdAt));
 
@@ -113,7 +115,10 @@ export default function TweetContent({
 				</div>
 				<div className="mt-2 space-y-4">
 					{tweet.content && (
-						<HashtagHighlighter text={tweet.content} />
+						<Highlighter
+							text={tweet.content}
+							highlightWord={highlightWord}
+						/>
 					)}
 					{tweet.media && tweet.media.type === "image" && (
 						<Image

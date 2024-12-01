@@ -2,7 +2,12 @@ import { TweetInfo, TweetNode } from "@/types/tweet";
 import { useState, useEffect } from "react";
 import TweetItem from "./TweetItem";
 
-export default function TweetList({ tweets }: { tweets: TweetNode[] }) {
+interface TweetListProps {
+	tweets: TweetNode[];
+	highlightWord?: string;
+}
+
+export default function TweetList({ tweets, highlightWord }: TweetListProps) {
 	const [tweetNodes, setTweetNodes] = useState<TweetNode[]>(tweets);
 
 	useEffect(() => {
@@ -36,6 +41,7 @@ export default function TweetList({ tweets }: { tweets: TweetNode[] }) {
 					{tweet.tweet.isReply && tweet.originalTweet && (
 						<TweetItem
 							tweet={tweet.originalTweet}
+							highlightWord={highlightWord}
 							updateTweet={updateTweet}
 							showThreadLine={true}
 						/>
@@ -54,12 +60,14 @@ export default function TweetList({ tweets }: { tweets: TweetNode[] }) {
 					{tweet.parentReply && (
 						<TweetItem
 							tweet={tweet.parentReply}
+							highlightWord={highlightWord}
 							updateTweet={updateTweet}
 							showThreadLine={true}
 						/>
 					)}
 					<TweetItem
 						tweet={tweet.tweet}
+						highlightWord={highlightWord}
 						updateTweet={updateTweet}
 						{...(tweet.tweet.isQuote && {
 							quotedTweet: tweet.originalTweet,

@@ -22,7 +22,7 @@ export default function PopularTweetResults({
 	return keyword ? (
 		<>
 			{isLoading && <LoadingScreen />}
-			<TweetList tweets={results} />
+			<TweetList tweets={results} highlightWord={keyword} />
 			<Button
 				onClick={loadMore}
 				disabled={!hasMore}
