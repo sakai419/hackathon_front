@@ -1,4 +1,4 @@
-import DynamicTabs from "@/components/common/DynamicTab";
+import DynamicTabs from "@/components/common/DynamicTabs";
 import useUserProfile from "@/hooks/useUserProfile";
 import { useState } from "react";
 import { LoadingScreen } from "@/components/common";

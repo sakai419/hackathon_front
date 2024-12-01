@@ -17,7 +17,7 @@ export default function ProfileUpdateStep({ data }: ProfileUpdateStepProps) {
 
 	const updateProfileData = useCallback(async () => {
 		try {
-			const result = await updateProfiles({ data });
+			const result = await updateProfiles(data);
 			setIsUpdating(false);
 			setUpdateSuccess(result !== null);
 		} catch (error: unknown) {

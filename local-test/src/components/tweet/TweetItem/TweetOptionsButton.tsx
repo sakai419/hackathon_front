@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import handlePinSetting from "@/services/api/tweets/handlePinSetting";
 import { TweetInfo } from "@/types/tweet";
-import deleteTweet from "@/services/api/tweets/delete.Tweet";
+import deleteTweet from "@/services/api/tweets/deleteTweet";
 
 interface TweetOptionsButtonProps {
 	tweet: TweetInfo;
@@ -33,7 +33,7 @@ export function TweetOptionsButton({
 
 	const handleDeleteClick = async () => {
 		try {
-			await deleteTweet({ tweetId: tweet.tweetId });
+			await deleteTweet(tweet.tweetId);
 		} catch (error) {
 			console.log("Failed to delete tweet:", error);
 			throw error;
@@ -43,10 +43,7 @@ export function TweetOptionsButton({
 
 	const handlePinClick = async () => {
 		try {
-			await handlePinSetting({
-				tweetId: tweet.tweetId,
-				IsPinned: tweet.isPinned,
-			});
+			await handlePinSetting(tweet.tweetId, tweet.isPinned);
 			updateTweet(tweet, { isPinned: !tweet.isPinned });
 		} catch (error) {
 			console.log("Failed to handle pin setting:", error);

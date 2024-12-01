@@ -22,10 +22,7 @@ export function RetweetButton({ tweet, updateTweet }: RetweetButtonProps) {
 
 	const onRetweet = async () => {
 		try {
-			await handleRetweet({
-				tweetId: tweet.tweetId,
-				hasRetweeted: tweet.hasRetweeted,
-			});
+			await handleRetweet(tweet.tweetId, tweet.hasRetweeted);
 			updateTweet(tweet, {
 				hasRetweeted: !tweet.hasRetweeted,
 				retweetsCount: tweet.hasRetweeted
@@ -39,12 +36,7 @@ export function RetweetButton({ tweet, updateTweet }: RetweetButtonProps) {
 
 	const onQuote = async (content?: string, code?: Code, media?: Media) => {
 		try {
-			await postQuote({
-				tweetId: tweet.tweetId,
-				content,
-				code,
-				media,
-			});
+			await postQuote(tweet.tweetId, content, code, media);
 			setIsQuoteDialogOpen(false);
 			updateTweet(tweet, { retweetsCount: tweet.retweetsCount + 1 });
 		} catch (error) {

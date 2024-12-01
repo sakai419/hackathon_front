@@ -46,12 +46,7 @@ export function TweetDetailPage({ tweetId }: TweetDetailPageProps) {
 	) => {
 		if (!tweet) return;
 		try {
-			await postReply({
-				tweetId: tweet.tweet.tweetId,
-				content,
-				code,
-				media,
-			});
+			await postReply(tweet.tweet.tweetId, content, code, media);
 		} catch (error) {
 			throw error;
 		}

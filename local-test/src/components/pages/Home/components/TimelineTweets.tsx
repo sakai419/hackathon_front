@@ -1,16 +1,10 @@
 import { LoadingScreen } from "@/components/common";
 import { TweetList } from "@/components/tweet";
 import { Button } from "@/components/ui";
-import useUserTweets from "@/hooks/useUserTweets";
+import useTimelineTweets from "@/hooks/useTimelineTweets";
 
-interface UserTweetsProps {
-	userId: string;
-}
-
-export default function UserTweets({ userId }: UserTweetsProps) {
-	const { tweets, isLoading, hasMore, loadMore, error } = useUserTweets({
-		userId,
-	});
+export default function TimelineTweets() {
+	const { tweets, isLoading, hasMore, loadMore, error } = useTimelineTweets();
 
 	if (error) {
 		return <div>エラーが発生しました</div>;

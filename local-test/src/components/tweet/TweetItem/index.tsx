@@ -12,31 +12,31 @@ import Highlighter from "./Highlighter";
 import { TweetOptionsButton } from "./TweetOptionsButton";
 
 interface TweetItemProps {
+	clientUserId: string;
 	tweet: TweetInfo;
 	highlightWord?: string;
 	showThreadLine?: boolean;
 	withLink?: boolean;
 	withActions?: boolean;
-	isAuthor?: boolean;
 	updateTweet?: (tweet: TweetInfo, updateFields: Partial<TweetInfo>) => void;
 	quotedTweet?: TweetInfo;
 }
 
 export default function TweetItem({
+	clientUserId,
 	tweet,
 	highlightWord,
 	showThreadLine = false,
 	withLink = true,
 	withActions = true,
-	isAuthor,
 	updateTweet,
 	quotedTweet,
 }: TweetItemProps) {
 	const router = useRouter();
-	const tweetDate = getRelativeTimeString(new Date(tweet.createdAt));
-
 	const [threadLineHeight, setThreadLineHeight] = useState(0);
 	const componentRef = useRef<HTMLDivElement>(null);
+	const tweetDate = getRelativeTimeString(new Date(tweet.createdAt));
+	const isAuthor = tweet.userInfo.userId === clientUserId;
 
 	useEffect(() => {
 		if (showThreadLine && componentRef.current) {

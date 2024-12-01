@@ -23,7 +23,7 @@ export default function SetUserInfoCardContent({
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			await createAccount({ userId, userName });
+			await createAccount(userId, userName);
 			onSubmit();
 			router.push("/home");
 		} catch (error: unknown) {

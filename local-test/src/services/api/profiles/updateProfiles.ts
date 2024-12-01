@@ -2,11 +2,7 @@ import { EditProfileData } from "@/types/profile";
 import { PROFILE_ENDPOINT } from "../apiConfig";
 import { sendRequestWithRetry } from "../requests";
 
-interface updateProfilesProps {
-	data: EditProfileData;
-}
-
-export default async function updateProfiles({ data }: updateProfilesProps) {
+export default async function updateProfiles(data: EditProfileData) {
 	try {
 		const response = await sendRequestWithRetry({
 			url: `${PROFILE_ENDPOINT}`,

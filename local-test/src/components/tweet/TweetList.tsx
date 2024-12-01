@@ -1,18 +1,14 @@
 import { TweetInfo, TweetNode } from "@/types/tweet";
 import { useState, useEffect } from "react";
 import TweetItem from "./TweetItem";
+import useClientProfile from "@/hooks/useClientProfile";
 
 interface TweetListProps {
 	tweets: TweetNode[];
 	highlightWord?: string;
-	isAuthor: boolean;
 }
 
-export default function TweetList({
-	tweets,
-	highlightWord,
-	isAuthor,
-}: TweetListProps) {
+export default function TweetList({ tweets, highlightWord }: TweetListProps) {
 	const [tweetNodes, setTweetNodes] = useState<TweetNode[]>(tweets);
 
 	useEffect(() => {
@@ -39,6 +35,9 @@ export default function TweetList({
 		});
 	};
 
+	const { profile } = useClientProfile();
+	const clientUserId = profile?.userInfo.userId || "";
+
 	return (
 		<div className="divide-y divide-gray-200">
 			{tweetNodes.map((tweet, index) => (
@@ -47,7 +46,7 @@ export default function TweetList({
 						<TweetItem
 							tweet={tweet.originalTweet}
 							highlightWord={highlightWord}
-							isAuthor={isAuthor}
+							clientUserId={clientUserId}
 							updateTweet={updateTweet}
 							showThreadLine={true}
 						/>
@@ -67,7 +66,7 @@ export default function TweetList({
 						<TweetItem
 							tweet={tweet.parentReply}
 							highlightWord={highlightWord}
-							isAuthor={isAuthor}
+							clientUserId={clientUserId}
 							updateTweet={updateTweet}
 							showThreadLine={true}
 						/>
@@ -75,7 +74,7 @@ export default function TweetList({
 					<TweetItem
 						tweet={tweet.tweet}
 						highlightWord={highlightWord}
-						isAuthor={isAuthor}
+						clientUserId={clientUserId}
 						updateTweet={updateTweet}
 						{...(tweet.tweet.isQuote && {
 							quotedTweet: tweet.originalTweet,

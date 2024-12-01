@@ -2,17 +2,11 @@ import { Code, Media } from "@/types/tweet";
 import { TWEET_ENDPOINT } from "../apiConfig";
 import { sendRequestWithRetry } from "../requests";
 
-interface PostTweetRequest {
-	content?: string;
-	code?: Code;
-	media?: Media;
-}
-
-export default async function postTweet({
-	content,
-	code,
-	media,
-}: PostTweetRequest) {
+export default async function postTweet(
+	content?: string,
+	code?: Code,
+	media?: Media
+) {
 	try {
 		const response = await sendRequestWithRetry({
 			url: `${TWEET_ENDPOINT}`,

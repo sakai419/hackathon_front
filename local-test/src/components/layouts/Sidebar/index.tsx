@@ -25,11 +25,7 @@ export default function Sidebar() {
 
 	const handleTweet = async (content: string, code?: Code, media?: Media) => {
 		try {
-			await postTweet({
-				content,
-				code,
-				media,
-			});
+			await postTweet(content, code, media);
 			handleCloseDialog();
 		} catch (error) {
 			throw error;

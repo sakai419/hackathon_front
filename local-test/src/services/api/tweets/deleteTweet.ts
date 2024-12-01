@@ -1,11 +1,7 @@
 import { TWEET_ENDPOINT } from "../apiConfig";
 import { sendRequestWithRetry } from "../requests";
 
-interface deleteTweetRequest {
-	tweetId: number;
-}
-
-export default async function deleteTweet({ tweetId }: deleteTweetRequest) {
+export default async function deleteTweet(tweetId: number) {
 	try {
 		const response = await sendRequestWithRetry({
 			url: `${TWEET_ENDPOINT}/${tweetId}`,

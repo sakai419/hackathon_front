@@ -1,15 +1,10 @@
 import { TWEET_ENDPOINT } from "../apiConfig";
 import { sendRequestWithRetry } from "../requests";
 
-interface handleRetweetRequest {
-	tweetId: number;
-	hasRetweeted: boolean;
-}
-
-export default async function handleRetweet({
-	tweetId,
-	hasRetweeted,
-}: handleRetweetRequest) {
+export default async function handleRetweet(
+	tweetId: number,
+	hasRetweeted: boolean
+) {
 	const method = hasRetweeted ? "DELETE" : "POST";
 	try {
 		const response = await sendRequestWithRetry({

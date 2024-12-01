@@ -1,15 +1,7 @@
 import { TWEET_ENDPOINT } from "../apiConfig";
 import { sendRequestWithRetry } from "../requests";
 
-interface handleLikeRequest {
-	tweetId: number;
-	hasLiked: boolean;
-}
-
-export default async function handleLike({
-	tweetId,
-	hasLiked,
-}: handleLikeRequest) {
+export default async function handleLike(tweetId: number, hasLiked: boolean) {
 	const method = hasLiked ? "DELETE" : "POST";
 	try {
 		const response = await sendRequestWithRetry({

@@ -1,4 +1,4 @@
-import DynamicTabs from "@/components/common/DynamicTab";
+import DynamicTabs from "@/components/common/DynamicTabs";
 import { Input } from "@/components/ui";
 import { Search } from "lucide-react";
 import { useState } from "react";

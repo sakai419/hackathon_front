@@ -1,15 +1,7 @@
 import { ACCOUNT_ENDPOINT } from "../apiConfig";
 import { sendRequestWithRetry } from "../requests";
 
-interface CreateAccountRequest {
-	userId: string;
-	userName: string;
-}
-
-export default async function createAccount({
-	userId,
-	userName,
-}: CreateAccountRequest) {
+export default async function createAccount(userId: string, userName: string) {
 	try {
 		const response = await sendRequestWithRetry({
 			url: `${ACCOUNT_ENDPOINT}`,

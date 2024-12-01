@@ -20,12 +20,7 @@ export default function TweetActions({
 
 	const onReply = async (content?: string, code?: Code, media?: Media) => {
 		try {
-			await postReply({
-				tweetId: tweet.tweetId,
-				content,
-				code,
-				media,
-			});
+			await postReply(tweet.tweetId, content, code, media);
 			setIsReplyDialogOpen(false);
 			updateTweet(tweet, { repliesCount: tweet.repliesCount + 1 });
 		} catch (error) {
@@ -35,10 +30,7 @@ export default function TweetActions({
 
 	const onLike = async () => {
 		try {
-			await handleLike({
-				tweetId: tweet.tweetId,
-				hasLiked: tweet.hasLiked,
-			});
+			await handleLike(tweet.tweetId, tweet.hasLiked);
 			updateTweet(tweet, {
 				hasLiked: !tweet.hasLiked,
 				likesCount: tweet.hasLiked

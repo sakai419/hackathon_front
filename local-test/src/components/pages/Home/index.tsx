@@ -1,4 +1,7 @@
+import { DynamicTabs } from "@/components/common";
 import Header from "@/components/layouts/Header";
+import { useState } from "react";
+import TimelineTweets from "./components/TimelineTweets";
 
 export function HomeHeader() {
 	return (
@@ -10,7 +13,17 @@ export function HomeHeader() {
 }
 
 export function HomePage() {
+	const tabs = ["タイムライン", "最新"];
+	const [activeTab, setActiveTab] = useState(tabs[0]);
+
 	return (
-		<div className="max-w-2xl mx-auto bg-white shadow-md rounded-lg overflow-hidden"></div>
+		<div className="max-w-2xl mx-auto">
+			<DynamicTabs
+				tabNames={tabs}
+				activeTab={activeTab}
+				setActiveTab={setActiveTab}
+			/>
+			{activeTab === "タイムライン" && <TimelineTweets />}
+		</div>
 	);
 }
