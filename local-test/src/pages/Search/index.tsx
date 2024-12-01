@@ -4,6 +4,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import UserResults from "./components/UserResults";
+import LatestTweetResults from "./components/LatestTweetResults";
 
 export default function SearchPage() {
 	const [keyword, setKeyword] = useState("");
@@ -45,7 +46,7 @@ export default function SearchPage() {
 				<SearchResults type="top" query={keyword} />
 			)}
 			{activeTab === "最新" && (
-				<SearchResults type="latest" query={keyword} />
+				<LatestTweetResults keyword={searchKeyword} />
 			)}
 			{activeTab === "ユーザー" ? (
 				<UserResults keyword={searchKeyword} />

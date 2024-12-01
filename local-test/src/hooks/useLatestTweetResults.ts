@@ -1,15 +1,17 @@
-import { setDefaultImageOfUserInfos } from "@/lib/utils/setDefaultImage";
+import { setDefaultImageOfTweetNodes } from "@/lib/utils/setDefaultImage";
 import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
-import searchUsers from "@/services/api/search/searchUsers";
-import { UserInfo } from "@/types/useInfo";
+import searchTweets from "@/services/api/search/searchTweets";
+import { TweetNode } from "@/types/tweet";
 import { useEffect, useRef, useState } from "react";
 
-interface UseUserResultsProps {
+interface UseLatestTweetResultsProps {
 	keyword: string;
 }
 
-export default function useUserResults({ keyword }: UseUserResultsProps) {
-	const [results, setResults] = useState<UserInfo[]>([]);
+export default function useLatestTweetResults({
+	keyword,
+}: UseLatestTweetResultsProps) {
+	const [results, setResults] = useState<TweetNode[]>([]);
 	const [page, setPage] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasMore, setHasMore] = useState(true);
@@ -32,11 +34,11 @@ export default function useUserResults({ keyword }: UseUserResultsProps) {
 			if (isLoadingRef.current || !hasMore || !keyword) return;
 			setIsLoading(true);
 			try {
-				const data = await searchUsers(keyword, page, "latest");
+				const data = await searchTweets(keyword, page, "latest");
 				if (data) {
 					const camelCaseData =
-						transformKeysToCamelCase<UserInfo[]>(data);
-					setDefaultImageOfUserInfos(camelCaseData);
+						transformKeysToCamelCase<TweetNode[]>(data);
+					setDefaultImageOfTweetNodes(camelCaseData);
 					setResults((prev) => [...prev, ...camelCaseData]);
 					if (camelCaseData.length < 10) {
 						setHasMore(false);

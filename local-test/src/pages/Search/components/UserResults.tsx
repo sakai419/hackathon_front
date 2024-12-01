@@ -72,13 +72,13 @@ export default function UserResults({ keyword }: UserResultsProps) {
 					disabled={!hasMore}
 					className="w-full mt-4"
 				>
-					{hasMore ? "さらに読み込む" : "読み込み完了"}
+					{hasMore ? "さらに読み込む" : "検索結果は以上です"}
 				</Button>
 			</div>
 		</>
 	) : (
 		<div className="text-center text-gray-500">
-			ユーザーを検索してください
+			キーワードを入力してください
 		</div>
 	);
 }
