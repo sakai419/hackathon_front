@@ -1,10 +1,10 @@
 import DynamicTabs from "@/components/common/DynamicTab";
-import { Card, CardContent, Input } from "@/components/ui";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { Input } from "@/components/ui";
 import { Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import UserResults from "./components/UserResults";
 import LatestTweetResults from "./components/LatestTweetResults";
+import PopularTweetResults from "./components/PopularTweetResults";
 
 export default function SearchPage() {
 	const [keyword, setKeyword] = useState("");
@@ -43,7 +43,7 @@ export default function SearchPage() {
 				setActiveTab={setActiveTab}
 			/>
 			{activeTab === "トップ" && (
-				<SearchResults type="top" query={keyword} />
+				<PopularTweetResults keyword={searchKeyword} />
 			)}
 			{activeTab === "最新" && (
 				<LatestTweetResults keyword={searchKeyword} />
@@ -51,70 +51,6 @@ export default function SearchPage() {
 			{activeTab === "ユーザー" ? (
 				<UserResults keyword={searchKeyword} />
 			) : null}
-		</div>
-	);
-}
-
-function SearchResults({
-	type,
-	query,
-}: {
-	type: "top" | "latest";
-	query: string;
-}) {
-	// 実際のアプリケーションでは、この部分でAPIから結果を取得します
-	const results = [
-		{
-			id: 1,
-			user: "ユーザー1",
-			content: "検索結果のコンテンツ1",
-			timestamp: "2分前",
-		},
-		{
-			id: 2,
-			user: "ユーザー2",
-			content: "検索結果のコンテンツ2",
-			timestamp: "1時間前",
-		},
-		{
-			id: 3,
-			user: "ユーザー3",
-			content: "検索結果のコンテンツ3",
-			timestamp: "3時間前",
-		},
-	];
-
-	useEffect(() => {
-		console.log("SearchResults", type, query);
-	});
-
-	return (
-		<div className="">
-			{results.map((result) => (
-				<Card key={result.id}>
-					<CardContent className="p-4">
-						<div className="flex items-start space-x-4">
-							<Avatar>
-								<AvatarImage
-									src={`/placeholder.svg?height=40&width=40`}
-								/>
-								<AvatarFallback>
-									{result.user[0]}
-								</AvatarFallback>
-							</Avatar>
-							<div className="flex-1">
-								<div className="flex items-center space-x-2">
-									<h3 className="font-bold">{result.user}</h3>
-									<span className="text-sm text-gray-500">
-										{result.timestamp}
-									</span>
-								</div>
-								<p>{result.content}</p>
-							</div>
-						</div>
-					</CardContent>
-				</Card>
-			))}
 		</div>
 	);
 }
