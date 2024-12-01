@@ -9,13 +9,15 @@ import { useEffect, useRef, useState } from "react";
 import RelatedTweetCard from "../RelatedTweetCard";
 import { UserAvatar, CodeEditor } from "@/components/common";
 import Highlighter from "./Highlighter";
+import { TweetOptionsButton } from "./TweetOptionsButton";
 
 interface TweetItemProps {
 	tweet: TweetInfo;
 	highlightWord?: string;
-	withLink?: boolean;
 	showThreadLine?: boolean;
+	withLink?: boolean;
 	withActions?: boolean;
+	isAuthor?: boolean;
 	updateTweet?: (tweet: TweetInfo, updateFields: Partial<TweetInfo>) => void;
 	quotedTweet?: TweetInfo;
 }
@@ -26,6 +28,7 @@ export default function TweetItem({
 	showThreadLine = false,
 	withLink = true,
 	withActions = true,
+	isAuthor,
 	updateTweet,
 	quotedTweet,
 }: TweetItemProps) {
@@ -56,7 +59,7 @@ export default function TweetItem({
 
 	return (
 		<div
-			className="flex items-start space-x-2 hover:bg-gray-100 p-4"
+			className="relative flex items-start space-x-2 hover:bg-gray-100 p-4"
 			onClick={handleTweetClick}
 			ref={componentRef}
 		>
@@ -77,6 +80,15 @@ export default function TweetItem({
 					/>
 				)}
 			</div>
+			{withActions && isAuthor !== undefined && (
+				<div className="absolute top-0 right-0 ">
+					<TweetOptionsButton
+						isAuthor={isAuthor}
+						isPinned={tweet.isPinned}
+						userId={tweet.userInfo.userId}
+					/>
+				</div>
+			)}
 			<div className="flex-1">
 				<div className="flex items-center justify-between">
 					<div className="flex items-center space-x-2">

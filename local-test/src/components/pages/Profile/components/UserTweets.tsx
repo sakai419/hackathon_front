@@ -1,6 +1,7 @@
 import { LoadingScreen } from "@/components/common";
 import { TweetList } from "@/components/tweet";
 import { Button } from "@/components/ui";
+import useClientProfile from "@/hooks/useClientProfile";
 import useUserTweets from "@/hooks/useUserTweets";
 
 interface UserTweetsProps {
@@ -8,6 +9,8 @@ interface UserTweetsProps {
 }
 
 export default function UserTweets({ userId }: UserTweetsProps) {
+	const clientProfile = useClientProfile().profile;
+	const isAuthor = clientProfile?.userInfo.userId === userId;
 	const { tweets, isLoading, hasMore, loadMore, error } = useUserTweets({
 		userId,
 	});
@@ -20,7 +23,7 @@ export default function UserTweets({ userId }: UserTweetsProps) {
 		<>
 			{isLoading && <LoadingScreen />}
 			<div className="max-w-2xl mx-auto">
-				<TweetList tweets={tweets} />
+				<TweetList tweets={tweets} isAuthor={isAuthor} />
 				<Button
 					onClick={loadMore}
 					disabled={!hasMore}

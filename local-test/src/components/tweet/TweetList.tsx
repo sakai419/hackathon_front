@@ -5,9 +5,14 @@ import TweetItem from "./TweetItem";
 interface TweetListProps {
 	tweets: TweetNode[];
 	highlightWord?: string;
+	isAuthor: boolean;
 }
 
-export default function TweetList({ tweets, highlightWord }: TweetListProps) {
+export default function TweetList({
+	tweets,
+	highlightWord,
+	isAuthor,
+}: TweetListProps) {
 	const [tweetNodes, setTweetNodes] = useState<TweetNode[]>(tweets);
 
 	useEffect(() => {
@@ -42,6 +47,7 @@ export default function TweetList({ tweets, highlightWord }: TweetListProps) {
 						<TweetItem
 							tweet={tweet.originalTweet}
 							highlightWord={highlightWord}
+							isAuthor={isAuthor}
 							updateTweet={updateTweet}
 							showThreadLine={true}
 						/>
@@ -61,6 +67,7 @@ export default function TweetList({ tweets, highlightWord }: TweetListProps) {
 						<TweetItem
 							tweet={tweet.parentReply}
 							highlightWord={highlightWord}
+							isAuthor={isAuthor}
 							updateTweet={updateTweet}
 							showThreadLine={true}
 						/>
@@ -68,6 +75,7 @@ export default function TweetList({ tweets, highlightWord }: TweetListProps) {
 					<TweetItem
 						tweet={tweet.tweet}
 						highlightWord={highlightWord}
+						isAuthor={isAuthor}
 						updateTweet={updateTweet}
 						{...(tweet.tweet.isQuote && {
 							quotedTweet: tweet.originalTweet,

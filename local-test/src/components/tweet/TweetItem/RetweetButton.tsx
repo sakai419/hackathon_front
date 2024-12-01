@@ -77,19 +77,6 @@ export function RetweetButton({ tweet, updateTweet }: RetweetButtonProps) {
 		<>
 			<Popover open={isOpen} onOpenChange={setIsOpen}>
 				<PopoverTrigger asChild>
-					{/* <ButtonWithTooltip
-						description="リツイート"
-						onClick={handleButtonClick}
-						content={
-							<>
-								<Repeat className="w-4 h-4" />
-								<span>{tweet.retweetsCount}</span>
-							</>
-						}
-						buttonClassName={`flex items-center space-x-2 hover:bg-green-100 hover:text-green-500 ${
-							tweet.hasRetweeted ? "text-green-500" : ""
-						}`}
-					/> */}
 					<Button
 						variant="ghost"
 						className={`flex items-center space-x-2 hover:bg-green-100 hover:text-green-500 ${
