@@ -2,6 +2,7 @@ import { DynamicTabs } from "@/components/common";
 import Header from "@/components/layouts/Header";
 import { useState } from "react";
 import TimelineTweets from "./components/TimelineTweets";
+import RecentTweets from "./components/RecentTweets";
 
 export function HomeHeader() {
 	return (
@@ -23,7 +24,8 @@ export function HomePage() {
 				activeTab={activeTab}
 				setActiveTab={setActiveTab}
 			/>
-			{activeTab === "タイムライン" && <TimelineTweets />}
+			{activeTab === "タイムライン" ? <TimelineTweets /> : null}
+			{activeTab === "最新" ? <RecentTweets /> : null}
 		</div>
 	);
 }
