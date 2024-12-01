@@ -7,7 +7,7 @@ import ProfileUpdateStep from "./ProfileUpdateStep";
 import EditUserInfoStep from "./EditUserInfoStep";
 import { MultiStepDialog } from "@/components/common";
 
-interface EditProfileDialogProps {
+interface EditProfileButtonProps {
 	userId: string;
 	userName: string;
 	bio: string;
@@ -15,13 +15,13 @@ interface EditProfileDialogProps {
 	bannerImageUrl: string;
 }
 
-export default function EditProfileDialog({
+export default function EditProfileButton({
 	userId,
 	userName,
 	bio,
 	profileImageUrl,
 	bannerImageUrl,
-}: EditProfileDialogProps) {
+}: EditProfileButtonProps) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const steps = [

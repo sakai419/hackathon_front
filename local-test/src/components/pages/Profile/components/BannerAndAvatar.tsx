@@ -1,6 +1,6 @@
 import UserAvatar from "@/components/common/UserAvatar";
 import Image from "next/image";
-import EditProfileDialog from "./EditProfileDialog";
+import EditProfileButton from "./EditProfileButton";
 
 interface BannerAndAvatarProps {
 	userId: string;
@@ -37,7 +37,7 @@ export default function BannerAndAvatar({
 				/>
 			</div>
 			<div className="absolute right-4 bottom-4">
-				<EditProfileDialog
+				<EditProfileButton
 					userId={userId}
 					userName={userName}
 					bio={bio}
