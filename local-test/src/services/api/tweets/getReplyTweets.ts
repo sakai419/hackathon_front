@@ -1,7 +1,15 @@
 import { TWEET_ENDPOINT } from "../apiConfig";
 import { sendRequestWithRetry } from "../requests";
 
-export default async function getReplyTweets(tweetId: number, page: number) {
+interface getReplyTweetsRequest {
+	tweetId: number;
+	page: number;
+}
+
+export default async function getReplyTweets({
+	tweetId,
+	page,
+}: getReplyTweetsRequest) {
 	const offset = (page - 1) * 10;
 	try {
 		const response = await sendRequestWithRetry({

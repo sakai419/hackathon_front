@@ -1,19 +1,19 @@
 import { TWEET_ENDPOINT } from "../apiConfig";
 import { sendRequestWithRetry } from "../requests";
 
-interface getTweetNodeRequest {
+interface deleteTweetRequest {
 	tweetId: number;
 }
 
-export default async function getTweetNode({ tweetId }: getTweetNodeRequest) {
+export default async function deleteTweet({ tweetId }: deleteTweetRequest) {
 	try {
 		const response = await sendRequestWithRetry({
 			url: `${TWEET_ENDPOINT}/${tweetId}`,
-			method: "GET",
+			method: "DELETE",
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to get tweet node:", error);
+		console.error("Failed to delete tweet:", error);
 		throw error;
 	}
 }

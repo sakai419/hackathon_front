@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import handlePinSetting from "@/services/api/tweets/handlePinSetting";
 import { TweetInfo } from "@/types/tweet";
+import deleteTweet from "@/services/api/tweets/delete.Tweet";
 
 interface TweetOptionsButtonProps {
 	tweet: TweetInfo;
@@ -30,8 +31,13 @@ export function TweetOptionsButton({
 }: TweetOptionsButtonProps) {
 	const [isOpen, setIsOpen] = useState(false);
 
-	const handleDeleteClick = () => {
-		console.log("Delete tweet");
+	const handleDeleteClick = async () => {
+		try {
+			await deleteTweet({ tweetId: tweet.tweetId });
+		} catch (error) {
+			console.log("Failed to delete tweet:", error);
+			throw error;
+		}
 		setIsOpen(false);
 	};
 
