@@ -1,4 +1,4 @@
-import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
+import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
 import getMessages from "@/services/api/conversations/getMessages";
 import { Message } from "@/types/message";
 import { useEffect, useRef, useState } from "react";

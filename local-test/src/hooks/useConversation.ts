@@ -1,5 +1,5 @@
 import { setDefaultImageOfConversations } from "@/lib/utils/setDefaultImage";
-import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
+import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
 import getConversations from "@/services/api/conversations/getConversations";
 import { Conversation } from "@/types/conversation";
 import { useEffect, useRef, useState } from "react";

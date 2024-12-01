@@ -4,6 +4,7 @@ import { sendRequestWithRetry } from "../requests";
 
 export default async function updateProfiles(data: EditProfileData) {
 	try {
+		console.log("data", data);
 		const response = await sendRequestWithRetry({
 			url: `${PROFILE_ENDPOINT}`,
 			method: "PATCH",

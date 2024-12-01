@@ -3,6 +3,7 @@ import { TweetInfo } from "@/types/tweet";
 import { useState } from "react";
 import TweetContent from "./TweetItem";
 import Link from "next/link";
+import useClientProfile from "@/hooks/useClientProfile";
 
 interface RelatedTweetCardProps {
 	tweet: TweetInfo;
@@ -14,6 +15,8 @@ export default function RelatedTweetCard({
 	withActions = false,
 }: RelatedTweetCardProps) {
 	const [tweetInfo, setTweetInfo] = useState<TweetInfo>(tweet);
+	const { profile } = useClientProfile();
+	const clientUserId = profile?.userInfo.userId;
 	const updateTweet = (
 		tweet: TweetInfo,
 		updateFields: Partial<TweetInfo>
@@ -27,11 +30,14 @@ export default function RelatedTweetCard({
 		<Link href={`/tweets/${tweetInfo.tweetId}`}>
 			<Card className="w-full p-0">
 				<CardContent className="pt-4">
-					<TweetContent
-						tweet={tweetInfo}
-						withActions={withActions}
-						updateTweet={updateTweet}
-					/>
+					{clientUserId && (
+						<TweetContent
+							tweet={tweetInfo}
+							clientUserId={clientUserId}
+							withActions={withActions}
+							updateTweet={updateTweet}
+						/>
+					)}
 				</CardContent>
 			</Card>
 		</Link>

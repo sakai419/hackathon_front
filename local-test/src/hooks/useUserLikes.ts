@@ -1,5 +1,5 @@
 import { setDefaultImageOfTweetNodes } from "@/lib/utils/setDefaultImage";
-import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
+import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
 import getUserLikes from "@/services/api/users/getUserLikes";
 import { TweetNode } from "@/types/tweet";
 import { useState, useRef, useEffect } from "react";

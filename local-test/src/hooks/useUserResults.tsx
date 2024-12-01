@@ -1,5 +1,5 @@
 import { setDefaultImageOfUserInfos } from "@/lib/utils/setDefaultImage";
-import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
+import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
 import searchUsers from "@/services/api/search/searchUsers";
 import { UserInfo } from "@/types/useInfo";
 import { useEffect, useRef, useState } from "react";

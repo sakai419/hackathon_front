@@ -1,5 +1,5 @@
 import { setDefaultImageOfTweetInfos } from "@/lib/utils/setDefaultImage";
-import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
+import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
 import getReplyTweets from "@/services/api/tweets/getReplyTweets";
 import { TweetInfo } from "@/types/tweet";
 import { useState, useEffect, useRef } from "react";

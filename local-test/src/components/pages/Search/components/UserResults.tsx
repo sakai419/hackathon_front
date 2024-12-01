@@ -23,7 +23,7 @@ export default function UserResults({ keyword }: UserResultsProps) {
 			<div className="divide-y divide-gray-200">
 				{results.map((user) => (
 					<Link
-						href={`/${user.userId}`}
+						href={`/users/${user.userId}`}
 						className="block"
 						key={user.userId}
 					>

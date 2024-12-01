@@ -38,7 +38,7 @@ export default function SidebarContent({
 			<SidebarItem
 				icon={UserIcon}
 				label="プロフィール"
-				href={`/${userId}`}
+				href={`/users/${userId}`}
 			/>
 			<SidebarItem icon={SettingsIcon} label="設定" href="/settings" />
 		</nav>

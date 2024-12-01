@@ -1,4 +1,4 @@
-import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
+import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
 import getClientProfile from "@/services/api/users/getClientProfile";
 import { Profile } from "@/types/profile";
 import { useEffect, useState } from "react";

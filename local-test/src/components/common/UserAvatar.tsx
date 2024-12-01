@@ -20,7 +20,7 @@ export default function UserAvatar({
 	const handleCLick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
-		router.push(`/${userId}`);
+		router.push(`/users/${userId}`);
 	};
 
 	const avatar = (

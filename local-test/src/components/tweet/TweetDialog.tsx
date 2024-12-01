@@ -144,130 +144,143 @@ export default function TweetDialog({
 	}, [isOpen]);
 
 	return (
-		<Dialog open={isOpen} onOpenChange={onClose}>
-			<DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto flex flex-col">
-				<DialogHeader>
-					<DialogTitle className="sr-only">
-						ツイートを作成
-					</DialogTitle>
-				</DialogHeader>
-				<div className="flex-grow">
-					{tweetType === "reply" && relatedTweet && (
-						<TweetContent
-							tweet={relatedTweet}
-							withLink={false}
-							showThreadLine={true}
-						/>
-					)}
-					<div className="flex items-start space-x-2 p-3">
-						<UserAvatar
-							withLink={false}
-							userId={clientProfile?.userInfo.userId || ""}
-							src={clientProfile?.userInfo.profileImageUrl || ""}
-							alt={clientProfile?.userInfo.userName || ""}
-							size="w-12 h-12"
-						/>
-						<div className="flex-1 space-y-4">
-							<Textarea
-								placeholder="いまどうしてる？"
-								value={content}
-								onChange={(e) => setContent(e.target.value)}
-								className="min-h-[100px] resize-none border-none focus-visible:ring-0 text-lg"
-							/>
-							{mediaPreview && (
-								<div className="relative">
-									{mediaType === "video" ? (
-										<video
-											controls
-											className="rounded-xl object-cover max-h-[300px] w-full"
-										>
-											<source
-												src={mediaPreview}
-												type="video/mp4"
-											/>
-											Your browser does not support the
-											video tag.
-										</video>
-									) : (
-										<Image
-											src={mediaPreview}
-											alt="アップロード画像"
-											width={500}
-											height={300}
-											className="rounded-xl object-cover max-h-[300px] w-full"
+		<>
+			{clientProfile && (
+				<Dialog open={isOpen} onOpenChange={onClose}>
+					<DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto flex flex-col">
+						<DialogHeader>
+							<DialogTitle className="sr-only">
+								ツイートを作成
+							</DialogTitle>
+						</DialogHeader>
+						<div className="flex-grow">
+							{tweetType === "reply" && relatedTweet && (
+								<TweetContent
+									tweet={relatedTweet}
+									clientUserId={clientProfile.userInfo.userId}
+									withLink={false}
+									showThreadLine={true}
+								/>
+							)}
+							<div className="flex items-start space-x-2 p-3">
+								<UserAvatar
+									withLink={false}
+									userId={clientProfile.userInfo.userId}
+									src={clientProfile.userInfo.profileImageUrl}
+									alt={clientProfile.userInfo.userName || ""}
+									size="w-12 h-12"
+								/>
+								<div className="flex-1 space-y-4">
+									<Textarea
+										placeholder="いまどうしてる？"
+										value={content}
+										onChange={(e) =>
+											setContent(e.target.value)
+										}
+										className="min-h-[100px] resize-none border-none focus-visible:ring-0 text-lg"
+									/>
+									{mediaPreview && (
+										<div className="relative">
+											{mediaType === "video" ? (
+												<video
+													controls
+													className="rounded-xl object-cover max-h-[300px] w-full"
+												>
+													<source
+														src={mediaPreview}
+														type="video/mp4"
+													/>
+													Your browser does not
+													support the video tag.
+												</video>
+											) : (
+												<Image
+													src={mediaPreview}
+													alt="アップロード画像"
+													width={500}
+													height={300}
+													className="rounded-xl object-cover max-h-[300px] w-full"
+												/>
+											)}
+											<Button
+												size="icon"
+												variant="secondary"
+												className="absolute top-2 right-2 rounded-full bg-black/50 hover:bg-black/70"
+												onClick={removeMedia}
+											>
+												<X className="h-4 w-4 text-white" />
+											</Button>
+										</div>
+									)}
+									{tweetType === "quote" && relatedTweet && (
+										<RelatedTweetCard
+											tweet={relatedTweet}
 										/>
 									)}
-									<Button
-										size="icon"
-										variant="secondary"
-										className="absolute top-2 right-2 rounded-full bg-black/50 hover:bg-black/70"
-										onClick={removeMedia}
-									>
-										<X className="h-4 w-4 text-white" />
-									</Button>
 								</div>
-							)}
-							{tweetType === "quote" && relatedTweet && (
-								<RelatedTweetCard tweet={relatedTweet} />
+							</div>
+							{isEditorOpen && (
+								<CodeEditor
+									value={code}
+									language={language}
+									onChange={(value, newLanguage) => {
+										setCode(value || "");
+										setLanguage(newLanguage);
+									}}
+								/>
 							)}
 						</div>
-					</div>
-					{isEditorOpen && (
-						<CodeEditor
-							value={code}
-							language={language}
-							onChange={(value, newLanguage) => {
-								setCode(value || "");
-								setLanguage(newLanguage);
-							}}
-						/>
-					)}
-				</div>
-				<div className="sticky bottom-0 bg-background pt-4 border-t">
-					<div className="flex justify-between items-center">
-						<div className="flex items-center">
-							<input
-								type="file"
-								ref={fileInputRef}
-								onChange={handleMediaChange}
-								accept="image/*,video/mp4"
-								className="hidden"
-							/>
-							<ButtonWithTooltip
-								description="画像を追加"
-								onClick={handleMediaClick}
-								buttonSize="icon"
-								content={<ImageIcon className="h-5 w-5" />}
-							/>
-							<ButtonWithTooltip
-								description="ソースコードを追加"
-								onClick={handleEditorClick}
-								buttonSize="icon"
-								content={<Code2Icon className="h-5 w-5" />}
-							/>
+						<div className="sticky bottom-0 bg-background pt-4 border-t">
+							<div className="flex justify-between items-center">
+								<div className="flex items-center">
+									<input
+										type="file"
+										ref={fileInputRef}
+										onChange={handleMediaChange}
+										accept="image/*,video/mp4"
+										className="hidden"
+									/>
+									<ButtonWithTooltip
+										description="画像を追加"
+										onClick={handleMediaClick}
+										buttonSize="icon"
+										content={
+											<ImageIcon className="h-5 w-5" />
+										}
+									/>
+									<ButtonWithTooltip
+										description="ソースコードを追加"
+										onClick={handleEditorClick}
+										buttonSize="icon"
+										content={
+											<Code2Icon className="h-5 w-5" />
+										}
+									/>
+								</div>
+								<Button
+									onClick={handleTweet}
+									disabled={
+										(!content.trim() &&
+											!code.trim() &&
+											!mediaFile) ||
+										isLoading
+									}
+									className="rounded-full px-6"
+								>
+									{isLoading ? "投稿中..." : "ポストする"}
+								</Button>
+							</div>
+							<div className="flex justify-between items-center mt-4">
+								{isError && (
+									<p className="text-red-500 text-sm mt-2">
+										{errorMessage}
+									</p>
+								)}
+							</div>
 						</div>
-						<Button
-							onClick={handleTweet}
-							disabled={
-								(!content.trim() &&
-									!code.trim() &&
-									!mediaFile) ||
-								isLoading
-							}
-							className="rounded-full px-6"
-						>
-							{isLoading ? "投稿中..." : "ポストする"}
-						</Button>
-					</div>
-					<div className="flex justify-between items-center mt-4">
-						{isError && (
-							<p className="text-red-500 text-sm mt-2">
-								{errorMessage}
-							</p>
-						)}
-					</div>
-				</div>
-			</DialogContent>
-		</Dialog>
+					</DialogContent>
+				</Dialog>
+			)}
+		</>
 	);
 }

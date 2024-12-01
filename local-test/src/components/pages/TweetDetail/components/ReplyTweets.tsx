@@ -1,4 +1,5 @@
 import { TweetItem } from "@/components/tweet";
+import useClientProfile from "@/hooks/useClientProfile";
 import { TweetInfo } from "@/types/tweet";
 import { useEffect, useState } from "react";
 
@@ -8,6 +9,9 @@ interface ReplyTweetsProps {
 
 export default function ReplyTweets({ replies }: ReplyTweetsProps) {
 	const [replyTweets, setReplyTweets] = useState<TweetInfo[]>([]);
+
+	const { profile } = useClientProfile();
+	const clientUserId = profile?.userInfo.userId;
 
 	// Set initial reply tweets
 	useEffect(() => {
@@ -29,14 +33,19 @@ export default function ReplyTweets({ replies }: ReplyTweetsProps) {
 	};
 
 	return (
-		<div className="divide-y">
-			{replyTweets.map((reply) => (
-				<TweetItem
-					key={reply.tweetId}
-					tweet={reply}
-					updateTweet={updateTweet}
-				/>
-			))}
-		</div>
+		<>
+			{clientUserId && (
+				<div className="divide-y">
+					{replyTweets.map((reply) => (
+						<TweetItem
+							clientUserId={clientUserId}
+							key={reply.tweetId}
+							tweet={reply}
+							updateTweet={updateTweet}
+						/>
+					))}
+				</div>
+			)}
+		</>
 	);
 }

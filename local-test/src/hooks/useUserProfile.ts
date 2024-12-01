@@ -1,5 +1,5 @@
 import { setDefaultImageOfProfile } from "@/lib/utils/setDefaultImage";
-import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
+import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
 import getUserProfile from "@/services/api/users/getUserProfile";
 import { Profile } from "@/types/profile";
 import { useState, useEffect } from "react";

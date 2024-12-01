@@ -1,4 +1,4 @@
-import transformKeysToCamelCase from "@/lib/utils/transformKeysToCamelCase";
+import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
 import getSidebarInfo from "@/services/api/sidebar/getSidebarInfo";
 import { SidebarInfo } from "@/types/sidebar";
 import { useState, useEffect } from "react";

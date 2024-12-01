@@ -25,10 +25,12 @@ export default function EditBannerImageStep({
 			});
 			try {
 				const url = await uploadFile(file);
+				console.log("Banner image url", url, data);
 				updateData({
 					bannerImageUrl: url,
 					isUploading: false,
 				});
+				console.log("Banner image url", url, data);
 			} catch (error) {
 				console.error(error);
 				updateData({
