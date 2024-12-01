@@ -135,15 +135,27 @@ export default function TweetItem({
 							highlightWord={highlightWord}
 						/>
 					)}
-					{tweet.media && tweet.media.type === "image" && (
-						<Image
-							src={tweet.media.url}
-							alt="ツイートの画像"
-							width={600}
-							height={300}
-							className="rounded-md mt-2 object-cover"
-						/>
-					)}
+					{tweet.media &&
+						(tweet.media.type === "image" ? (
+							<Image
+								src={tweet.media.url}
+								alt="ツイートの画像"
+								width={600}
+								height={300}
+								className="rounded-md mt-2 object-cover"
+							/>
+						) : (
+							<video
+								controls
+								className="rounded-xl object-cover max-h-[300px] w-full"
+							>
+								<source
+									src={tweet.media.url}
+									type="video/mp4"
+								/>
+								Your browser does not support the video tag.
+							</video>
+						))}
 					{tweet.code && (
 						<CodeEditor
 							value={tweet.code.content}

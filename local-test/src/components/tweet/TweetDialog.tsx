@@ -176,13 +176,27 @@ export default function TweetDialog({
 							/>
 							{mediaPreview && (
 								<div className="relative">
-									<Image
-										src={mediaPreview}
-										alt="アップロード画像"
-										width={500}
-										height={300}
-										className="rounded-xl object-cover max-h-[300px] w-full"
-									/>
+									{mediaType === "video" ? (
+										<video
+											controls
+											className="rounded-xl object-cover max-h-[300px] w-full"
+										>
+											<source
+												src={mediaPreview}
+												type="video/mp4"
+											/>
+											Your browser does not support the
+											video tag.
+										</video>
+									) : (
+										<Image
+											src={mediaPreview}
+											alt="アップロード画像"
+											width={500}
+											height={300}
+											className="rounded-xl object-cover max-h-[300px] w-full"
+										/>
+									)}
 									<Button
 										size="icon"
 										variant="secondary"
@@ -216,7 +230,7 @@ export default function TweetDialog({
 								type="file"
 								ref={fileInputRef}
 								onChange={handleMediaChange}
-								accept="image/*"
+								accept="image/*,video/mp4"
 								className="hidden"
 							/>
 							<ButtonWithTooltip
