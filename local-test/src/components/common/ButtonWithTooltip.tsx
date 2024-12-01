@@ -1,11 +1,11 @@
-import {
-	TooltipProvider,
-	Tooltip,
-	TooltipTrigger,
-	TooltipContent,
-} from "@radix-ui/react-tooltip";
 import React from "react";
-import { Button } from "@/components/ui";
+import {
+	Button,
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui";
 
 interface ButtonWithTooltipProps {
 	description: string;

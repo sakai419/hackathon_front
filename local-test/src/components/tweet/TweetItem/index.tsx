@@ -80,12 +80,12 @@ export default function TweetItem({
 					/>
 				)}
 			</div>
-			{withActions && isAuthor !== undefined && (
-				<div className="absolute top-0 right-0 ">
+			{withActions && isAuthor !== undefined && updateTweet && (
+				<div className="absolute top-2 right-0 ">
 					<TweetOptionsButton
+						tweet={tweet}
+						updateTweet={updateTweet}
 						isAuthor={isAuthor}
-						isPinned={tweet.isPinned}
-						userId={tweet.userInfo.userId}
 					/>
 				</div>
 			)}
@@ -119,7 +119,10 @@ export default function TweetItem({
 						</span>
 					</div>
 					{tweet.isPinned && (
-						<Badge variant="outline" className="flex items-center">
+						<Badge
+							variant="outline"
+							className="absolute top-4 right-8 flex items-center"
+						>
 							<Pin className="w-4 h-4 mr-1" />
 							ピン留め
 						</Badge>

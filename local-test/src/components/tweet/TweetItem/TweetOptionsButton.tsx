@@ -14,17 +14,19 @@ import {
 	Flag,
 	Undo,
 } from "lucide-react";
+import handlePinSetting from "@/services/api/tweets/handlePinSetting";
+import { TweetInfo } from "@/types/tweet";
 
 interface TweetOptionsButtonProps {
+	tweet: TweetInfo;
+	updateTweet: (tweet: TweetInfo, updateFields: Partial<TweetInfo>) => void;
 	isAuthor: boolean;
-	userId: string;
-	isPinned?: boolean;
 }
 
 export function TweetOptionsButton({
+	tweet,
+	updateTweet,
 	isAuthor,
-	userId,
-	isPinned,
 }: TweetOptionsButtonProps) {
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -33,23 +35,33 @@ export function TweetOptionsButton({
 		setIsOpen(false);
 	};
 
-	const handlePinClick = () => {
-		console.log("Pin tweet to profile");
-		setIsOpen(false);
+	const handlePinClick = async () => {
+		try {
+			await handlePinSetting({
+				tweetId: tweet.tweetId,
+				IsPinned: tweet.isPinned,
+			});
+			updateTweet(tweet, { isPinned: !tweet.isPinned });
+		} catch (error) {
+			console.log("Failed to handle pin setting:", error);
+			throw error;
+		} finally {
+			setIsOpen(false);
+		}
 	};
 
 	const handleFollowClick = () => {
-		console.log(`Follow @${userId}`);
+		console.log(`Follow @${tweet.userInfo.userId}`);
 		setIsOpen(false);
 	};
 
 	const handleBlockClick = () => {
-		console.log(`Block @${userId}`);
+		console.log(`Block @${tweet.userInfo.userId}`);
 		setIsOpen(false);
 	};
 
 	const handleReportClick = () => {
-		console.log(`Report @${userId}`);
+		console.log(`Report @${tweet.userInfo.userId}`);
 		setIsOpen(false);
 	};
 
@@ -86,7 +98,7 @@ export function TweetOptionsButton({
 								className="flex items-center justify-start space-x-2 w-full"
 								onClick={handlePinClick}
 							>
-								{isPinned ? (
+								{tweet.isPinned ? (
 									<>
 										<Undo className="w-4 h-4 font-semibold" />
 										<span className="font-semibold">
@@ -112,7 +124,7 @@ export function TweetOptionsButton({
 							>
 								<UserPlus className="w-4 h-4 font-semibold" />
 								<span className="font-semibold">
-									@{userId}さんをフォロー
+									@{tweet.userInfo.userId}さんをフォロー
 								</span>
 							</Button>
 							<Button
@@ -122,7 +134,7 @@ export function TweetOptionsButton({
 							>
 								<UserX className="w-4 h-4 font-semibold" />
 								<span className="font-semibold">
-									@{userId}さんをブロック
+									@{tweet.userInfo.userId}さんをブロック
 								</span>
 							</Button>
 							<Button
@@ -132,7 +144,7 @@ export function TweetOptionsButton({
 							>
 								<Flag className="w-4 h-4 font-semibold" />
 								<span className="font-semibold">
-									@{userId}さんを通報
+									@{tweet.userInfo.userId}さんを通報
 								</span>
 							</Button>
 						</>
