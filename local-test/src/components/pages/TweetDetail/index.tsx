@@ -1,5 +1,4 @@
 import LoadingScreen from "@/components/common/LoadingScreen";
-import Header from "@/components/layouts/Header";
 import useReplyTweets from "@/hooks/useReplyTweets";
 import useTweetNode from "@/hooks/useTweetNode";
 import ReplyTweets from "./components/ReplyTweets";
@@ -8,6 +7,7 @@ import { Code, Media } from "@/types/tweet";
 import postReply from "@/services/api/tweets/postReply";
 import ReplyBox from "./components/ReplyBox";
 import { TweetList } from "@/components/tweet";
+import { Header } from "@/components/layouts";
 
 interface TweetDetailPageProps {
 	tweetId: number;

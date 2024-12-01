@@ -1,5 +1,5 @@
 import { DynamicTabs } from "@/components/common";
-import Header from "@/components/layouts/Header";
+import { Header } from "@/components/layouts";
 import { useState } from "react";
 import TimelineTweets from "./components/TimelineTweets";
 import RecentTweets from "./components/RecentTweets";

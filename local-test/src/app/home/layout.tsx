@@ -1,6 +1,6 @@
 "use client";
 
-import Sidebar from "@/components/layouts/Sidebar";
+import { Sidebar } from "@/components/layouts";
 import { HomeHeader } from "@/components/pages/Home";
 
 export default function HomeLayout({

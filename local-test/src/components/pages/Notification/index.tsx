@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui";
 import NotificationItem from "./components/NotificationItem";
 import useNotifications from "@/hooks/useNotifications";
-import Header from "@/components/layouts/Header";
 import LoadingScreen from "@/components/common/LoadingScreen";
 import { useEffect } from "react";
+import { Header } from "@/components/layouts";
 
 export function NotificationHeader() {
 	return <Header title={<h1 className="text-xl font-semibold">通知</h1>} />;

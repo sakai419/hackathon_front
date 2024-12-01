@@ -3,12 +3,12 @@ import useUserProfile from "@/hooks/useUserProfile";
 import { useState } from "react";
 import { LoadingScreen } from "@/components/common";
 import { Lock } from "lucide-react";
-import Header from "@/components/layouts/Header";
 import UserHeader from "./components/UserHeader";
 import UserTweets from "./components/UserTweets";
 import UserRetweets from "./components/UserRetweets";
 import UserLikes from "./components/UserLikes";
 import useClientProfile from "@/hooks/useClientProfile";
+import { Header } from "@/components/layouts";
 
 interface ProfileHeaderProps {
 	userId: string;
