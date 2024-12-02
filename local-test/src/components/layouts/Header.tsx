@@ -17,7 +17,7 @@ export default function Header({ title, withArrow = true }: HeaderProps) {
 		}
 	};
 	return (
-		<header className="fixed top-0 left-72 right-0 z-50 bg-white bg-opacity-90 backdrop-blur-sm shadow-sm">
+		<header className="fixed top-0 left-72 right-0 z-50 bg-white bg-opacity-90 backdrop-blur-sm shadow-sm mr-80">
 			<div className="flex items-center gap-6 p-4 h-14 max-w-screen-xl mx-auto">
 				{withArrow ? (
 					<>
