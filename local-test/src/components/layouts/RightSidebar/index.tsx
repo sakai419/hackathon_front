@@ -22,7 +22,7 @@ export default function RightSidebar({ withSearch = true }: RightSidebarProps) {
 	};
 
 	return (
-		<aside className="w-80 hidden lg:flex flex-col h-screen sticky top-0 right-0 border-x-2">
+		<aside className="w-80 hidden lg:flex flex-col h-screen sticky top-0 right-0 border-x-2 z-50">
 			{withSearch && (
 				<SearchForm
 					keyword={searchKeyword}

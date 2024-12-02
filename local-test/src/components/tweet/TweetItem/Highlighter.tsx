@@ -20,7 +20,7 @@ export default function Highlighter({ text, highlightWord }: HighlighterProps) {
 					const parts = word.split(regex); // highlightWord を基準に分割
 					return (
 						<React.Fragment key={index}>
-							<span className="text-blue-500 hover:underline cursor-pointer">
+							<span className="text-blue-500 hover:underline cursor-pointer break-all">
 								{parts.map((part, subIndex) =>
 									part.toLowerCase() ===
 									highlightWord.toLowerCase() ? (
@@ -42,7 +42,7 @@ export default function Highlighter({ text, highlightWord }: HighlighterProps) {
 				// highlightWord が含まれない通常のハッシュタグ
 				return (
 					<React.Fragment key={index}>
-						<span className="text-blue-500 hover:underline cursor-pointer">
+						<span className="text-blue-500 hover:underline cursor-pointer break-all">
 							{word}
 						</span>
 					</React.Fragment>
@@ -74,7 +74,7 @@ export default function Highlighter({ text, highlightWord }: HighlighterProps) {
 	};
 
 	return (
-		<p className="text-gray-800 leading-relaxed whitespace-pre-wrap">
+		<p className="text-gray-800 leading-relaxed whitespace-pre-wrap break-all">
 			{highlightText(text, highlightWord)}
 		</p>
 	);

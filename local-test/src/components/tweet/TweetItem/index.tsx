@@ -59,7 +59,7 @@ export default function TweetItem({
 
 	return (
 		<div
-			className="relative flex items-start space-x-2 hover:bg-gray-100 p-4"
+			className="relative flex flex-shrink-0 items-start space-x-2 hover:bg-gray-100 p-4"
 			onClick={handleTweetClick}
 			ref={componentRef}
 		>
@@ -130,10 +130,12 @@ export default function TweetItem({
 				</div>
 				<div className="mt-2 space-y-4">
 					{tweet.content && (
-						<Highlighter
-							text={tweet.content}
-							highlightWord={highlightWord}
-						/>
+						<div className="whitespace-pre-wrap break-words">
+							<Highlighter
+								text={tweet.content}
+								highlightWord={highlightWord}
+							/>
+						</div>
 					)}
 					{tweet.media &&
 						(tweet.media.type === "image" ? (
