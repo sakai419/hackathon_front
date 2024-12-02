@@ -9,9 +9,9 @@ export default function SearchLayout({
 		<div className="flex">
 			<Sidebar />
 			<div className="flex-grow">
-				<main className="ml-64 px-4">{children}</main>
+				<main className="ml-72 px-4">{children}</main>
 			</div>
-			<RightSidebar />
+			<RightSidebar withSearch={false} />
 		</div>
 	);
 }

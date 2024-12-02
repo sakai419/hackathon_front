@@ -69,7 +69,7 @@ export function ProfilePage({ userId }: ProfilePageProps) {
 	return (
 		<>
 			{isProfileLoading && <LoadingScreen />}
-			<div className="max-w-2xl mx-auto">
+			<div className="max-w-2xl mx-auto w-full">
 				{profile && <UserHeader profile={profile} />}
 				<DynamicTabs
 					tabNames={tabNames}

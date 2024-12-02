@@ -12,6 +12,7 @@ import TweetDialog from "@/components/tweet/TweetDialog";
 import SidebarContent from "./SidebarContent";
 import TweetButton from "./TweetButton";
 import UserInfo from "./UserInfo";
+import { LoadingScreen } from "@/components/common";
 
 export default function Sidebar() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -31,10 +32,6 @@ export default function Sidebar() {
 			throw error;
 		}
 	};
-
-	if (isLoading) {
-		return <div>Loading...</div>;
-	}
 
 	if (error) {
 		return <div>{error}</div>;
@@ -56,6 +53,7 @@ export default function Sidebar() {
 					isOpen ? "w-72" : "w-0 md:w-72"
 				}`}
 			>
+				{isLoading && <LoadingScreen />}
 				<div
 					className={`flex flex-col h-full overflow-hidden ${
 						isOpen ? "w-64" : "w-0 md:w-64"

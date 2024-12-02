@@ -1,40 +1,36 @@
 import DynamicTabs from "@/components/common/DynamicTabs";
-import { Input } from "@/components/ui";
-import { Search } from "lucide-react";
 import { useState } from "react";
 import UserResults from "./components/UserResults";
 import LatestTweetResults from "./components/LatestTweetResults";
 import PopularTweetResults from "./components/PopularTweetResults";
+import { useRouter } from "next/navigation";
+import { SearchForm } from "@/components/common";
 
-export default function SearchPage() {
-	const [keyword, setKeyword] = useState("");
-	const [searchKeyword, setSearchKeyword] = useState("");
+interface SearchPageProps {
+	keyword: string;
+}
+
+export default function SearchPage({ keyword }: SearchPageProps) {
+	const router = useRouter();
+	const [searchKeyword, setSearchKeyword] = useState(keyword);
 	const [activeTab, setActiveTab] = useState("トップ");
 
 	const tabNames = ["トップ", "最新", "ユーザー"];
 
 	const handleSearch = (e: React.FormEvent) => {
 		e.preventDefault();
-		setSearchKeyword(keyword);
+		router.push(`/search?keyword=${searchKeyword}`);
 	};
 
 	return (
-		<div className="container max-w-2xl mx-auto px-4">
-			<div className="container mx-auto px-4 py-4">
+		<div className="container w-full mx-auto">
+			<div className="container mx-auto p-4">
 				<div className="relative flex items-center">
-					<form
+					<SearchForm
+						keyword={searchKeyword}
+						setKeyword={setSearchKeyword}
 						onSubmit={handleSearch}
-						className="w-full relative flex items-center bg-gray-100 rounded-full"
-					>
-						<Search className="absolute left-4 text-gray-500 w-5 h-5" />
-						<Input
-							type="search"
-							placeholder="検索"
-							value={keyword}
-							onChange={(e) => setKeyword(e.target.value)}
-							className="pl-12 pr-4 py-3 w-full bg-transparent border-none focus-visible:ring-0 placeholder-gray-500"
-						/>
-					</form>
+					/>
 				</div>
 			</div>
 			<DynamicTabs
@@ -43,13 +39,11 @@ export default function SearchPage() {
 				setActiveTab={setActiveTab}
 			/>
 			{activeTab === "トップ" && (
-				<PopularTweetResults keyword={searchKeyword} />
+				<PopularTweetResults keyword={keyword} />
 			)}
-			{activeTab === "最新" && (
-				<LatestTweetResults keyword={searchKeyword} />
-			)}
+			{activeTab === "最新" && <LatestTweetResults keyword={keyword} />}
 			{activeTab === "ユーザー" ? (
-				<UserResults keyword={searchKeyword} />
+				<UserResults keyword={keyword} />
 			) : null}
 		</div>
 	);

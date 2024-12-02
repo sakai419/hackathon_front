@@ -1,49 +1,38 @@
-import React from "react";
-import { Input } from "@/components/ui/input";
+import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Search, Hash, User } from "lucide-react";
+import { User } from "lucide-react";
+import RecentLabelsCard from "./RecentLabelsCard";
+import { useRouter } from "next/navigation";
+import { SearchForm } from "@/components/common";
 
-export default function RightSidebar() {
+interface RightSidebarProps {
+	withSearch?: boolean;
+}
+
+export default function RightSidebar({ withSearch = true }: RightSidebarProps) {
+	const router = useRouter();
+	const [searchKeyword, setSearchKeyword] = useState("");
+
+	const handleSearch = (e: React.FormEvent) => {
+		e.preventDefault();
+		router.push(`/search?keyword=${searchKeyword}`);
+	};
+
 	return (
-		<aside className="w-80 hidden lg:flex flex-col h-[calc(100vh-3.5rem)] sticky top-0 right-0 border-x-2">
-			<div className="p-4 bg-background">
-				<div className="relative">
-					<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-					<Input
-						type="search"
-						placeholder="検索"
-						className="pl-10 bg-muted"
-					/>
-				</div>
-			</div>
-
+		<aside className="w-80 hidden lg:flex flex-col h-screen sticky top-0 right-0 border-x-2">
+			{withSearch && (
+				<SearchForm
+					keyword={searchKeyword}
+					setKeyword={setSearchKeyword}
+					onSubmit={handleSearch}
+				/>
+			)}
 			<ScrollArea className="flex-grow">
 				<div className="p-4 space-y-6">
-					<Card>
-						<CardHeader>
-							<CardTitle>トレンド</CardTitle>
-						</CardHeader>
-						<CardContent className="space-y-4">
-							{trends.map((trend, index) => (
-								<div key={index} className="space-y-1">
-									<div className="flex items-center text-sm text-muted-foreground">
-										<Hash className="w-4 h-4 mr-1" />
-										<span>{trend.category}</span>
-									</div>
-									<p className="font-semibold">
-										{trend.title}
-									</p>
-									<p className="text-sm text-muted-foreground">
-										{trend.tweetCount}件のツイート
-									</p>
-								</div>
-							))}
-						</CardContent>
-					</Card>
-
+					<RecentLabelsCard />
 					<Card>
 						<CardHeader>
 							<CardTitle>おすすめユーザー</CardTitle>
@@ -110,49 +99,30 @@ export default function RightSidebar() {
 	);
 }
 
-const trends = [
-	{ category: "テクノロジー", title: "React 19", tweetCount: "2,500" },
-	{ category: "ポリティクス", title: "参議院選挙", tweetCount: "5,200" },
-	{ category: "スポーツ", title: "東京オリンピック", tweetCount: "12,800" },
-	{
-		category: "エンターテイメント",
-		title: "新作映画公開",
-		tweetCount: "3,100",
-	},
-	{
-		category: "ビジネス",
-		title: "新型コロナウイルス経済対策",
-		tweetCount: "7,600",
-	},
-	{ category: "科学", title: "火星探査ミッション", tweetCount: "4,300" },
-	{ category: "教育", title: "オンライン授業の未来", tweetCount: "3,800" },
-	{ category: "健康", title: "新しい健康トレンド", tweetCount: "5,900" },
-];
-
 const suggestedUsers = [
 	{
 		name: "山田太郎",
 		username: "yamada_taro",
-		avatarUrl: "/placeholder.svg?height=40&width=40",
+		avatarUrl: "",
 	},
 	{
 		name: "佐藤花子",
 		username: "sato_hanako",
-		avatarUrl: "/placeholder.svg?height=40&width=40",
+		avatarUrl: "",
 	},
 	{
 		name: "鈴木一郎",
 		username: "suzuki_ichiro",
-		avatarUrl: "/placeholder.svg?height=40&width=40",
+		avatarUrl: "",
 	},
 	{
 		name: "田中美咲",
 		username: "tanaka_misaki",
-		avatarUrl: "/placeholder.svg?height=40&width=40",
+		avatarUrl: "",
 	},
 	{
 		name: "高橋健太",
 		username: "takahashi_kenta",
-		avatarUrl: "/placeholder.svg?height=40&width=40",
+		avatarUrl: "",
 	},
 ];
