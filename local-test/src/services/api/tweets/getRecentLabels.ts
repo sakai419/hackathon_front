@@ -7,7 +7,6 @@ export default async function getRecentLabels() {
 			url: `${TWEET_ENDPOINT}/recent/labels?limit=100`,
 			method: "GET",
 		});
-		console.log(response);
 		return response.data;
 	} catch (error) {
 		console.error("Failed to get recent labels:", error);

@@ -4,7 +4,7 @@ interface EngagementPageProps {
 	tweetId: number;
 }
 
-export function EngagementHeader() {
+export function EngagementsHeader() {
 	return (
 		<Header
 			title={
@@ -16,7 +16,7 @@ export function EngagementHeader() {
 	);
 }
 
-export function EngagementPage({ tweetId }: EngagementPageProps) {
+export function EngagementsPage({ tweetId }: EngagementPageProps) {
 	return (
 		<div>
 			<p>{tweetId}</p>

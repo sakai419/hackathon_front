@@ -8,6 +8,8 @@ import postReply from "@/services/api/tweets/postReply";
 import ReplyBox from "./components/ReplyBox";
 import { TweetList } from "@/components/tweet";
 import { Header } from "@/components/layouts";
+import useClientProfile from "@/hooks/useClientProfile";
+import EngagementLink from "./components/EngagementLink";
 
 interface TweetDetailPageProps {
 	tweetId: number;
@@ -23,6 +25,11 @@ export function TweetDetailHeader() {
 
 export function TweetDetailPage({ tweetId }: TweetDetailPageProps) {
 	const {
+		profile,
+		isLoading: isClientProfileLoading,
+		error: clientProfileError,
+	} = useClientProfile();
+	const {
 		tweet,
 		isLoading: isTweetLoading,
 		error: tweetError,
@@ -35,7 +42,7 @@ export function TweetDetailPage({ tweetId }: TweetDetailPageProps) {
 		error: repliesError,
 	} = useReplyTweets({ tweetId });
 
-	if (tweetError || repliesError) {
+	if (clientProfileError || tweetError || repliesError) {
 		return <div>エラーが発生しました</div>;
 	}
 
@@ -54,11 +61,18 @@ export function TweetDetailPage({ tweetId }: TweetDetailPageProps) {
 
 	return (
 		<>
-			{(isTweetLoading || isRepliesLoading) && <LoadingScreen />}
+			{(isClientProfileLoading || isTweetLoading || isRepliesLoading) && (
+				<LoadingScreen />
+			)}
 			<div className="max-w-2xl mx-auto border-x">
 				<div className="border-b">
 					{tweet && <TweetList tweets={[tweet]} />}
 				</div>
+				{profile &&
+					profile.userInfo.userId ===
+						tweet?.tweet.userInfo.userId && (
+						<EngagementLink tweetId={tweetId} />
+					)}
 				<ReplyBox onTweet={handleTweet} />
 				{replyTweets && <ReplyTweets replies={replyTweets} />}
 				<Button

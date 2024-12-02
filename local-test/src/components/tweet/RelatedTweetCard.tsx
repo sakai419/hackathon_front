@@ -1,9 +1,9 @@
 import { Card, CardContent } from "@/components/ui";
 import { TweetInfo } from "@/types/tweet";
 import { useState } from "react";
-import TweetContent from "./TweetItem";
 import Link from "next/link";
 import useClientProfile from "@/hooks/useClientProfile";
+import TweetItem from "./TweetItem";
 
 interface RelatedTweetCardProps {
 	tweet: TweetInfo;
@@ -31,7 +31,7 @@ export default function RelatedTweetCard({
 			<Card className="w-full p-0">
 				<CardContent className="pt-4">
 					{clientUserId && (
-						<TweetContent
+						<TweetItem
 							tweet={tweetInfo}
 							clientUserId={clientUserId}
 							withActions={withActions}

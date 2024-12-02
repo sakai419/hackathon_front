@@ -41,7 +41,7 @@ export default function TweetList({ tweets, highlightWord }: TweetListProps) {
 	return (
 		<div className="divide-y divide-gray-200">
 			{tweetNodes.map((tweet, index) => (
-				<div key={index} className="flex-col">
+				<div key={index} className="flex-col p-4">
 					{tweet.tweet.isReply && tweet.originalTweet && (
 						<TweetItem
 							tweet={tweet.originalTweet}

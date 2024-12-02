@@ -15,7 +15,6 @@ export default function ReplyTweets({ replies }: ReplyTweetsProps) {
 
 	// Set initial reply tweets
 	useEffect(() => {
-		console.log(replies);
 		setReplyTweets(replies);
 	}, [replies]);
 
