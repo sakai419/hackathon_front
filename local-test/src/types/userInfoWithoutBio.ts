@@ -4,4 +4,6 @@ export type UserInfoWithoutBio = {
 	profileImageUrl: string;
 	isPrivate: boolean;
 	isAdmin: boolean;
+	isFollowing: boolean;
+	isFollowed: boolean;
 };

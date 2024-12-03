@@ -2,7 +2,9 @@ export type UserInfo = {
 	userId: string;
 	userName: string;
 	profileImageUrl: string;
+	bio: string;
 	isPrivate: boolean;
 	isAdmin: boolean;
-	bio: string;
+	isFollowing: boolean;
+	isFollowed: boolean;
 };
