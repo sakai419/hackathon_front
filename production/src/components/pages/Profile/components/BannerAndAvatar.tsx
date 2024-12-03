@@ -1,6 +1,8 @@
 import UserAvatar from "@/components/common/UserAvatar";
 import Image from "next/image";
 import EditProfileButton from "./EditProfileButton";
+import useClientProfile from "@/hooks/useClientProfile";
+import SendMessageButton from "./SendMessageButton";
 
 interface BannerAndAvatarProps {
 	userId: string;
@@ -17,6 +19,8 @@ export default function BannerAndAvatar({
 	bannerImage,
 	profileImage,
 }: BannerAndAvatarProps) {
+	const { profile } = useClientProfile();
+	const isClient = profile?.userInfo.userId === userId;
 	return (
 		<div className="relative">
 			<div className="h-48 bg-muted">
@@ -36,15 +40,21 @@ export default function BannerAndAvatar({
 					size="w-24 h-24"
 				/>
 			</div>
-			<div className="absolute right-4 bottom-4">
-				<EditProfileButton
-					userId={userId}
-					userName={userName}
-					bio={bio}
-					profileImageUrl={profileImage}
-					bannerImageUrl={bannerImage}
-				/>
-			</div>
+			{isClient ? (
+				<div className="absolute right-4 bottom-4">
+					<EditProfileButton
+						userId={userId}
+						userName={userName}
+						bio={bio}
+						profileImageUrl={profileImage}
+						bannerImageUrl={bannerImage}
+					/>
+				</div>
+			) : (
+				<div className="absolute right-4 bottom-4">
+					<SendMessageButton userId={userId} />
+				</div>
+			)}
 		</div>
 	);
 }

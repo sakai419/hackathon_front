@@ -48,7 +48,7 @@ export default function TweetItem({
 	const handleUserNameClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		e.stopPropagation();
-		router.push(`/${tweet.userInfo.userId}`);
+		router.push(`/users/${tweet.userInfo.userId}`);
 	};
 
 	const handleTweetClick = (e: React.MouseEvent<HTMLDivElement>) => {

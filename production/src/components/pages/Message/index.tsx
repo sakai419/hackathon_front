@@ -15,6 +15,7 @@ import useConversation from "@/hooks/useConversation";
 import useMessages from "@/hooks/useMessages";
 import LoadingScreen from "@/components/common/LoadingScreen";
 import UserAvatar from "@/components/common/UserAvatar";
+import sendMessages from "@/services/api/conversations/sendMessage";
 
 export function MessagePage() {
 	const [message, setMessage] = useState("");
@@ -40,8 +41,21 @@ export function MessagePage() {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log("Message sent:", message);
-		setMessage("");
+		if (!selectedConversation) return;
+		try {
+			sendMessages(selectedConversation.opponentInfo.userId, message);
+			messages.unshift({
+				id: messages.length + 1,
+				content: message,
+				senderUserId: "me",
+				createdAt: new Date().toISOString(),
+				isRead: true,
+			});
+		} catch (error) {
+			console.error("Failed to send message:", error);
+		} finally {
+			setMessage("");
+		}
 	};
 
 	const handleSelectConversation = (conversation: Conversation) => {
@@ -119,29 +133,32 @@ export function MessagePage() {
 									? "さらに読み込む"
 									: "これ以上メッセージはありません"}
 							</Button>
-							{messages.map((message) => (
-								<div
-									key={message.id}
-									className={`flex mt-4 ${
-										message.senderUserId ===
-										selectedConversation.opponentInfo.userId
-											? "justify-start"
-											: "justify-end"
-									}`}
-								>
+							<div className="flex flex-col-reverse">
+								{messages.map((message) => (
 									<div
-										className={`${
+										key={message.id}
+										className={`flex mt-4 ${
 											message.senderUserId ===
 											selectedConversation.opponentInfo
 												.userId
-												? "bg-secondary text-secondary-foreground"
-												: "bg-primary text-primary-foreground"
-										} rounded-lg p-2 max-w-[80%]`}
+												? "justify-start"
+												: "justify-end"
+										}`}
 									>
-										{message.content}
+										<div
+											className={`${
+												message.senderUserId ===
+												selectedConversation
+													.opponentInfo.userId
+													? "bg-secondary text-secondary-foreground"
+													: "bg-primary text-primary-foreground"
+											} rounded-lg p-2 max-w-[80%]`}
+										>
+											{message.content}
+										</div>
 									</div>
-								</div>
-							))}
+								))}
+							</div>
 						</ScrollArea>
 						<form
 							onSubmit={handleSubmit}

@@ -31,11 +31,12 @@ export default function ButtonWithTooltip({
 						variant="ghost"
 						className={buttonClassName}
 						onClick={onClick}
+						type="button"
 					>
 						{content}
 					</Button>
 				</TooltipTrigger>
-				<TooltipContent>
+				<TooltipContent className="z-50">
 					<p>{description}</p>
 				</TooltipContent>
 			</Tooltip>
