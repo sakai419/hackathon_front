@@ -56,7 +56,7 @@ export default function SendMessageButton({ userId }: SendMessageButtonProps) {
 						</DialogDescription>
 					</DialogHeader>
 					<div className="grid gap-4 py-4">
-						<div className="grid grid-cols-4 items-center gap-4">
+						<div className="items-center flex-col space-y-2">
 							<Label htmlFor="message" className="text-right">
 								メッセージ
 							</Label>
