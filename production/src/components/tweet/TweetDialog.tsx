@@ -267,7 +267,7 @@ export default function TweetDialog({
 									}
 									className="rounded-full px-6"
 								>
-									{isLoading ? "投稿中..." : "ポストする"}
+									{isLoading ? "投稿中..." : "ツイートする"}
 								</Button>
 							</div>
 							<div className="flex justify-between items-center mt-4">
