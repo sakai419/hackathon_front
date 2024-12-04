@@ -44,7 +44,7 @@ export default function SidebarItem({
 				</div>
 				{count !== undefined && count !== 0 && (
 					<span
-						className={`ml-auto px-2 py-1 text-sm rounded-full ${
+						className={`ml-auto text-xs w-4 h-4 text-center rounded-full ${
 							isActive
 								? "bg-primary-foreground text-primary"
 								: "bg-primary text-primary-foreground"
