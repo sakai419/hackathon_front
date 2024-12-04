@@ -13,9 +13,7 @@ export default function UserHeader({ profile }: UserProfileProps) {
 	return (
 		<div className="relative">
 			<BannerAndAvatar
-				userId={profile.userInfo.userId}
-				userName={profile.userInfo.userName}
-				bio={profile.userInfo.bio}
+				userInfo={profile.userInfo}
 				bannerImage={profile.bannerImageUrl}
 				profileImage={profile.userInfo.profileImageUrl}
 			/>

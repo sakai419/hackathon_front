@@ -1,7 +1,7 @@
 "use client";
 
 import { RightSidebar, Sidebar } from "@/components/layouts";
-import { SettingsHeader } from "@/components/pages/settings";
+import { SettingsHeader } from "@/components/pages/Settings";
 
 export default function SearchLayout({
 	children,
