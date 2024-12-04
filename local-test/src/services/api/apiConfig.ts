@@ -10,3 +10,4 @@ export const NOTIFICATION_ENDPOINT = `${API_BASE_URL}/notifications`;
 export const CONVERSATION_ENDPOINT = `${API_BASE_URL}/conversations`;
 export const SEARCH_ENDPOINT = `${API_BASE_URL}/search`;
 export const FOLLOW_ENDPOINT = `${API_BASE_URL}/follows`;
+export const SETTINGS_ENDPOINT = `${API_BASE_URL}/settings`;
