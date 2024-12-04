@@ -15,10 +15,6 @@ export function NotificationPage() {
 		useNotifications();
 
 	useEffect(() => {
-		console.log("NotificationPage rendered", notifications);
-	}, [notifications]);
-
-	useEffect(() => {
 		const markAsRead = async () => {
 			try {
 				await markAllNotificationsAsRead();
