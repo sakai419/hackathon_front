@@ -48,7 +48,7 @@ export default function NotificationItem({
 	}
 
 	return (
-		<div className="flex items-start space-x-4 p-4 hover:bg-gray-50">
+		<div className="relative flex items-start space-x-4 p-4 hover:bg-gray-50">
 			<NotificationIcon type={notification.type} />
 			<div className="flex-1 space-y-1">
 				<div className="flex items-center space-x-2">
@@ -86,6 +86,9 @@ export default function NotificationItem({
 				<p className="text-sm text-gray-500">{relativeTime}</p>
 				{notification.relatedTweet && (
 					<RelatedTweetCard tweet={notification.relatedTweet} />
+				)}
+				{!notification.isRead && (
+					<div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary/80" />
 				)}
 			</div>
 		</div>
