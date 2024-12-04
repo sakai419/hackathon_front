@@ -6,4 +6,5 @@ export type UserInfoWithoutBio = {
 	isAdmin: boolean;
 	isFollowing: boolean;
 	isFollowed: boolean;
+	isPending: boolean;
 };

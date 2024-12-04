@@ -1,4 +1,4 @@
-import UserAvatar from "@/components/common/UserAvatar";
+import UserAvatar from "@/components/user/UserAvatar";
 import Image from "next/image";
 import EditProfileButton from "./EditProfileButton";
 import useClientProfile from "@/hooks/useClientProfile";

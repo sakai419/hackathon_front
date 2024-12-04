@@ -7,4 +7,5 @@ export type UserInfo = {
 	isAdmin: boolean;
 	isFollowing: boolean;
 	isFollowed: boolean;
+	isPending: boolean;
 };

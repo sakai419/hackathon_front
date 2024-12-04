@@ -3,7 +3,7 @@ import { Notification } from "@/types/notification";
 import { NotificationIcon } from "./NotificationIcon";
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
 import { Lock, Shield } from "lucide-react";
-import UserAvatar from "@/components/common/UserAvatar";
+import UserAvatar from "@/components/user/UserAvatar";
 import { RelatedTweetCard } from "@/components/tweet";
 
 export default function NotificationItem({

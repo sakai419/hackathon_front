@@ -6,7 +6,7 @@ import {
 } from "@/components/ui";
 import { PopoverLogoutContent } from "./PopoverLoggoutContent";
 import { UserInfoWithoutBio } from "@/types/userInfoWithoutBio";
-import UserAvatar from "@/components/common/UserAvatar";
+import UserAvatar from "@/components/user/UserAvatar";
 import { LockIcon, Shield } from "lucide-react";
 
 interface UserInfoProps {

@@ -1,4 +1,4 @@
-import UserAvatar from "@/components/common/UserAvatar";
+import UserAvatar from "@/components/user/UserAvatar";
 import { Button, Textarea } from "@/components/ui";
 import { useClientProfileContext } from "@/context/ClientProfileProvider";
 import { uploadFile } from "@/services/upload/upload";

@@ -14,7 +14,8 @@ import { Code, Media, MediaTypes, TweetInfo } from "@/types/tweet";
 import RelatedTweetCard from "./RelatedTweetCard";
 import TweetContent from "./TweetItem";
 import { useClientProfileContext } from "@/context/ClientProfileProvider";
-import { UserAvatar, CodeEditor, ButtonWithTooltip } from "../common";
+import { CodeEditor, ButtonWithTooltip } from "../common";
+import { UserAvatar } from "../user";
 
 interface TweetDialogProps {
 	isOpen: boolean;

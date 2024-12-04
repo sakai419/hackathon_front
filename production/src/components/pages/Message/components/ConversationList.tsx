@@ -1,4 +1,4 @@
-import UserAvatar from "@/components/common/UserAvatar";
+import UserAvatar from "@/components/user/UserAvatar";
 import { ScrollArea } from "@/components/ui";
 import { Conversation } from "@/types/conversation";
 

@@ -1,4 +1,5 @@
-import { LoadingScreen, UserList } from "@/components/common";
+import { LoadingScreen } from "@/components/common";
+import { UserList } from "@/components/user";
 import useLikingUsers from "@/hooks/useLinkingUsers";
 
 interface LikingUsersProps {

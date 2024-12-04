@@ -14,7 +14,7 @@ import { Conversation } from "@/types/conversation";
 import useConversation from "@/hooks/useConversation";
 import useMessages from "@/hooks/useMessages";
 import LoadingScreen from "@/components/common/LoadingScreen";
-import UserAvatar from "@/components/common/UserAvatar";
+import UserAvatar from "@/components/user/UserAvatar";
 import sendMessages from "@/services/api/conversations/sendMessage";
 
 export function MessagePage() {

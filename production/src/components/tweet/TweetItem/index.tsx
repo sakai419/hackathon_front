@@ -7,9 +7,10 @@ import { useRouter } from "next/navigation";
 import TweetActions from "./TweetActions";
 import { useEffect, useRef, useState } from "react";
 import RelatedTweetCard from "../RelatedTweetCard";
-import { UserAvatar, CodeEditor } from "@/components/common";
+import { CodeEditor } from "@/components/common";
 import Highlighter from "./Highlighter";
 import { TweetOptionsButton } from "./TweetOptionsButton";
+import { UserAvatar } from "@/components/user";
 
 interface TweetItemProps {
 	clientUserId: string;
