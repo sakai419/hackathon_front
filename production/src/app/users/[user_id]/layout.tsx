@@ -2,6 +2,7 @@
 
 import { RightSidebar, Sidebar } from "@/components/layouts";
 import { ProfileHeader } from "@/components/pages/Profile";
+import { ClientProfileProvider } from "@/context/ClientProfileProvider";
 import { useParams } from "next/navigation";
 
 export default function ProfileLayout({
@@ -13,15 +14,17 @@ export default function ProfileLayout({
 	}
 
 	return (
-		<div className="flex">
-			<Sidebar />
-			<ProfileHeader userId={user_id?.toString()} />
-			<div className="flex-grow lg:ml-72">
-				<main className="pt-14 max-[calc(100vw-32rem)]:">
-					{children}
-				</main>
+		<ClientProfileProvider>
+			<div className="flex">
+				<Sidebar />
+				<ProfileHeader userId={user_id?.toString()} />
+				<div className="flex-grow lg:ml-72">
+					<main className="pt-14 max-[calc(100vw-32rem)]:">
+						{children}
+					</main>
+				</div>
+				<RightSidebar />
 			</div>
-			<RightSidebar />
-		</div>
+		</ClientProfileProvider>
 	);
 }
