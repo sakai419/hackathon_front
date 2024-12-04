@@ -11,6 +11,7 @@ import {
 import { UserAvatar } from "@/components/user";
 import useMessages from "@/hooks/useMessages";
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
+import markMessagesAsRead from "@/services/api/conversations/markMessagesAsRead";
 import sendMessage from "@/services/api/conversations/sendMessage";
 import { Conversation } from "@/types/conversation";
 import { ArrowLeft, Send } from "lucide-react";
@@ -19,14 +20,36 @@ import { useEffect, useState } from "react";
 interface MessageAreaProps {
 	selectedConversation: Conversation;
 	setSelectedConversation: (conversation: Conversation | null) => void;
+	updateConversation: (
+		conversation: Conversation,
+		updateFiled: Partial<Conversation>
+	) => void;
 }
 
 export default function MessageArea({
 	selectedConversation,
 	setSelectedConversation,
+	updateConversation,
 }: MessageAreaProps) {
 	const [message, setMessage] = useState("");
 	const [userId, setUserId] = useState("");
+
+	useEffect(() => {
+		async function markAsRead() {
+			if (selectedConversation) {
+				try {
+					updateConversation(selectedConversation, { isRead: true });
+					await markMessagesAsRead(
+						selectedConversation.opponentInfo.userId
+					);
+				} catch (error) {
+					console.error("Failed to mark messages as read:", error);
+				}
+			}
+		}
+
+		markAsRead();
+	}, [selectedConversation, updateConversation]);
 
 	useEffect(() => {
 		setUserId(selectedConversation.opponentInfo.userId);
@@ -100,7 +123,7 @@ export default function MessageArea({
 							? "さらに読み込む"
 							: "これ以上メッセージはありません"}
 					</Button>
-					<div className="flex flex-col-reverse">
+					<div className="flex flex-col-reverse pr-4">
 						{messages.map((message) => {
 							const isOpponentMessage =
 								message.senderUserId ===
@@ -125,18 +148,23 @@ export default function MessageArea({
 									>
 										<div>{message.content}</div>
 									</div>
-									<div
-										className={
-											"text-xs mt-1 text-secondary-foreground"
-										}
-									>
-										{getRelativeTimeString(createdAtDate)}
-									</div>
-									{!isOpponentMessage && message.isRead && (
-										<div className="text-xs text-green-500">
-											既読
+									<div className="flex space-x-1 items-center justify-center text-center">
+										<div
+											className={
+												"text-xs mt-1 text-secondary-foreground"
+											}
+										>
+											{getRelativeTimeString(
+												createdAtDate
+											)}
 										</div>
-									)}
+										{!isOpponentMessage &&
+											message.isRead && (
+												<div className="text-xs mt-1 text-green-500">
+													既読
+												</div>
+											)}
+									</div>
 								</div>
 							);
 						})}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
 	Button,
 	Card,
@@ -15,6 +15,9 @@ import MessageArea from "./components/MessageArea";
 export function MessagePage() {
 	const [selectedConversation, setSelectedConversation] =
 		useState<Conversation | null>(null);
+	const [conversationList, setConversationList] = useState<Conversation[]>(
+		[]
+	);
 
 	const {
 		conversations,
@@ -24,9 +27,24 @@ export function MessagePage() {
 		error: conversationError,
 	} = useConversation();
 
+	const updateConversation = useCallback(
+		(conversation: Conversation, updateFiled: Partial<Conversation>) => {
+			setConversationList((prev) =>
+				prev.map((c) =>
+					c.id === conversation.id ? { ...c, ...updateFiled } : c
+				)
+			);
+		},
+		[]
+	);
+
 	const handleSelectConversation = (conversation: Conversation) => {
 		setSelectedConversation(conversation);
 	};
+
+	useEffect(() => {
+		setConversationList(conversations);
+	}, [conversations]);
 
 	if (conversationError) {
 		const errorMessage = conversationError;
@@ -46,7 +64,7 @@ export function MessagePage() {
 				<CardContent>
 					{isConversationLoading && <LoadingScreen />}
 					<ConversationList
-						conversations={conversations}
+						conversations={conversationList}
 						onSelectConversation={handleSelectConversation}
 					/>
 					<Button
@@ -67,6 +85,7 @@ export function MessagePage() {
 				<MessageArea
 					selectedConversation={selectedConversation}
 					setSelectedConversation={setSelectedConversation}
+					updateConversation={updateConversation}
 				/>
 			) : (
 				<div className="w-2/3 flex items-center justify-center">
