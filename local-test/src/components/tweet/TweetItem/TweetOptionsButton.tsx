@@ -17,6 +17,9 @@ import {
 import handlePinSetting from "@/services/api/tweets/handlePinSetting";
 import { TweetInfo } from "@/types/tweet";
 import deleteTweet from "@/services/api/tweets/deleteTweet";
+import unfollow from "@/services/api/follow/unfollow";
+import requestFollowAndNotify from "@/services/api/follow/requestFollowAndNotify";
+import followAndNodify from "@/services/api/follow/followAndNodify";
 
 interface TweetOptionsButtonProps {
 	tweet: TweetInfo;
@@ -53,9 +56,32 @@ export function TweetOptionsButton({
 		}
 	};
 
-	const handleFollowClick = () => {
-		console.log(`Follow @${tweet.userInfo.userId}`);
-		setIsOpen(false);
+	const handleFollowClick = async () => {
+		try {
+			if (tweet.userInfo.isFollowing) {
+				await unfollow(tweet.userInfo.userId);
+				updateTweet(tweet, {
+					userInfo: { ...tweet.userInfo, isFollowing: false },
+				});
+			} else {
+				if (tweet.userInfo.isPrivate) {
+					await requestFollowAndNotify(tweet.userInfo.userId);
+					updateTweet(tweet, {
+						userInfo: { ...tweet.userInfo, isPending: true },
+					});
+				} else {
+					await followAndNodify(tweet.userInfo.userId);
+					updateTweet(tweet, {
+						userInfo: { ...tweet.userInfo, isFollowing: true },
+					});
+				}
+			}
+		} catch (error) {
+			console.log("Failed to handle follow setting:", error);
+			throw error;
+		} finally {
+			setIsOpen(false);
+		}
 	};
 
 	const handleBlockClick = () => {
@@ -120,16 +146,54 @@ export function TweetOptionsButton({
 						</>
 					) : (
 						<>
-							<Button
-								variant="ghost"
-								className="flex items-center justify-start space-x-2 w-full"
-								onClick={handleFollowClick}
-							>
-								<UserPlus className="w-4 h-4 font-semibold" />
-								<span className="font-semibold">
-									@{tweet.userInfo.userId}さんをフォロー
-								</span>
-							</Button>
+							{tweet.userInfo.isFollowing ? (
+								<Button
+									variant="ghost"
+									className="flex items-center justify-start space-x-2 w-full"
+									onClick={handleFollowClick}
+								>
+									<UserX className="w-4 h-4 font-semibold" />
+									<span className="font-semibold">
+										@{tweet.userInfo.userId}
+										さんをフォロー解除
+									</span>
+								</Button>
+							) : tweet.userInfo.isPending ? (
+								<Button
+									variant="ghost"
+									className="flex items-center justify-start space-x-2 w-full"
+									onClick={() => {}}
+								>
+									<UserPlus className="w-4 h-4 font-semibold" />
+									<span className="font-semibold">
+										@${tweet.userInfo.userId}
+										さんにフォロー申請中
+									</span>
+								</Button>
+							) : tweet.userInfo.isPrivate ? (
+								<Button
+									variant="ghost"
+									className="flex items-center justify-start space-x-2 w-full"
+									onClick={handleFollowClick}
+								>
+									<UserPlus className="w-4 h-4 font-semibold" />
+									<span className="font-semibold">
+										@{tweet.userInfo.userId}
+										さんにフォローリクエストを送る
+									</span>
+								</Button>
+							) : (
+								<Button
+									variant="ghost"
+									className="flex items-center justify-start space-x-2 w-full"
+									onClick={handleFollowClick}
+								>
+									<UserPlus className="w-4 h-4 font-semibold" />
+									<span className="font-semibold">
+										@{tweet.userInfo.userId}さんをフォロー
+									</span>
+								</Button>
+							)}
 							<Button
 								variant="ghost"
 								className="flex items-center justify-start space-x-2 w-full"
