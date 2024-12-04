@@ -4,16 +4,39 @@ import { Button, Card, CardContent } from "../ui";
 import { Lock, Shield } from "lucide-react";
 import UserAvatar from "./UserAvatar";
 import useClientProfile from "@/hooks/useClientProfile";
+import followAndNodify from "@/services/api/follow/followAndNodify";
+import { useState } from "react";
+import unfollow from "@/services/api/follow/unfollow";
+import requestFollowAndNotify from "@/services/api/follow/requestFollowAndNotify";
 
 interface UserCardProps {
 	user: UserInfo;
+	updateUser: (user: UserInfo, updateFields: Partial<UserInfo>) => void;
 }
 
-export default function UserCard({ user }: UserCardProps) {
-	const handleFollowClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+export default function UserCard({ user, updateUser }: UserCardProps) {
+	const [isHovered, setIsHovered] = useState(false);
+	const handleFollowClick = async (
+		e: React.MouseEvent<HTMLButtonElement>
+	) => {
 		e.preventDefault();
 		e.stopPropagation();
-		console.log("clicked");
+		try {
+			if (user.isPrivate) {
+				await requestFollowAndNotify(user.userId);
+				updateUser(user, { isPending: true });
+			} else {
+				if (user.isFollowing) {
+					await unfollow(user.userId);
+					updateUser(user, { isFollowing: false });
+				} else {
+					await followAndNodify(user.userId);
+					updateUser(user, { isFollowing: true });
+				}
+			}
+		} catch (error) {
+			console.error("Failed to follow user:", error);
+		}
 	};
 
 	const { profile } = useClientProfile();
@@ -73,9 +96,13 @@ export default function UserCard({ user }: UserCardProps) {
 												: ""
 										}`}
 										onClick={handleFollowClick}
+										onMouseEnter={() => setIsHovered(true)}
+										onMouseLeave={() => setIsHovered(false)}
 									>
 										{user.isFollowing
-											? "フォロー中"
+											? isHovered
+												? "フォロー解除"
+												: "フォロー中"
 											: user.isPending
 											? "リクエスト送信済み"
 											: user.isPrivate

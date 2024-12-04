@@ -9,3 +9,4 @@ export const SIDEBAR_ENDPOINT = `${API_BASE_URL}/sidebar`;
 export const NOTIFICATION_ENDPOINT = `${API_BASE_URL}/notifications`;
 export const CONVERSATION_ENDPOINT = `${API_BASE_URL}/conversations`;
 export const SEARCH_ENDPOINT = `${API_BASE_URL}/search`;
+export const FOLLOW_ENDPOINT = `${API_BASE_URL}/follows`;
