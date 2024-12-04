@@ -1,7 +1,7 @@
 import { TweetInfo, TweetNode } from "@/types/tweet";
 import { useState, useEffect } from "react";
 import TweetItem from "./TweetItem";
-import useClientProfile from "@/hooks/useClientProfile";
+import { useClientProfileContext } from "@/context";
 
 interface TweetListProps {
 	tweets: TweetNode[];
@@ -35,7 +35,7 @@ export default function TweetList({ tweets, highlightWord }: TweetListProps) {
 		});
 	};
 
-	const { profile } = useClientProfile();
+	const { profile } = useClientProfileContext();
 	const clientUserId = profile?.userInfo.userId || "";
 
 	return (

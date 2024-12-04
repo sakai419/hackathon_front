@@ -1,10 +1,10 @@
 import UserAvatar from "@/components/user/UserAvatar";
 import Image from "next/image";
 import EditProfileButton from "./EditProfileButton";
-import useClientProfile from "@/hooks/useClientProfile";
 import SendMessageButton from "./SendMessageButton";
 import FollowButton from "./FollowButton";
 import { Profile } from "@/types/profile";
+import { useClientProfileContext } from "@/context";
 
 interface BannerAndAvatarProps {
 	profile: Profile;
@@ -15,7 +15,7 @@ export default function BannerAndAvatar({
 	profile,
 	updateProfile,
 }: BannerAndAvatarProps) {
-	const { profile: clientProfile } = useClientProfile();
+	const { profile: clientProfile } = useClientProfileContext();
 	const isClient = clientProfile?.userInfo.userId === profile.userInfo.userId;
 	return (
 		<div className="relative">

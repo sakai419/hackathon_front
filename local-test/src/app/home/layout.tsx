@@ -2,7 +2,7 @@
 
 import { RightSidebar, Sidebar } from "@/components/layouts";
 import { HomeHeader } from "@/components/pages/Home";
-import { ClientProfileProvider } from "@/context/ClientProfileProvider";
+import { ClientProfileProvider } from "@/context";
 
 export default function HomeLayout({
 	children,

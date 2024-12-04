@@ -3,11 +3,11 @@ import Link from "next/link";
 import { Button, Card, CardContent } from "../ui";
 import { Lock, Shield } from "lucide-react";
 import UserAvatar from "./UserAvatar";
-import useClientProfile from "@/hooks/useClientProfile";
 import followAndNodify from "@/services/api/follow/followAndNodify";
 import { useState } from "react";
 import unfollow from "@/services/api/follow/unfollow";
 import requestFollowAndNotify from "@/services/api/follow/requestFollowAndNotify";
+import { useClientProfileContext } from "@/context";
 
 interface UserCardProps {
 	user: UserInfo;
@@ -39,7 +39,7 @@ export default function UserCard({ user, updateUser }: UserCardProps) {
 		}
 	};
 
-	const { profile } = useClientProfile();
+	const { profile } = useClientProfileContext();
 	const isClient = profile?.userInfo.userId === user.userId;
 
 	return (

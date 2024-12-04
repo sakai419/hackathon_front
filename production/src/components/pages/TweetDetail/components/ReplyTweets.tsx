@@ -1,5 +1,5 @@
 import { TweetItem } from "@/components/tweet";
-import useClientProfile from "@/hooks/useClientProfile";
+import { useClientProfileContext } from "@/context";
 import { TweetInfo } from "@/types/tweet";
 import { useEffect, useState } from "react";
 
@@ -10,7 +10,7 @@ interface ReplyTweetsProps {
 export default function ReplyTweets({ replies }: ReplyTweetsProps) {
 	const [replyTweets, setReplyTweets] = useState<TweetInfo[]>([]);
 
-	const { profile } = useClientProfile();
+	const { profile } = useClientProfileContext();
 	const clientUserId = profile?.userInfo.userId;
 
 	// Set initial reply tweets

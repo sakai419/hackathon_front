@@ -1,25 +1,29 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { auth } from "@/services/firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 export function useAuthRedirect() {
 	const router = useRouter();
+	const pathname = usePathname();
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
 			if (user) {
-				console.log("user", user);
-				router.push("/home");
+				if (pathname === "/login") {
+					router.push("/home"); // ログイン済みなら/homeにリダイレクト
+				}
 			} else {
-				router.push("/login");
+				if (pathname !== "/login") {
+					router.push("/login"); // 未ログインなら/loginにリダイレクト
+				}
 			}
 			setLoading(false);
 		});
 
 		return () => unsubscribe();
-	}, [router]);
+	}, [pathname, router]);
 
 	return { loading };
 }

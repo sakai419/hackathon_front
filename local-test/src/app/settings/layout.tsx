@@ -2,7 +2,7 @@
 
 import { RightSidebar, Sidebar } from "@/components/layouts";
 import { SettingsHeader } from "@/components/pages/Settings";
-import { ClientProfileProvider } from "@/context/ClientProfileProvider";
+import { ClientProfileProvider } from "@/context";
 
 export default function SearchLayout({
 	children,

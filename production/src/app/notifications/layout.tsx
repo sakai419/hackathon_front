@@ -2,7 +2,7 @@
 
 import { RightSidebar, Sidebar } from "@/components/layouts";
 import { NotificationHeader } from "@/components/pages/Notification";
-import { ClientProfileProvider } from "@/context/ClientProfileProvider";
+import { ClientProfileProvider } from "@/context";
 
 export default function NotificationsLayout({
 	children,

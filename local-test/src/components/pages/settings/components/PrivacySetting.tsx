@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import useClientProfile from "@/hooks/useClientProfile";
 import { LoadingScreen } from "@/components/common";
 import updateSettings from "@/services/api/settings/updateSettings";
+import { useClientProfileContext } from "@/context";
 
 export function PrivacySettings() {
-	const { profile, isLoading } = useClientProfile();
+	const { profile, isLoading } = useClientProfileContext();
 	const [isPrivate, setIsPrivate] = useState(false);
 
 	useEffect(() => {

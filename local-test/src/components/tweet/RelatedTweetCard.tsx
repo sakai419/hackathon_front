@@ -2,8 +2,8 @@ import { Card, CardContent } from "@/components/ui";
 import { TweetInfo } from "@/types/tweet";
 import { useState } from "react";
 import Link from "next/link";
-import useClientProfile from "@/hooks/useClientProfile";
 import TweetItem from "./TweetItem";
+import { useClientProfileContext } from "@/context";
 
 interface RelatedTweetCardProps {
 	tweet: TweetInfo;
@@ -15,7 +15,7 @@ export default function RelatedTweetCard({
 	withActions = false,
 }: RelatedTweetCardProps) {
 	const [tweetInfo, setTweetInfo] = useState<TweetInfo>(tweet);
-	const { profile } = useClientProfile();
+	const { profile } = useClientProfileContext();
 	const clientUserId = profile?.userInfo.userId;
 	const updateTweet = (
 		tweet: TweetInfo,

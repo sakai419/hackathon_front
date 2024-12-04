@@ -2,7 +2,7 @@
 
 import { RightSidebar, Sidebar } from "@/components/layouts";
 import { TweetDetailHeader } from "@/components/pages/TweetDetail";
-import { ClientProfileProvider } from "@/context/ClientProfileProvider";
+import { ClientProfileProvider } from "@/context";
 
 export default function TweetDetailLayout({
 	children,

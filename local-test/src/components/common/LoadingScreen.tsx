@@ -1,8 +1,16 @@
 import { cn } from "@/lib/utils";
 
-export default function LoadingScreen() {
+interface LoadingScreenProps {
+	height?: string;
+}
+
+export default function LoadingScreen({
+	height = "h-screen",
+}: LoadingScreenProps) {
 	return (
-		<div className="min-h-screen mx-auto bg-white flex flex-col items-center justify-center">
+		<div
+			className={`${height} mx-auto bg-white flex flex-col items-center justify-center`}
+		>
 			<div className="relative h-16 w-16">
 				{Array.from({ length: 8 }).map((_, i) => (
 					<div

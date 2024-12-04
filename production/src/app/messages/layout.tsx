@@ -1,7 +1,7 @@
 "use client";
 
 import { Sidebar } from "@/components/layouts";
-import { ClientProfileProvider } from "@/context/ClientProfileProvider";
+import { ClientProfileProvider } from "@/context";
 
 export default function MessageLayout({
 	children,

@@ -1,6 +1,6 @@
 import UserAvatar from "@/components/user/UserAvatar";
 import { Button, Textarea } from "@/components/ui";
-import { useClientProfileContext } from "@/context/ClientProfileProvider";
+import { useClientProfileContext } from "@/context";
 import { uploadFile } from "@/services/upload/upload";
 import { Code, Media, MediaTypes } from "@/types/tweet";
 import { useRef, useState } from "react";

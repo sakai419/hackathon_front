@@ -2,7 +2,7 @@
 
 import { RightSidebar, Sidebar } from "@/components/layouts";
 import { ProfileHeader } from "@/components/pages/Profile";
-import { ClientProfileProvider } from "@/context/ClientProfileProvider";
+import { ClientProfileProvider } from "@/context";
 import { useParams } from "next/navigation";
 
 export default function ProfileLayout({

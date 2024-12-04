@@ -8,8 +8,8 @@ import postReply from "@/services/api/tweets/postReply";
 import ReplyBox from "./components/ReplyBox";
 import { TweetList } from "@/components/tweet";
 import { Header } from "@/components/layouts";
-import useClientProfile from "@/hooks/useClientProfile";
 import EngagementLink from "./components/EngagementLink";
+import { useClientProfileContext } from "@/context";
 
 interface TweetDetailPageProps {
 	tweetId: number;
@@ -28,7 +28,7 @@ export function TweetDetailPage({ tweetId }: TweetDetailPageProps) {
 		profile,
 		isLoading: isClientProfileLoading,
 		error: clientProfileError,
-	} = useClientProfile();
+	} = useClientProfileContext();
 	const {
 		tweet,
 		isLoading: isTweetLoading,

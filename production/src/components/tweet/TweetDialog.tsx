@@ -13,7 +13,7 @@ import { uploadFile } from "@/services/upload/upload";
 import { Code, Media, MediaTypes, TweetInfo } from "@/types/tweet";
 import RelatedTweetCard from "./RelatedTweetCard";
 import TweetContent from "./TweetItem";
-import { useClientProfileContext } from "@/context/ClientProfileProvider";
+import { useClientProfileContext } from "@/context";
 import { CodeEditor, ButtonWithTooltip } from "../common";
 import { UserAvatar } from "../user";
 

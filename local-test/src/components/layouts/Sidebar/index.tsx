@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useSidebarInfo } from "@/hooks/useSidebarInfo";
 import { Code, Media } from "@/types/tweet";
 import postTweet from "@/services/api/tweets/postTweet";
-import { useClientProfileContext } from "@/context/ClientProfileProvider";
+import { useClientProfileContext } from "@/context";
 import Link from "next/link";
 import TweetDialog from "@/components/tweet/TweetDialog";
 import SidebarContent from "./SidebarContent";
