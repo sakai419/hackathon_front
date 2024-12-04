@@ -13,14 +13,28 @@ export default function useMessages({ userId }: UseMessagesProps) {
 	const [hasMore, setHasMore] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [page, setPage] = useState(1);
+	const [prevUserId, setPrevUserId] = useState<string>("");
 
 	const isLoadingRef = useRef(isLoading);
+	const prevUserIdRef = useRef(prevUserId);
 
 	useEffect(() => {
 		isLoadingRef.current = isLoading;
 	}, [isLoading]);
 
 	useEffect(() => {
+		prevUserIdRef.current = prevUserId;
+	}, [prevUserId]);
+
+	useEffect(() => {
+		// userIdが変更された場合にメッセージをリセット
+		if (userId !== prevUserIdRef.current) {
+			setMessages([]);
+			setHasMore(true);
+			setPage(1);
+			setPrevUserId(userId);
+		}
+
 		const fetchMessages = async () => {
 			if (isLoadingRef.current || !hasMore || !userId) return;
 			try {
@@ -43,8 +57,9 @@ export default function useMessages({ userId }: UseMessagesProps) {
 				setIsLoading(false);
 			}
 		};
+
 		fetchMessages();
-	}, [userId, page, hasMore]);
+	}, [userId, page, hasMore, prevUserId]);
 
 	const loadMore = () => {
 		if (hasMore && !isLoading) {
