@@ -4,27 +4,27 @@ import EditProfileButton from "./EditProfileButton";
 import useClientProfile from "@/hooks/useClientProfile";
 import SendMessageButton from "./SendMessageButton";
 import FollowButton from "./FollowButton";
-import { UserInfo } from "@/types/useInfo";
+import { Profile } from "@/types/profile";
 
 interface BannerAndAvatarProps {
-	userInfo: UserInfo;
-	profileImage: string;
-	bannerImage: string;
+	profile: Profile;
+	updateProfile: (profile: Profile, updatedFiled: Partial<Profile>) => void;
 }
 
 export default function BannerAndAvatar({
-	userInfo,
-	profileImage,
-	bannerImage,
+	profile,
+	updateProfile,
 }: BannerAndAvatarProps) {
-	const { profile } = useClientProfile();
-	const isClient = profile?.userInfo.userId === userInfo.userId;
+	const { profile: clientProfile } = useClientProfile();
+	const isClient = clientProfile?.userInfo.userId === profile.userInfo.userId;
 	return (
 		<div className="relative">
 			<div className="h-48 bg-muted">
 				<Image
 					src={
-						!bannerImage ? "/images/default_image.png" : bannerImage
+						!profile.bannerImageUrl
+							? "/images/default_image.png"
+							: profile.bannerImageUrl
 					}
 					alt="Banner"
 					fill
@@ -34,30 +34,28 @@ export default function BannerAndAvatar({
 			<div className="absolute -bottom-12 left-4">
 				<UserAvatar
 					withLink={false}
-					userId={userInfo.userName}
-					src={profileImage}
-					alt={userInfo.userName}
+					userId={profile.userInfo.userName}
+					src={profile.userInfo.profileImageUrl}
+					alt={profile.userInfo.userName}
 					size="w-24 h-24"
 				/>
 			</div>
 			{isClient ? (
 				<div className="absolute right-4 bottom-4">
 					<EditProfileButton
-						userId={userInfo.userId}
-						userName={userInfo.userName}
-						bio={userInfo.bio}
-						profileImageUrl={profileImage}
-						bannerImageUrl={bannerImage}
+						userId={profile.userInfo.userId}
+						userName={profile.userInfo.userName}
+						bio={profile.userInfo.bio}
+						profileImageUrl={profile.userInfo.profileImageUrl}
+						bannerImageUrl={profile.bannerImageUrl}
 					/>
 				</div>
 			) : (
 				<div className="absolute right-4 bottom-4 flex items-center justify-center space-x-1">
-					<SendMessageButton userId={userInfo.userId} />
+					<SendMessageButton userId={profile.userInfo.userId} />
 					<FollowButton
-						userId={userInfo.userId}
-						isFollowing={userInfo.isFollowing}
-						isPending={userInfo.isPending}
-						isPrivate={userInfo.isPrivate}
+						profile={profile}
+						updateProfile={updateProfile}
 					/>
 				</div>
 			)}

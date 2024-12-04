@@ -5,18 +5,18 @@ import { Profile } from "@/types/profile";
 
 interface UserProfileProps {
 	profile: Profile;
+	updateProfile: (profile: Profile, updateFiled: Partial<Profile>) => void;
 }
 
-export default function UserHeader({ profile }: UserProfileProps) {
+export default function UserHeader({
+	profile,
+	updateProfile,
+}: UserProfileProps) {
 	const Date = formatYearMonth(profile.createdAt);
 
 	return (
 		<div className="relative">
-			<BannerAndAvatar
-				userInfo={profile.userInfo}
-				bannerImage={profile.bannerImageUrl}
-				profileImage={profile.userInfo.profileImageUrl}
-			/>
+			<BannerAndAvatar profile={profile} updateProfile={updateProfile} />
 			<ProfileInfo
 				userId={profile.userInfo.userId}
 				userName={profile.userInfo.userName}

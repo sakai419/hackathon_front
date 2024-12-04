@@ -1,6 +1,6 @@
 import DynamicTabs from "@/components/common/DynamicTabs";
 import useUserProfile from "@/hooks/useUserProfile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoadingScreen } from "@/components/common";
 import { Lock } from "lucide-react";
 import UserHeader from "./components/UserHeader";
@@ -9,6 +9,7 @@ import UserRetweets from "./components/UserRetweets";
 import UserLikes from "./components/UserLikes";
 import useClientProfile from "@/hooks/useClientProfile";
 import { Header } from "@/components/layouts";
+import { Profile } from "@/types/profile";
 
 interface ProfileHeaderProps {
 	userId: string;
@@ -48,7 +49,7 @@ export function ProfileHeader({ userId }: ProfileHeaderProps) {
 }
 
 export function ProfilePage({ userId }: ProfilePageProps) {
-	const clientProfile = useClientProfile().profile;
+	const { profile: clientProfile } = useClientProfile();
 	const isClient = userId === clientProfile?.userInfo.userId;
 	const tabNames = ["ツイート", "リツイート"];
 	if (isClient) {
@@ -62,6 +63,21 @@ export function ProfilePage({ userId }: ProfilePageProps) {
 		error: profileError,
 	} = useUserProfile({ userId });
 
+	const [userProfile, setUserProfile] = useState<Profile | null>();
+
+	const updateProfile = (profile: Profile, updateFiled: Partial<Profile>) => {
+		setUserProfile({
+			...profile,
+			...updateFiled,
+		});
+	};
+
+	useEffect(() => {
+		if (profile) {
+			setUserProfile(profile);
+		}
+	}, [profile]);
+
 	if (profileError) {
 		return <div>エラーが発生しました</div>;
 	}
@@ -70,7 +86,12 @@ export function ProfilePage({ userId }: ProfilePageProps) {
 		<>
 			{isProfileLoading && <LoadingScreen />}
 			<div className="max-w-2xl mx-auto w-full">
-				{profile && <UserHeader profile={profile} />}
+				{userProfile && (
+					<UserHeader
+						profile={userProfile}
+						updateProfile={updateProfile}
+					/>
+				)}
 				<DynamicTabs
 					tabNames={tabNames}
 					activeTab={activeTab}
