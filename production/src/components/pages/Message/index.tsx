@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	Button,
 	Card,
@@ -21,6 +21,7 @@ export function MessagePage() {
 	const [message, setMessage] = useState("");
 	const [selectedConversation, setSelectedConversation] =
 		useState<Conversation | null>(null);
+	const [userId, setUserId] = useState("");
 
 	const {
 		conversations,
@@ -29,6 +30,7 @@ export function MessagePage() {
 		loadMore: loadMoreConversations,
 		error: conversationError,
 	} = useConversation();
+
 	const {
 		messages,
 		isLoading: isMessageLoading,
@@ -36,8 +38,12 @@ export function MessagePage() {
 		loadMore: loadMoreMessages,
 		error: messageError,
 	} = useMessages({
-		userId: selectedConversation?.opponentInfo.userId || "",
+		userId: userId,
 	});
+
+	useEffect(() => {
+		setUserId(selectedConversation?.opponentInfo.userId || "");
+	}, [selectedConversation]);
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
