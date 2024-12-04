@@ -1,27 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
 	Button,
 	Card,
 	CardContent,
 	CardHeader,
 	CardTitle,
-	Input,
-	ScrollArea,
 } from "@/components/ui";
-import { ArrowLeft, Send } from "lucide-react";
 import { ConversationList } from "./components/ConversationList";
 import { Conversation } from "@/types/conversation";
 import useConversation from "@/hooks/useConversation";
-import useMessages from "@/hooks/useMessages";
 import LoadingScreen from "@/components/common/LoadingScreen";
-import UserAvatar from "@/components/user/UserAvatar";
-import sendMessages from "@/services/api/conversations/sendMessage";
+import MessageArea from "./components/MessageArea";
 
 export function MessagePage() {
-	const [message, setMessage] = useState("");
 	const [selectedConversation, setSelectedConversation] =
 		useState<Conversation | null>(null);
-	const [userId, setUserId] = useState("");
 
 	const {
 		conversations,
@@ -31,45 +24,12 @@ export function MessagePage() {
 		error: conversationError,
 	} = useConversation();
 
-	const {
-		messages,
-		isLoading: isMessageLoading,
-		hasMore: hasMoreMessages,
-		loadMore: loadMoreMessages,
-		error: messageError,
-	} = useMessages({
-		userId: userId,
-	});
-
-	useEffect(() => {
-		setUserId(selectedConversation?.opponentInfo.userId || "");
-	}, [selectedConversation]);
-
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-		if (!selectedConversation) return;
-		try {
-			sendMessages(selectedConversation.opponentInfo.userId, message);
-			messages.unshift({
-				id: messages.length + 1,
-				content: message,
-				senderUserId: "me",
-				createdAt: new Date().toISOString(),
-				isRead: true,
-			});
-		} catch (error) {
-			console.error("Failed to send message:", error);
-		} finally {
-			setMessage("");
-		}
-	};
-
 	const handleSelectConversation = (conversation: Conversation) => {
 		setSelectedConversation(conversation);
 	};
 
-	if (conversationError || messageError) {
-		const errorMessage = conversationError || messageError;
+	if (conversationError) {
+		const errorMessage = conversationError;
 		return (
 			<div className="flex items-center justify-center h-screen">
 				<p className="text-red-500">{errorMessage}</p>
@@ -104,86 +64,10 @@ export function MessagePage() {
 			</Card>
 
 			{selectedConversation ? (
-				<Card className="w-2/3">
-					{isMessageLoading && <LoadingScreen />}
-					<CardHeader className="flex flex-row items-center gap-4 p-4">
-						<Button
-							variant="ghost"
-							size="icon"
-							aria-label="戻る"
-							onClick={() => setSelectedConversation(null)}
-						>
-							<ArrowLeft className="h-4 w-4" />
-						</Button>
-						<UserAvatar
-							userId={selectedConversation.opponentInfo.userId}
-							src={
-								selectedConversation.opponentInfo
-									.profileImageUrl
-							}
-							alt={selectedConversation.opponentInfo.userName}
-							size="w-9 h-9"
-						/>
-						<CardTitle>
-							{selectedConversation.opponentInfo.userName}
-						</CardTitle>
-					</CardHeader>
-					<CardContent className="p-4">
-						<ScrollArea className="h-[500px] mb-4">
-							<Button
-								onClick={loadMoreMessages}
-								disabled={!hasMoreMessages || isMessageLoading}
-								className="w-full"
-							>
-								{hasMoreMessages
-									? "さらに読み込む"
-									: "これ以上メッセージはありません"}
-							</Button>
-							<div className="flex flex-col-reverse">
-								{messages.map((message) => (
-									<div
-										key={message.id}
-										className={`flex mt-4 ${
-											message.senderUserId ===
-											selectedConversation.opponentInfo
-												.userId
-												? "justify-start"
-												: "justify-end"
-										}`}
-									>
-										<div
-											className={`${
-												message.senderUserId ===
-												selectedConversation
-													.opponentInfo.userId
-													? "bg-secondary text-secondary-foreground"
-													: "bg-primary text-primary-foreground"
-											} rounded-lg p-2 max-w-[80%]`}
-										>
-											{message.content}
-										</div>
-									</div>
-								))}
-							</div>
-						</ScrollArea>
-						<form
-							onSubmit={handleSubmit}
-							className="flex items-center gap-2"
-						>
-							<Input
-								type="text"
-								placeholder="メッセージを入力..."
-								value={message}
-								onChange={(e) => setMessage(e.target.value)}
-								className="flex-grow"
-								aria-label="メッセージ入力"
-							/>
-							<Button type="submit" size="icon" aria-label="送信">
-								<Send className="h-4 w-4" />
-							</Button>
-						</form>
-					</CardContent>
-				</Card>
+				<MessageArea
+					selectedConversation={selectedConversation}
+					setSelectedConversation={setSelectedConversation}
+				/>
 			) : (
 				<div className="w-2/3 flex items-center justify-center">
 					<p className="text-muted-foreground">
