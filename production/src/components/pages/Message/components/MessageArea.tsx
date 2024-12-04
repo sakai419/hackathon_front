@@ -110,10 +110,10 @@ export default function MessageArea({
 							return (
 								<div
 									key={message.id}
-									className={`flex mt-4 ${
+									className={`flex flex-col mt-4 ${
 										isOpponentMessage
-											? "justify-start"
-											: "justify-end"
+											? "items-start"
+											: "items-end"
 									}`}
 								>
 									<div
@@ -124,24 +124,19 @@ export default function MessageArea({
 										} rounded-lg p-2 max-w-[80%]`}
 									>
 										<div>{message.content}</div>
-										<div
-											className={`text-xs mt-1 ${
-												isOpponentMessage
-													? "text-secondary-foreground"
-													: "text-primary-foreground"
-											}`}
-										>
-											{getRelativeTimeString(
-												createdAtDate
-											)}
-										</div>
-										{!isOpponentMessage &&
-											message.isRead && (
-												<div className="text-xs mt-1 text-green-500">
-													既読
-												</div>
-											)}
 									</div>
+									<div
+										className={
+											"text-xs mt-1 text-secondary-foreground"
+										}
+									>
+										{getRelativeTimeString(createdAtDate)}
+									</div>
+									{!isOpponentMessage && message.isRead && (
+										<div className="text-xs text-green-500">
+											既読
+										</div>
+									)}
 								</div>
 							);
 						})}
