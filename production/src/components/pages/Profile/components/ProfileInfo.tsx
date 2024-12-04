@@ -1,4 +1,5 @@
 import { Calendar, Lock } from "lucide-react";
+import Link from "next/link";
 
 interface ProfileInfoProps {
 	userId: string;
@@ -36,12 +37,15 @@ export default function ProfileInfo({
 				<span>{date}からTwitterを利用しています</span>
 			</div>
 
-			<div className="flex gap-4 text-sm">
+			<Link
+				href={`/users/${userId}/follow-status`}
+				className="flex gap-4 text-sm"
+			>
 				<div>
 					<span className="font-bold text-foreground">
 						{followingCount}
 					</span>
-					<span className="text-muted-foreground ml-1">
+					<span className="text-muted-foreground ml-1 hover:underline">
 						フォロー中
 					</span>
 				</div>
@@ -49,11 +53,11 @@ export default function ProfileInfo({
 					<span className="font-bold text-foreground">
 						{followerCount}
 					</span>
-					<span className="text-muted-foreground ml-1">
+					<span className="text-muted-foreground ml-1 hover:underline">
 						フォロワー
 					</span>
 				</div>
-			</div>
+			</Link>
 		</div>
 	);
 }

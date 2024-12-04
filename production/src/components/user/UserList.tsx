@@ -38,7 +38,7 @@ export default function UserList({ users, hasMore, loadMore }: UserListProps) {
 				disabled={!hasMore}
 				className="w-full mt-4"
 			>
-				{hasMore ? "さらに読み込む" : "検索結果は以上です"}
+				{hasMore ? "さらに読み込む" : "ユーザーはこれ以上いません"}
 			</Button>
 		</div>
 	);
