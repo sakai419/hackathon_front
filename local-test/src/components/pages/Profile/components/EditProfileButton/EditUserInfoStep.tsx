@@ -35,6 +35,11 @@ export default function EditUserInfoStep({
 							ユーザーIDは30文字以下で入力してください
 						</p>
 					)}
+					{data.userId === "me" && (
+						<p className="text-red-500 text-sm">
+							このユーザーIDは使用できません
+						</p>
+					)}
 				</>
 			)}
 			<div className="space-y-2">
