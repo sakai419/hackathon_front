@@ -23,10 +23,19 @@ export default function EditUserInfoStep({
 					required
 				/>
 			</div>
-			{data.userId && !validateUserId(data.userId) && (
-				<p className="text-red-500 text-sm">
-					ユーザーIDは半角英数字、「-」、「_」、「.」、で入力してください
-				</p>
+			{data.userId && (
+				<>
+					{!validateUserId(data.userId) && (
+						<p className="text-red-500 text-sm">
+							ユーザーIDは半角英数字、「-」、「_」、「.」、で入力してください
+						</p>
+					)}
+					{data.userId.length > 30 && (
+						<p className="text-red-500 text-sm">
+							ユーザーIDは30文字以下で入力してください
+						</p>
+					)}
+				</>
 			)}
 			<div className="space-y-2">
 				<Label htmlFor="user_name">ユーザー名</Label>
@@ -38,6 +47,11 @@ export default function EditUserInfoStep({
 					required
 				/>
 			</div>
+			{data.userName && data.userName.length > 30 && (
+				<p className="text-red-500 text-sm">
+					ユーザー名は30文字以下で入力してください
+				</p>
+			)}
 			<div className="space-y-2">
 				<Label htmlFor="bio">自己紹介</Label>
 				<Textarea

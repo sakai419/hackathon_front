@@ -61,10 +61,19 @@ export default function SetUserInfoCardContent({
 					onChange={(e) => setUserId(e.target.value)}
 				/>
 			</div>
-			{userId && !validateUserId(userId) && (
-				<p className="text-red-500 text-sm">
-					ユーザーIDは半角英数字、「-」、「_」、「.」、で入力してください
-				</p>
+			{userId && (
+				<>
+					{!validateUserId(userId) && (
+						<p className="text-red-500 text-sm">
+							ユーザーIDは半角英数字、「-」、「_」、「.」、で入力してください
+						</p>
+					)}
+					{userId.length > 30 && (
+						<p className="text-red-500 text-sm">
+							ユーザーIDは30文字以下で入力してください
+						</p>
+					)}
+				</>
 			)}
 			<div className="space-y-2">
 				<Label htmlFor="user_name">ユーザー名</Label>
@@ -76,6 +85,11 @@ export default function SetUserInfoCardContent({
 					onChange={(e) => setUserName(e.target.value)}
 				/>
 			</div>
+			{userName && userName.length > 30 && (
+				<p className="text-red-500 text-sm">
+					ユーザー名は30文字以下で入力してください
+				</p>
+			)}
 			{isError && <p className="text-red-500">{errorMessage}</p>}
 			<Button
 				type="submit"
