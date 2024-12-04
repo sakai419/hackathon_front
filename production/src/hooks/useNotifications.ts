@@ -2,7 +2,6 @@ import getNotifications from "@/services/api/notifications/getNotifications";
 import { useState, useEffect, useRef } from "react";
 import { Notification } from "@/types/notification";
 import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
-import { setDefaultImageOfNotifications } from "@/lib/utils/setDefaultImage";
 
 export default function useNotifications() {
 	const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -26,7 +25,6 @@ export default function useNotifications() {
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<Notification[]>(data);
-					setDefaultImageOfNotifications(camelCaseData);
 					setNotifications((prev) => [...prev, ...camelCaseData]);
 					if (camelCaseData.length < 10) {
 						setHasMore(false);

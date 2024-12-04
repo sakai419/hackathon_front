@@ -1,4 +1,3 @@
-import { setDefaultImageOfConversations } from "@/lib/utils/setDefaultImage";
 import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
 import getConversations from "@/services/api/conversations/getConversations";
 import { Conversation } from "@/types/conversation";
@@ -26,7 +25,6 @@ export default function useConversation() {
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<Conversation[]>(data);
-					setDefaultImageOfConversations(camelCaseData);
 					setConversations((prev) => [...prev, ...camelCaseData]);
 					if (camelCaseData.length < 10) {
 						setHasMore(false);

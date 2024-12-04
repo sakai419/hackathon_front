@@ -1,4 +1,3 @@
-import { setDefaultImageOfUserInfos } from "@/lib/utils/setDefaultImage";
 import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
 import searchUsers from "@/services/api/search/searchUsers";
 import { UserInfo } from "@/types/useInfo";
@@ -36,7 +35,6 @@ export default function useUserResults({ keyword }: UseUserResultsProps) {
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<UserInfo[]>(data);
-					setDefaultImageOfUserInfos(camelCaseData);
 					setResults((prev) => [...prev, ...camelCaseData]);
 					if (camelCaseData.length < 10) {
 						setHasMore(false);

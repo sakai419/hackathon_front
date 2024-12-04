@@ -1,4 +1,3 @@
-import { setDefaultImageOfUserInfos } from "@/lib/utils/setDefaultImage";
 import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
 import getQuotingUserInfos from "@/services/api/tweets/getQuotingUserInfos";
 import { UserInfo } from "@/types/useInfo";
@@ -30,7 +29,6 @@ export default function useQuotingUsers({ tweetId }: UseQuotingUsersProps) {
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<UserInfo[]>(data);
-					setDefaultImageOfUserInfos(camelCaseData);
 					setUsers((prev) => [...prev, ...camelCaseData]);
 					if (camelCaseData.length < 10) {
 						setHasMore(false);

@@ -1,4 +1,3 @@
-import { setDefaultImageOfTweetInfos } from "@/lib/utils/setDefaultImage";
 import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
 import getReplyTweets from "@/services/api/tweets/getReplyTweets";
 import { TweetInfo } from "@/types/tweet";
@@ -30,7 +29,6 @@ export default function useReplyTweets({ tweetId }: UseReplyTweetsProps) {
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<TweetInfo[]>(data);
-					setDefaultImageOfTweetInfos(camelCaseData);
 					setReplyTweets((prev) => [...prev, ...camelCaseData]);
 					if (camelCaseData.length < 10) {
 						setHasMore(false);

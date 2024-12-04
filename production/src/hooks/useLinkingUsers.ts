@@ -1,4 +1,3 @@
-import { setDefaultImageOfUserInfos } from "@/lib/utils/setDefaultImage";
 import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
 import getLikingUserInfos from "@/services/api/tweets/getLikingUserInfos";
 import { UserInfo } from "@/types/useInfo";
@@ -30,7 +29,6 @@ export default function useLikingUsers({ tweetId }: UseLikingUsersProps) {
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<UserInfo[]>(data);
-					setDefaultImageOfUserInfos(camelCaseData);
 					setUsers((prev) => [...prev, ...camelCaseData]);
 					if (camelCaseData.length < 10) {
 						setHasMore(false);

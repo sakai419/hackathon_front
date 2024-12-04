@@ -23,7 +23,9 @@ export default function BannerAndAvatar({
 		<div className="relative">
 			<div className="h-48 bg-muted">
 				<Image
-					src={bannerImage}
+					src={
+						!bannerImage ? "/images/default_image.png" : bannerImage
+					}
 					alt="Banner"
 					fill
 					style={{ objectFit: "cover" }}

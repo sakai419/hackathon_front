@@ -1,4 +1,3 @@
-import { setDefaultImageOfTweetNodes } from "@/lib/utils/setDefaultImage";
 import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
 import getRecentTweets from "@/services/api/tweets/getRecentTweets";
 import { TweetNode } from "@/types/tweet";
@@ -25,7 +24,6 @@ export default function useRecentTweets() {
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<TweetNode[]>(data);
-					setDefaultImageOfTweetNodes(camelCaseData);
 					setTweets((prev) => [...prev, ...camelCaseData]);
 					if (camelCaseData.length < 100) {
 						setHasMore(false);
