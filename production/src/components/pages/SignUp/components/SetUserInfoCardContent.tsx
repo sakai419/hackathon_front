@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import createAccount from "@/services/api/accounts/createAccount";
 import axios, { AxiosError } from "axios";
 import isAPIError from "@/lib/utils/isAPIError";
+import { validateUserId } from "@/lib/utils/validation";
 
 interface SetUserInfoCardContentProps {
 	onSubmit: () => void;
@@ -60,6 +61,11 @@ export default function SetUserInfoCardContent({
 					onChange={(e) => setUserId(e.target.value)}
 				/>
 			</div>
+			{userId && !validateUserId(userId) && (
+				<p className="text-red-500 text-sm">
+					ユーザーIDは半角英数字、「-」、「_」、「.」、で入力してください
+				</p>
+			)}
 			<div className="space-y-2">
 				<Label htmlFor="user_name">ユーザー名</Label>
 				<Input
@@ -71,7 +77,12 @@ export default function SetUserInfoCardContent({
 				/>
 			</div>
 			{isError && <p className="text-red-500">{errorMessage}</p>}
-			<Button type="submit" size="lg" className="w-full">
+			<Button
+				type="submit"
+				size="lg"
+				className="w-full"
+				disabled={!userId || !userName || !validateUserId(userId)}
+			>
 				完了
 			</Button>
 		</form>

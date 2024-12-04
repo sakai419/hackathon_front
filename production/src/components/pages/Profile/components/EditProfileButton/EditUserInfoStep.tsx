@@ -1,4 +1,5 @@
 import { Input, Label, Textarea } from "@/components/ui";
+import { validateUserId } from "@/lib/utils/validation";
 import { EditProfileData } from "@/types/profile";
 
 interface EditUserInfoStepProps {
@@ -22,6 +23,11 @@ export default function EditUserInfoStep({
 					required
 				/>
 			</div>
+			{data.userId && !validateUserId(data.userId) && (
+				<p className="text-red-500 text-sm">
+					ユーザーIDは半角英数字、「-」、「_」、「.」、で入力してください
+				</p>
+			)}
 			<div className="space-y-2">
 				<Label htmlFor="user_name">ユーザー名</Label>
 				<Input

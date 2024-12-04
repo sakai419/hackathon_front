@@ -6,6 +6,7 @@ import EditProfileImageStep from "./EditProfileImageStep";
 import ProfileUpdateStep from "./ProfileUpdateStep";
 import EditUserInfoStep from "./EditUserInfoStep";
 import { MultiStepDialog } from "@/components/common";
+import { validateUserId } from "@/lib/utils/validation";
 
 interface EditProfileButtonProps {
 	userId: string;
@@ -34,7 +35,11 @@ export default function EditProfileButton({
 				return <EditUserInfoStep data={data} updateData={updateData} />;
 			},
 			validate: (data: EditProfileData) => {
-				return data.userId !== "" && data.userName !== "";
+				return (
+					data.userId !== "" &&
+					data.userName !== "" &&
+					validateUserId(data.userId)
+				);
 			},
 		},
 		{
