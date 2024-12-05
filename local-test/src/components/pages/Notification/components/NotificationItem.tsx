@@ -5,12 +5,20 @@ import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
 import { Lock, Shield } from "lucide-react";
 import UserAvatar from "@/components/user/UserAvatar";
 import { RelatedTweetCard } from "@/components/tweet";
+import { Button } from "@/components/ui";
+import acceptFollowRequestAndNotify from "@/services/api/follow/acceptFollowRequestAndNotify";
+import { useEffect, useState } from "react";
+import rejectFollowRequest from "@/services/api/follow/rejectFollowRequest";
+import { ErrorMessage } from "@/components/common";
 
 export default function NotificationItem({
 	notification,
 }: {
 	notification: Notification;
 }) {
+	const [error, setError] = useState<unknown>(null);
+	const [isFollowed, setIsFollowed] = useState(false);
+
 	const date = new Date(notification.createdAt);
 	const relativeTime = getRelativeTimeString(date);
 
@@ -45,6 +53,39 @@ export default function NotificationItem({
 			message = notification.content || "";
 			break;
 		default:
+	}
+
+	const handleAccept = async () => {
+		if (!notification.senderInfo) {
+			return;
+		}
+
+		try {
+			await acceptFollowRequestAndNotify(notification.senderInfo.userId);
+			setIsFollowed(true);
+		} catch (error) {
+			setError(error);
+		}
+	};
+
+	const handleReject = async () => {
+		if (!notification.senderInfo) {
+			return;
+		}
+
+		try {
+			await rejectFollowRequest(notification.senderInfo.userId);
+		} catch (error) {
+			setError(error);
+		}
+	};
+
+	useEffect(() => {
+		setIsFollowed(notification.senderInfo?.isFollowed || false);
+	}, [notification.senderInfo]);
+
+	if (error) {
+		return <ErrorMessage error={error} />;
 	}
 
 	return (
@@ -83,6 +124,25 @@ export default function NotificationItem({
 					)}
 				</div>
 				<p>{message}</p>
+				{notification.type === "follow_request" && (
+					<>
+						{isFollowed ? (
+							<p className="text-sm text-gray-500">承認済み</p>
+						) : (
+							<div className="flex items-end space-x-2">
+								<Button className="p-4" onClick={handleAccept}>
+									承認
+								</Button>
+								<Button
+									className="p-4 bg-red-500 hover:bg-red-600"
+									onClick={handleReject}
+								>
+									拒否
+								</Button>
+							</div>
+						)}
+					</>
+				)}
 				<p className="text-sm text-gray-500">{relativeTime}</p>
 				{notification.relatedTweet && (
 					<RelatedTweetCard tweet={notification.relatedTweet} />
