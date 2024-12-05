@@ -55,6 +55,7 @@ export default function TweetItem({
 	};
 
 	const handleTweetClick = (e: React.MouseEvent<HTMLDivElement>) => {
+		console.log(e.target, e.currentTarget);
 		if (e.target === e.currentTarget) {
 			router.push(`/tweets/${tweet.tweetId}`);
 		}
@@ -92,8 +93,11 @@ export default function TweetItem({
 					/>
 				</div>
 			)}
-			<div className="flex-1">
-				<div className="flex items-center justify-between">
+			<div className="flex-1" onClick={handleTweetClick}>
+				<div
+					className="flex items-center justify-between"
+					onClick={handleTweetClick}
+				>
 					<div className="flex items-center space-x-2">
 						<span
 							className={`font-semibold ${
@@ -136,6 +140,7 @@ export default function TweetItem({
 						<div className="whitespace-pre-wrap break-words">
 							<Highlighter
 								text={tweet.content}
+								onClick={handleTweetClick}
 								highlightWord={highlightWord}
 							/>
 						</div>

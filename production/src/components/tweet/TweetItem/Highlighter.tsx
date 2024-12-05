@@ -3,9 +3,14 @@ import React from "react";
 interface HighlighterProps {
 	text: string;
 	highlightWord?: string;
+	onClick?: (e: React.MouseEvent<HTMLParagraphElement>) => void;
 }
 
-export default function Highlighter({ text, highlightWord }: HighlighterProps) {
+export default function Highlighter({
+	text,
+	highlightWord,
+	onClick,
+}: HighlighterProps) {
 	const highlightText = (text: string, highlightWord?: string) => {
 		// highlightWord がある場合の正規表現を生成
 		const regex = highlightWord
@@ -74,7 +79,10 @@ export default function Highlighter({ text, highlightWord }: HighlighterProps) {
 	};
 
 	return (
-		<p className="text-gray-800 leading-relaxed whitespace-pre-wrap break-all">
+		<p
+			className="text-gray-800 leading-relaxed whitespace-pre-wrap break-all"
+			onClick={onClick}
+		>
 			{highlightText(text, highlightWord)}
 		</p>
 	);
