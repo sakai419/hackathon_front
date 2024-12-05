@@ -1,5 +1,5 @@
 import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
-import getFollowingInfos from "@/services/api/follow/getFollowingInfos";
+import getFollowerInfos from "@/services/api/follow/getFollowerInfos";
 import { UserInfo } from "@/types/useInfo";
 import { useState, useRef, useEffect } from "react";
 
@@ -25,7 +25,7 @@ export default function useFollowers({ userId }: UseFollowersProps) {
 			if (isLoadingRef.current || !hasMore) return;
 			setIsLoading(true);
 			try {
-				const data = await getFollowingInfos(userId, page);
+				const data = await getFollowerInfos(userId, page);
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<UserInfo[]>(data);
