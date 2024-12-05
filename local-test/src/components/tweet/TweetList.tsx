@@ -6,9 +6,14 @@ import { useClientProfileContext } from "@/context";
 interface TweetListProps {
 	tweets: TweetNode[];
 	highlightWord?: string;
+	disablePin?: boolean;
 }
 
-export default function TweetList({ tweets, highlightWord }: TweetListProps) {
+export default function TweetList({
+	tweets,
+	highlightWord,
+	disablePin = true,
+}: TweetListProps) {
 	const [tweetNodes, setTweetNodes] = useState<TweetNode[]>(tweets);
 
 	useEffect(() => {
@@ -76,6 +81,7 @@ export default function TweetList({ tweets, highlightWord }: TweetListProps) {
 						highlightWord={highlightWord}
 						clientUserId={clientUserId}
 						updateTweet={updateTweet}
+						disbalePin={disablePin}
 						{...(tweet.tweet.isQuote && {
 							quotedTweet: tweet.originalTweet,
 						})}

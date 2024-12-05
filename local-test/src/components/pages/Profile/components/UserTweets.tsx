@@ -20,7 +20,7 @@ export default function UserTweets({ userId }: UserTweetsProps) {
 		<>
 			{isLoading && <LoadingScreen />}
 			<div className="max-w-2xl mx-auto">
-				<TweetList tweets={tweets} />
+				<TweetList tweets={tweets} disablePin={false} />
 				<Button
 					onClick={loadMore}
 					disabled={!hasMore}

@@ -21,6 +21,7 @@ interface TweetItemProps {
 	withActions?: boolean;
 	updateTweet?: (tweet: TweetInfo, updateFields: Partial<TweetInfo>) => void;
 	quotedTweet?: TweetInfo;
+	disbalePin?: boolean;
 }
 
 export default function TweetItem({
@@ -32,6 +33,7 @@ export default function TweetItem({
 	withActions = true,
 	updateTweet,
 	quotedTweet,
+	disbalePin = true,
 }: TweetItemProps) {
 	const router = useRouter();
 	const [threadLineHeight, setThreadLineHeight] = useState(0);
@@ -119,7 +121,7 @@ export default function TweetItem({
 							@{tweet.userInfo.userId + "・" + tweetDate}
 						</span>
 					</div>
-					{tweet.isPinned && (
+					{tweet.isPinned && !disbalePin && (
 						<Badge
 							variant="outline"
 							className="absolute top-4 right-8 flex items-center"
