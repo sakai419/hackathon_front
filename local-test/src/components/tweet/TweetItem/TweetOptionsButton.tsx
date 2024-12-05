@@ -20,6 +20,8 @@ import deleteTweet from "@/services/api/tweets/deleteTweet";
 import unfollow from "@/services/api/follow/unfollow";
 import requestFollowAndNotify from "@/services/api/follow/requestFollowAndNotify";
 import followAndNodify from "@/services/api/follow/followAndNodify";
+import blockUser from "@/services/api/block/blockUser";
+import { ErrorMessage } from "@/components/common";
 
 interface TweetOptionsButtonProps {
 	tweet: TweetInfo;
@@ -33,13 +35,13 @@ export function TweetOptionsButton({
 	isAuthor,
 }: TweetOptionsButtonProps) {
 	const [isOpen, setIsOpen] = useState(false);
+	const [error, setError] = useState<unknown>(null);
 
 	const handleDeleteClick = async () => {
 		try {
 			await deleteTweet(tweet.tweetId);
 		} catch (error) {
-			console.log("Failed to delete tweet:", error);
-			throw error;
+			setError(error);
 		}
 		setIsOpen(false);
 	};
@@ -49,8 +51,7 @@ export function TweetOptionsButton({
 			await handlePinSetting(tweet.tweetId, tweet.isPinned);
 			updateTweet(tweet, { isPinned: !tweet.isPinned });
 		} catch (error) {
-			console.log("Failed to handle pin setting:", error);
-			throw error;
+			setError(error);
 		} finally {
 			setIsOpen(false);
 		}
@@ -77,15 +78,18 @@ export function TweetOptionsButton({
 				}
 			}
 		} catch (error) {
-			console.log("Failed to handle follow setting:", error);
-			throw error;
+			setError(error);
 		} finally {
 			setIsOpen(false);
 		}
 	};
 
-	const handleBlockClick = () => {
-		console.log(`Block @${tweet.userInfo.userId}`);
+	const handleBlockClick = async () => {
+		try {
+			await blockUser(tweet.userInfo.userId);
+		} catch (error) {
+			setError(error);
+		}
 		setIsOpen(false);
 	};
 
@@ -93,6 +97,10 @@ export function TweetOptionsButton({
 		console.log(`Report @${tweet.userInfo.userId}`);
 		setIsOpen(false);
 	};
+
+	if (error) {
+		return <ErrorMessage error={error} />;
+	}
 
 	return (
 		<Popover open={isOpen} onOpenChange={setIsOpen}>
