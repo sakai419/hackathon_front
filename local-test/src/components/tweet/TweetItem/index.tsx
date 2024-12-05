@@ -11,6 +11,7 @@ import { CodeEditor } from "@/components/common";
 import Highlighter from "./Highlighter";
 import { TweetOptionsButton } from "./TweetOptionsButton";
 import { UserAvatar } from "@/components/user";
+import FallbackTweet from "../FallbackTweet";
 
 interface TweetItemProps {
 	clientUserId: string;
@@ -59,6 +60,10 @@ export default function TweetItem({
 			router.push(`/tweets/${tweet.tweetId}`);
 		}
 	};
+
+	if (tweet.tweetId === 0) {
+		return <FallbackTweet />;
+	}
 
 	return (
 		<div
