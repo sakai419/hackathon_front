@@ -11,11 +11,12 @@ import {
 import { UserAvatar } from "@/components/user";
 import useMessages from "@/hooks/useMessages";
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
+import { validateMessage } from "@/lib/utils/validation";
 import markMessagesAsRead from "@/services/api/conversations/markMessagesAsRead";
 import sendMessage from "@/services/api/conversations/sendMessage";
 import { Conversation } from "@/types/conversation";
 import { ArrowLeft, Send } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface MessageAreaProps {
 	selectedConversation: Conversation;
@@ -33,6 +34,28 @@ export default function MessageArea({
 }: MessageAreaProps) {
 	const [message, setMessage] = useState("");
 	const [userId, setUserId] = useState("");
+	const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+	const {
+		messages,
+		isLoading: isMessageLoading,
+		hasMore: hasMoreMessages,
+		loadMore: loadMoreMessages,
+		error: messageError,
+	} = useMessages({
+		userId: userId,
+	});
+
+	const setScrollToBottom = () => {
+		if (scrollAreaRef.current) {
+			scrollAreaRef.current.scrollTop =
+				scrollAreaRef.current.scrollHeight;
+		}
+	};
+
+	useEffect(() => {
+		setScrollToBottom();
+	}, [messages]);
 
 	useEffect(() => {
 		async function markAsRead() {
@@ -55,16 +78,6 @@ export default function MessageArea({
 		setUserId(selectedConversation.opponentInfo.userId);
 	}, [selectedConversation]);
 
-	const {
-		messages,
-		isLoading: isMessageLoading,
-		hasMore: hasMoreMessages,
-		loadMore: loadMoreMessages,
-		error: messageError,
-	} = useMessages({
-		userId: userId,
-	});
-
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		try {
@@ -83,6 +96,7 @@ export default function MessageArea({
 			console.error("Failed to send message:", error);
 		} finally {
 			setMessage("");
+			setScrollToBottom();
 		}
 	};
 
@@ -113,7 +127,10 @@ export default function MessageArea({
 				</CardTitle>
 			</CardHeader>
 			<CardContent className="p-4">
-				<ScrollArea className="h-[calc(100vh-200px)] mb-4">
+				<ScrollArea
+					ref={scrollAreaRef}
+					className="h-[calc(100vh-200px)] mb-4"
+				>
 					<Button
 						onClick={loadMoreMessages}
 						disabled={!hasMoreMessages || isMessageLoading}
@@ -182,7 +199,12 @@ export default function MessageArea({
 						className="flex-grow"
 						aria-label="メッセージ入力"
 					/>
-					<Button type="submit" size="icon" aria-label="送信">
+					<Button
+						type="submit"
+						size="icon"
+						aria-label="送信"
+						disabled={!validateMessage(message)}
+					>
 						<Send className="h-4 w-4" />
 					</Button>
 				</form>
