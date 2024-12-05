@@ -9,7 +9,6 @@ export default async function getUserProfile(userId: string) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to fetch user profile:", error);
-		return null;
+		throw error;
 	}
 }

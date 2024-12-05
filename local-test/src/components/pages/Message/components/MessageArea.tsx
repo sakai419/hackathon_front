@@ -1,4 +1,4 @@
-import { LoadingScreen } from "@/components/common";
+import { ErrorMessage, LoadingScreen } from "@/components/common";
 import {
 	Card,
 	CardHeader,
@@ -87,7 +87,7 @@ export default function MessageArea({
 	};
 
 	if (messageError) {
-		return <div>Error: {messageError}</div>;
+		return <ErrorMessage error={messageError} />;
 	}
 
 	return (

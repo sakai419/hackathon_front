@@ -10,7 +10,6 @@ export default async function getFollowingInfos(userId: string, page: number) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to get following users:", error);
-		return null;
+		throw error;
 	}
 }

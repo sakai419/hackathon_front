@@ -20,7 +20,6 @@ export default async function postQuote(
 		});
 		return response.data;
 	} catch (error) {
-		console.log("Failed to post quote:", error);
 		throw error;
 	}
 }

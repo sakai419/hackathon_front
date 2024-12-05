@@ -7,7 +7,7 @@ import React, { createContext, useContext, ReactNode } from "react";
 interface ClientProfileContextType {
 	profile: Profile | null;
 	isLoading: boolean;
-	error: string | null;
+	error: unknown;
 }
 
 const ClientProfileContext = createContext<ClientProfileContextType | null>(

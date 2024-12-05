@@ -9,7 +9,6 @@ export default async function markAllNotificationsAsRead() {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to mark all notifications as read:", error);
-		return null;
+		throw error;
 	}
 }

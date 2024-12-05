@@ -13,7 +13,6 @@ export default async function getRetweetingUserInfos(
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to get retweeting users:", error);
 		throw error;
 	}
 }

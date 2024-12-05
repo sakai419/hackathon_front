@@ -9,7 +9,6 @@ export default async function markMessagesAsRead(userId: string) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to mark messages as read:", error);
-		return null;
+		throw error;
 	}
 }

@@ -10,7 +10,6 @@ export default async function getNotifications(page: number) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to fetch notifications:", error);
-		return null;
+		throw error;
 	}
 }

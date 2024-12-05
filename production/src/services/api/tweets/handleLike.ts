@@ -10,7 +10,6 @@ export default async function handleLike(tweetId: number, hasLiked: boolean) {
 		});
 		return response.data;
 	} catch (error) {
-		console.log("Failed to handle like:", error);
 		throw error;
 	}
 }

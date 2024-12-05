@@ -10,7 +10,6 @@ export default async function getRecentTweets(page: number) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to get timeline tweets:", error);
 		throw error;
 	}
 }

@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui";
 import { MenuIcon } from "lucide-react";
 import { useState } from "react";
@@ -13,6 +11,7 @@ import SidebarContent from "./SidebarContent";
 import TweetButton from "./TweetButton";
 import UserInfo from "./UserInfo";
 import { LoadingScreen } from "@/components/common";
+import { ErrorMessage } from "@/components/common";
 
 export default function Sidebar() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -29,12 +28,12 @@ export default function Sidebar() {
 			await postTweet(content, code, media);
 			handleCloseDialog();
 		} catch (error) {
-			throw error;
+			console.error(error);
 		}
 	};
 
 	if (error) {
-		return <div>{error}</div>;
+		return <ErrorMessage error={error} />;
 	}
 
 	return (
@@ -87,7 +86,6 @@ export default function Sidebar() {
 							<UserInfo user={clientProfile?.userInfo} />
 						)}
 					</div>
-					{error && <div>{error}</div>}
 				</div>
 			</div>
 		</div>

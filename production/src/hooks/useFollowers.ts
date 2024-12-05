@@ -12,7 +12,7 @@ export default function useFollowers({ userId }: UseFollowersProps) {
 	const [page, setPage] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+	const [error, setError] = useState<unknown>(null);
 
 	const isLoadingRef = useRef(isLoading);
 
@@ -37,8 +37,7 @@ export default function useFollowers({ userId }: UseFollowersProps) {
 					setHasMore(false);
 				}
 			} catch (error) {
-				console.error(error);
-				setError("ユーザーの取得に失敗しました");
+				setError(error);
 			} finally {
 				setIsLoading(false);
 			}

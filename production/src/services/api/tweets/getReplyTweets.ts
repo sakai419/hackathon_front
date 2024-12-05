@@ -10,7 +10,6 @@ export default async function getReplyTweets(tweetId: number, page: number) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to get reply tweets:", error);
 		throw error;
 	}
 }

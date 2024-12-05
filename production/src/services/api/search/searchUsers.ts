@@ -15,7 +15,6 @@ export default async function searchUsers(
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to search users:", error);
 		throw error;
 	}
 }

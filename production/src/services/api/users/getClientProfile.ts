@@ -9,7 +9,6 @@ export default async function getClientProfile() {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to fetch client profile:", error);
-		return null;
+		throw error;
 	}
 }

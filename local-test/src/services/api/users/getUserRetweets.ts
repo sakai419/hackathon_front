@@ -10,7 +10,6 @@ export default async function getUserRetweets(userId: string, page: number) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to fetch user retweets:", error);
-		return null;
+		throw error;
 	}
 }

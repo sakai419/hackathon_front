@@ -13,7 +13,7 @@ interface ProfileUpdateStepProps {
 export default function ProfileUpdateStep({ data }: ProfileUpdateStepProps) {
 	const [isUpdating, setIsUpdating] = useState(true);
 	const [updateSuccess, setUpdateSuccess] = useState<boolean | null>(null);
-	const [error, setError] = useState<string | null>(null);
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 	const updateProfileData = useCallback(async () => {
 		try {
@@ -24,15 +24,15 @@ export default function ProfileUpdateStep({ data }: ProfileUpdateStepProps) {
 			if (axios.isAxiosError(error)) {
 				if (isAPIError(error.response?.data)) {
 					if (error.response.data.code === "DUPLICATE_ENTRY") {
-						setError("このユーザーIDは既に使用されています");
+						setErrorMessage("このユーザーIDは既に使用されています");
 					} else {
-						setError(error.response.data.message);
+						setErrorMessage(error.response.data.message);
 					}
 				} else {
-					setError("エラーが発生しました");
+					setErrorMessage("エラーが発生しました");
 				}
 			} else {
-				setError("エラーが発生しました");
+				setErrorMessage("エラーが発生しました");
 			}
 			setIsUpdating(false);
 			setUpdateSuccess(false);
@@ -73,7 +73,7 @@ export default function ProfileUpdateStep({ data }: ProfileUpdateStepProps) {
 				<p className="text-lg font-semibold">
 					設定の変更に失敗しました
 				</p>
-				<p className="text-red-600">{error}</p>
+				<p className="text-red-600">{errorMessage}</p>
 				<p className="text-sm text-gray-500">もう一度お試しください</p>
 				<Button
 					type="button"

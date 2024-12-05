@@ -9,7 +9,6 @@ export default async function unfollow(userId: string) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to unfollow user:", error);
-		return null;
+		throw error;
 	}
 }

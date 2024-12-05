@@ -10,7 +10,7 @@ interface UseTweetNodeProps {
 export default function useTweetNode({ tweetId }: UseTweetNodeProps) {
 	const [tweet, setTweet] = useState<TweetNode | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+	const [error, setError] = useState<unknown>(null);
 
 	const isLoadingRef = useRef(isLoading);
 
@@ -30,8 +30,7 @@ export default function useTweetNode({ tweetId }: UseTweetNodeProps) {
 					setTweet(camelCaseData);
 				}
 			} catch (error) {
-				console.error(error);
-				setError("ツイートの取得に失敗しました");
+				setError(error);
 			} finally {
 				setIsLoading(false);
 			}

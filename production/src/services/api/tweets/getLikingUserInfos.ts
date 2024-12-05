@@ -13,7 +13,6 @@ export default async function getLikingUserInfos(
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to get liking users:", error);
 		throw error;
 	}
 }

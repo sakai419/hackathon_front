@@ -8,7 +8,7 @@ export default function useRecentTweets() {
 	const [page, setPage] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasMore, setHasMore] = useState(true);
-	const [error, setError] = useState<string | null>(null);
+	const [error, setError] = useState<unknown>(null);
 
 	const isLoadingRef = useRef(isLoading);
 
@@ -32,8 +32,7 @@ export default function useRecentTweets() {
 					setHasMore(false);
 				}
 			} catch (error) {
-				console.error(error);
-				setError("ユーザーのツイートの取得に失敗しました");
+				setError(error);
 			} finally {
 				setIsLoading(false);
 			}

@@ -10,7 +10,7 @@ interface UseUserProfileProps {
 export default function useUserProfile({ userId }: UseUserProfileProps) {
 	const [profile, setProfile] = useState<Profile | null>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
-	const [error, setError] = useState<string | null>(null);
+	const [error, setError] = useState<unknown>(null);
 
 	useEffect(() => {
 		const fetchProfileData = async () => {
@@ -23,8 +23,7 @@ export default function useUserProfile({ userId }: UseUserProfileProps) {
 					setProfile(camelCaseData);
 				}
 			} catch (error) {
-				console.error(error);
-				setError("ユーザーデータの取得に失敗しました");
+				setError(error);
 			} finally {
 				setIsLoading(false);
 			}

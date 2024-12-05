@@ -9,7 +9,6 @@ export default async function deleteTweet(tweetId: number) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to delete tweet:", error);
 		throw error;
 	}
 }

@@ -20,7 +20,6 @@ export default async function postReply(
 		});
 		return response.data;
 	} catch (error) {
-		console.log("Failed to post reply:", error);
 		throw error;
 	}
 }

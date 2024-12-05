@@ -9,7 +9,6 @@ export default async function getTweetNode(tweetId: number) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to get tweet node:", error);
 		throw error;
 	}
 }

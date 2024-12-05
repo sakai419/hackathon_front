@@ -10,7 +10,6 @@ export default async function getConversations(page: number) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to fetch conversations:", error);
-		return null;
+		throw error;
 	}
 }

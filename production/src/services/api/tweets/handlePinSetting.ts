@@ -13,7 +13,6 @@ export default async function handlePinSetting(
 		});
 		return response.data;
 	} catch (error) {
-		console.log("Failed to handle pin setting:", error);
 		throw error;
 	}
 }

@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { auth } from "@/services/firebase/firebase";
+import isAPIError from "@/lib/utils/isAPIError";
 
 const refreshToken = async (): Promise<string | null> => {
 	const user = auth.currentUser;
@@ -40,7 +41,11 @@ export const sendRequestWithRetry = async (config: AxiosRequestConfig) => {
 		// トークンが期限切れで403エラーが発生した場合
 		if (axios.isAxiosError(error)) {
 			const axiosError = error as AxiosError;
-			if (axiosError.response && axiosError.response.status === 403) {
+			if (
+				axiosError.response &&
+				axiosError.response.status === 403 &&
+				!isAPIError(axiosError.response.data)
+			) {
 				console.log("Token expired. Refreshing token...");
 				const newToken = await refreshToken();
 				if (newToken) {

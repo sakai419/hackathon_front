@@ -1,4 +1,4 @@
-import { LoadingScreen } from "@/components/common";
+import { ErrorMessage, LoadingScreen } from "@/components/common";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui";
 import useRecentLabels from "@/hooks/useRecentLabels";
 import { translateLabels } from "@/lib/utils/translate";
@@ -7,7 +7,7 @@ export default function RecentLabelsCard() {
 	const { labels, isLoading, error } = useRecentLabels();
 
 	if (error) {
-		return <div>エラーが発生しました</div>;
+		return <ErrorMessage error={error} />;
 	}
 
 	return (

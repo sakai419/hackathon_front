@@ -15,8 +15,7 @@ export default async function updateProfiles(data: EditProfileData) {
 			},
 		});
 		return response.data;
-	} catch (error: unknown) {
-		console.error("Failed to update profiles:", error);
+	} catch (error) {
 		throw error;
 	}
 }

@@ -10,7 +10,6 @@ export default async function getUserTweets(userId: string, page: number) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to fetch user tweets:", error);
-		return null;
+		throw error;
 	}
 }

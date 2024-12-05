@@ -1,7 +1,7 @@
 import UserAvatar from "@/components/user/UserAvatar";
 import { ScrollArea } from "@/components/ui";
 import { Conversation } from "@/types/conversation";
-import { LoadingScreen } from "@/components/common";
+import { ErrorMessage, LoadingScreen } from "@/components/common";
 import { useClientProfileContext } from "@/context";
 
 interface ConversationListProps {
@@ -16,7 +16,7 @@ export function ConversationList({
 	const { profile, isLoading, error } = useClientProfileContext();
 
 	if (error) {
-		return <div>エラーが発生しました</div>;
+		return <ErrorMessage error={error} />;
 	}
 
 	return (

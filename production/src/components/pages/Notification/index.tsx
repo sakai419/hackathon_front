@@ -5,6 +5,7 @@ import LoadingScreen from "@/components/common/LoadingScreen";
 import { useEffect } from "react";
 import { Header } from "@/components/layouts";
 import markAllNotificationsAsRead from "@/services/api/notifications/markAllNotificationsAsRead";
+import { ErrorMessage } from "@/components/common";
 
 export function NotificationHeader() {
 	return <Header title={<h1 className="text-xl font-semibold">通知</h1>} />;
@@ -31,7 +32,7 @@ export function NotificationPage() {
 	}
 
 	if (error) {
-		return <div>{error}</div>;
+		return <ErrorMessage error={error} />;
 	}
 
 	return (

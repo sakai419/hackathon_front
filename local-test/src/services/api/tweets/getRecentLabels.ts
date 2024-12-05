@@ -9,7 +9,6 @@ export default async function getRecentLabels() {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to get recent labels:", error);
 		throw error;
 	}
 }

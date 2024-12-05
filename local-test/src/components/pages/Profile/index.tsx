@@ -1,7 +1,7 @@
 import DynamicTabs from "@/components/common/DynamicTabs";
 import useUserProfile from "@/hooks/useUserProfile";
 import { useEffect, useState } from "react";
-import { LoadingScreen } from "@/components/common";
+import { ErrorMessage, LoadingScreen } from "@/components/common";
 import { Lock } from "lucide-react";
 import UserHeader from "./components/UserHeader";
 import UserTweets from "./components/UserTweets";
@@ -26,7 +26,7 @@ export function ProfileHeader({ userId }: ProfileHeaderProps) {
 	}
 
 	if (error) {
-		return <div>エラーが発生しました</div>;
+		return <ErrorMessage error={error} />;
 	}
 
 	return (

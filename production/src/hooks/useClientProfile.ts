@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 export default function useClientProfile() {
 	const [profile, setProfile] = useState<Profile | null>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
-	const [error, setError] = useState<string | null>(null);
+	const [error, setError] = useState<unknown>(null);
 
 	useEffect(() => {
 		const fetchProfileData = async () => {
@@ -18,8 +18,7 @@ export default function useClientProfile() {
 					setProfile(camelCaseData);
 				}
 			} catch (error) {
-				console.error(error);
-				setError("Failed to fetch client profile");
+				setError(error);
 			} finally {
 				setIsLoading(false);
 			}

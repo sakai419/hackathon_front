@@ -11,6 +11,7 @@ import { Conversation } from "@/types/conversation";
 import useConversation from "@/hooks/useConversation";
 import LoadingScreen from "@/components/common/LoadingScreen";
 import MessageArea from "./components/MessageArea";
+import { ErrorMessage } from "@/components/common";
 
 export function MessagePage() {
 	const [selectedConversation, setSelectedConversation] =
@@ -47,12 +48,7 @@ export function MessagePage() {
 	}, [conversations]);
 
 	if (conversationError) {
-		const errorMessage = conversationError;
-		return (
-			<div className="flex items-center justify-center h-screen">
-				<p className="text-red-500">{errorMessage}</p>
-			</div>
-		);
+		return <ErrorMessage error={conversationError} />;
 	}
 
 	return (

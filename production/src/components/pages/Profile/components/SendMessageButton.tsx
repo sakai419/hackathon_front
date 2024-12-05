@@ -1,4 +1,5 @@
 import { ButtonWithTooltip } from "@/components/common";
+import { ErrorMessage } from "@/components/common";
 import {
 	Button,
 	Dialog,
@@ -21,7 +22,7 @@ interface SendMessageButtonProps {
 export default function SendMessageButton({ userId }: SendMessageButtonProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [message, setMessage] = useState("");
-	const [error, setError] = useState("");
+	const [error, setError] = useState<unknown>(null);
 
 	const handleClose = () => {
 		setMessage("");
@@ -33,10 +34,13 @@ export default function SendMessageButton({ userId }: SendMessageButtonProps) {
 			await sendMessage(userId, message);
 			handleClose();
 		} catch (error) {
-			console.error("Failed to send message:", error);
-			setError("Failed to send message");
+			setError(error);
 		}
 	};
+
+	if (error) {
+		return <ErrorMessage error={error} />;
+	}
 
 	return (
 		<>
@@ -67,9 +71,6 @@ export default function SendMessageButton({ userId }: SendMessageButtonProps) {
 								className="col-span-3"
 							/>
 						</div>
-					</div>
-					<div className="flex justify-end">
-						{error && <p className="text-red-500">{error}</p>}
 					</div>
 					<DialogFooter>
 						<Button

@@ -9,7 +9,6 @@ export default async function requestFollowAndNotify(userId: string) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to follow user:", error);
-		return null;
+		throw error;
 	}
 }

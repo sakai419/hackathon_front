@@ -8,7 +8,7 @@ export default function useNotifications() {
 	const [page, setPage] = useState(1);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [hasMore, setHasMore] = useState(true);
-	const [error, setError] = useState<string | null>(null);
+	const [error, setError] = useState<unknown>(null);
 
 	const isLoadingRef = useRef(isLoading);
 
@@ -33,8 +33,7 @@ export default function useNotifications() {
 					setHasMore(false);
 				}
 			} catch (error) {
-				console.error(error);
-				setError("Failed to fetch notifications");
+				setError(error);
 			} finally {
 				setIsLoading(false);
 			}

@@ -1,4 +1,4 @@
-import { LoadingScreen } from "@/components/common";
+import { ErrorMessage, LoadingScreen } from "@/components/common";
 import { UserList } from "@/components/user";
 import useQuotingUsers from "@/hooks/useQuotingUsers";
 
@@ -12,7 +12,7 @@ export default function QuotingUsers({ tweetId }: QuotingUsersProps) {
 	});
 
 	if (error) {
-		return <div>エラーが発生しました</div>;
+		return <ErrorMessage error={error} />;
 	}
 
 	return (

@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 export function useSidebarInfo() {
 	const [sidebarInfo, setSidebarInfo] = useState<SidebarInfo | null>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
-	const [error, setError] = useState<string | null>(null);
+	const [error, setError] = useState<unknown>(null);
 
 	useEffect(() => {
 		const fetchSidebarInfo = async () => {
@@ -19,8 +19,7 @@ export function useSidebarInfo() {
 					setSidebarInfo(camelCaseData);
 				}
 			} catch (error) {
-				setError("Failed to fetch sidebar info");
-				console.error(error);
+				setError(error);
 			} finally {
 				setIsLoading(false);
 			}

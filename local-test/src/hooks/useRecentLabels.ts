@@ -6,7 +6,7 @@ import { useState, useRef, useEffect } from "react";
 export default function useRecentLabels() {
 	const [labels, setLabels] = useState<LabelCount[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+	const [error, setError] = useState<unknown>(null);
 
 	const isLoadingRef = useRef(isLoading);
 
@@ -26,8 +26,7 @@ export default function useRecentLabels() {
 					setLabels(camelCaseData);
 				}
 			} catch (error) {
-				console.error(error);
-				setError("ラベルの取得に失敗しました");
+				setError(error);
 			} finally {
 				setIsLoading(false);
 			}

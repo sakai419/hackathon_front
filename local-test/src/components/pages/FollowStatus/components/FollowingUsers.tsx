@@ -1,4 +1,4 @@
-import { LoadingScreen } from "@/components/common";
+import { ErrorMessage, LoadingScreen } from "@/components/common";
 import { UserList } from "@/components/user";
 import useFollowingUsers from "@/hooks/useFollowingUsers";
 
@@ -12,7 +12,7 @@ export default function FollowingUsers({ userId }: FollowingUsersProps) {
 	});
 
 	if (error) {
-		return <div>エラーが発生しました</div>;
+		return <ErrorMessage error={error} />;
 	}
 
 	return (

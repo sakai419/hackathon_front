@@ -13,7 +13,6 @@ export default async function getQuotingUserInfos(
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to get quoting users:", error);
 		throw error;
 	}
 }

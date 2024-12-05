@@ -1,4 +1,4 @@
-import { LoadingScreen } from "@/components/common";
+import { ErrorMessage, LoadingScreen } from "@/components/common";
 import { TweetList } from "@/components/tweet";
 import { Button } from "@/components/ui";
 import useLatestTweetResults from "@/hooks/useLatestTweetResults";
@@ -16,7 +16,7 @@ export default function LatestTweetResults({
 		});
 
 	if (error) {
-		return <div>エラーが発生しました</div>;
+		return <ErrorMessage error={error} />;
 	}
 
 	return keyword ? (

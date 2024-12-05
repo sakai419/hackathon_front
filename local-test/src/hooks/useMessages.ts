@@ -11,7 +11,7 @@ export default function useMessages({ userId }: UseMessagesProps) {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [hasMore, setHasMore] = useState(true);
-	const [error, setError] = useState<string | null>(null);
+	const [error, setError] = useState<unknown>(null);
 	const [page, setPage] = useState(1);
 	const [prevUserId, setPrevUserId] = useState<string>("");
 
@@ -51,8 +51,7 @@ export default function useMessages({ userId }: UseMessagesProps) {
 					setHasMore(false);
 				}
 			} catch (error) {
-				console.error(error);
-				setError("Failed to fetch messages");
+				setError(error);
 			} finally {
 				setIsLoading(false);
 			}

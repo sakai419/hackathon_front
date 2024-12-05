@@ -15,7 +15,6 @@ export default async function searchTweets(
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to search tweets:", error);
 		throw error;
 	}
 }

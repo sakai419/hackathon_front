@@ -12,7 +12,7 @@ export default function useUserResults({ keyword }: UseUserResultsProps) {
 	const [page, setPage] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasMore, setHasMore] = useState(true);
-	const [error, setError] = useState<string | null>(null);
+	const [error, setError] = useState<unknown>(null);
 
 	const isLoadingRef = useRef(isLoading);
 
@@ -43,8 +43,7 @@ export default function useUserResults({ keyword }: UseUserResultsProps) {
 					setHasMore(false);
 				}
 			} catch (error) {
-				console.error(error);
-				setError("ユーザーの検索に失敗しました");
+				setError(error);
 			} finally {
 				setIsLoading(false);
 			}

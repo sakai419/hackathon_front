@@ -19,7 +19,6 @@ export default async function postTweet(
 		});
 		return response.data;
 	} catch (error) {
-		console.log("Failed to post tweet:", error);
 		throw error;
 	}
 }

@@ -1,4 +1,4 @@
-import { LoadingScreen } from "@/components/common";
+import { ErrorMessage, LoadingScreen } from "@/components/common";
 import { TweetList } from "@/components/tweet";
 import { Button } from "@/components/ui";
 import useTimelineTweets from "@/hooks/useTimelineTweets";
@@ -7,7 +7,7 @@ export default function TimelineTweets() {
 	const { tweets, isLoading, hasMore, loadMore, error } = useTimelineTweets();
 
 	if (error) {
-		return <div>エラーが発生しました</div>;
+		return <ErrorMessage error={error} />;
 	}
 
 	return (

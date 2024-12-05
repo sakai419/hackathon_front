@@ -9,7 +9,6 @@ export default async function getSidebarInfo() {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to fetch sidebar info:", error);
-		return null;
+		throw error;
 	}
 }

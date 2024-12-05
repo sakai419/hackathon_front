@@ -13,7 +13,6 @@ export default async function createAccount(userId: string, userName: string) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to create account:", error);
 		throw error;
 	}
 }

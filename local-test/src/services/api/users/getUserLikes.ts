@@ -10,7 +10,6 @@ export default async function getUserLikes(userId: string, page: number) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to fetch user likes:", error);
-		return null;
+		throw error;
 	}
 }

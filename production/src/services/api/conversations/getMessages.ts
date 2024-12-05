@@ -10,7 +10,6 @@ export default async function getMessages(userId: string, page: number) {
 		});
 		return response.data;
 	} catch (error) {
-		console.error("Failed to fetch messages:", error);
-		return null;
+		throw error;
 	}
 }

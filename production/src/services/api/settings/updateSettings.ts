@@ -12,7 +12,6 @@ export default async function updateSettings(settings: Settings) {
 		});
 		return response.data;
 	} catch (error) {
-		console.log("Failed to update settings:", error);
 		throw error;
 	}
 }
