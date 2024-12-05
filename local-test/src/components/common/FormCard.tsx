@@ -31,7 +31,9 @@ export default function FormCard({
 					</p>
 				</CardHeader>
 				<CardContent>{content}</CardContent>
-				<CardFooter>{footer}</CardFooter>
+				<CardFooter className="flex items-center justify-center">
+					{footer}
+				</CardFooter>
 			</Card>
 		</div>
 	);

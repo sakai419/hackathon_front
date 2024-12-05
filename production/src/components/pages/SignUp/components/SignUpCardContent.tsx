@@ -1,8 +1,9 @@
+import { ButtonWithTooltip } from "@/components/common";
 import { Button, Input } from "@/components/ui";
 import handleSignup from "@/services/auth/signup";
 import { Label } from "@radix-ui/react-label";
 import { FirebaseError } from "firebase/app";
-import { EyeOff, Eye } from "lucide-react";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
 
 interface SignUpCardContentProps {
@@ -13,7 +14,6 @@ export default function SignUpCardContent({
 	onSubmit,
 }: SignUpCardContentProps) {
 	const [showPassword, setShowPassword] = useState(false);
-	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
@@ -67,34 +67,27 @@ export default function SignUpCardContent({
 						id="password"
 						required
 						type={showPassword ? "text" : "password"}
+						placeholder="password"
 						className="pr-10"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
-					<Button
-						type="button"
-						variant="ghost"
-						size="sm"
-						className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-						onClick={() => setShowPassword(!showPassword)}
-					>
-						{showPassword ? (
-							<EyeOff
-								className="h-4 w-4 text-gray-400"
-								aria-hidden="true"
-							/>
-						) : (
-							<Eye
-								className="h-4 w-4 text-gray-400"
-								aria-hidden="true"
-							/>
-						)}
-						<span className="sr-only">
-							{showPassword
+					<ButtonWithTooltip
+						description={
+							showPassword
 								? "パスワードを隠す"
-								: "パスワードを表示"}
-						</span>
-					</Button>
+								: "パスワードを表示"
+						}
+						onClick={() => setShowPassword(!showPassword)}
+						buttonClassName="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+						content={
+							showPassword ? (
+								<EyeOffIcon className="h-5 w-5" />
+							) : (
+								<EyeIcon className="h-5 w-5" />
+							)
+						}
+					/>
 				</div>
 			</div>
 			<div className="space-y-2">
@@ -103,37 +96,28 @@ export default function SignUpCardContent({
 					<Input
 						id="confirmPassword"
 						required
-						type={showConfirmPassword ? "text" : "password"}
+						type={showPassword ? "text" : "password"}
+						placeholder="password"
 						className="pr-10"
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}
 					/>
-					<Button
-						type="button"
-						variant="ghost"
-						size="sm"
-						className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-						onClick={() =>
-							setShowConfirmPassword(!showConfirmPassword)
+					<ButtonWithTooltip
+						description={
+							showPassword
+								? "パスワードを隠す"
+								: "パスワードを表示"
 						}
-					>
-						{showConfirmPassword ? (
-							<EyeOff
-								className="h-4 w-4 text-gray-400"
-								aria-hidden="true"
-							/>
-						) : (
-							<Eye
-								className="h-4 w-4 text-gray-400"
-								aria-hidden="true"
-							/>
-						)}
-						<span className="sr-only">
-							{showConfirmPassword
-								? "確認用パスワードを隠す"
-								: "確認用パスワードを表示"}
-						</span>
-					</Button>
+						onClick={() => setShowPassword(!showPassword)}
+						buttonClassName="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+						content={
+							showPassword ? (
+								<EyeOffIcon className="h-5 w-5" />
+							) : (
+								<EyeIcon className="h-5 w-5" />
+							)
+						}
+					/>
 				</div>
 			</div>
 			{password && confirmPassword && !passwordsMatch && (
