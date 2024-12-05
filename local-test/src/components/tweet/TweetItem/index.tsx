@@ -62,7 +62,7 @@ export default function TweetItem({
 	};
 
 	if (tweet.tweetId === 0) {
-		return <FallbackTweet />;
+		return <FallbackTweet showThreadLine={showThreadLine} />;
 	}
 
 	return (
