@@ -56,6 +56,7 @@ export default function FallbackTweet({ showThreadLine }: FallbackTweetProps) {
 								<Lock className="w-4 h-4 ml-1" />
 							</span>
 						</li>
+						<li>ツイートが削除された</li>
 					</ul>
 				</div>
 			</div>
