@@ -44,7 +44,7 @@ export default function LoginCardContent() {
 					<Input
 						id="password"
 						type={showPassword ? "text" : "password"}
-						placeholder="password1234"
+						placeholder="password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						required

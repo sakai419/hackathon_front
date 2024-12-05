@@ -25,7 +25,7 @@ export default function ProfileInfo({
 			<div>
 				<div className="flex items-center gap-1">
 					<span className="text-xl font-bold">{userName}</span>
-					{isPrivate && <Lock className="w-4 h-4 text-primary" />}
+					{isPrivate && <Lock className="w-4 h-4" />}
 				</div>
 				<div className="text-muted-foreground">@{userId}</div>
 			</div>
@@ -34,7 +34,7 @@ export default function ProfileInfo({
 
 			<div className="flex items-center gap-2 text-muted-foreground">
 				<Calendar className="h-4 w-4" />
-				<span>{date}からTwitterを利用しています</span>
+				<span>{date}からWを利用しています</span>
 			</div>
 
 			<Link

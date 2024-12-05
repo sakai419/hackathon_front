@@ -36,7 +36,7 @@ export function ProfileHeader({ userId }: ProfileHeaderProps) {
 					<div className="flex items-center gap-1">
 						<span className="font-bold">{userId}</span>
 						{profile?.userInfo.isPrivate && (
-							<Lock className="w-4 h-4 text-primary" />
+							<Lock className="w-4 h-4" />
 						)}
 					</div>
 					<span className="text-sm text-muted-foreground">
