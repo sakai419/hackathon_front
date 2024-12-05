@@ -55,7 +55,6 @@ export default function TweetItem({
 	};
 
 	const handleTweetClick = (e: React.MouseEvent<HTMLDivElement>) => {
-		console.log(e.target, e.currentTarget);
 		if (e.target === e.currentTarget) {
 			router.push(`/tweets/${tweet.tweetId}`);
 		}
