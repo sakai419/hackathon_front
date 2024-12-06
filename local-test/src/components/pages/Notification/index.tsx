@@ -1,19 +1,34 @@
 import { Button } from "@/components/ui";
 import NotificationItem from "./components/NotificationItem";
 import useNotifications from "@/hooks/useNotifications";
-import LoadingScreen from "@/components/common/LoadingScreen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "@/components/layouts";
 import markAllNotificationsAsRead from "@/services/api/notifications/markAllNotificationsAsRead";
-import { ErrorMessage } from "@/components/common";
+import { ErrorMessage, LoadingScreen } from "@/components/common";
+import { Notification } from "@/types/notification";
+import deleteNotification from "@/services/api/notifications/deleteNotification";
 
 export function NotificationHeader() {
 	return <Header title={<h1 className="text-xl font-semibold">通知</h1>} />;
 }
 
 export function NotificationPage() {
-	const { notifications, isLoading, hasMore, loadMore, error } =
-		useNotifications();
+	const [error, setError] = useState<unknown>(null);
+	const [notificationList, setNotificationList] = useState<Notification[]>(
+		[]
+	);
+
+	const {
+		notifications,
+		isLoading,
+		hasMore,
+		loadMore,
+		error: notificationError,
+	} = useNotifications();
+
+	useEffect(() => {
+		setNotificationList(notifications);
+	}, [notifications]);
 
 	useEffect(() => {
 		const markAsRead = async () => {
@@ -27,21 +42,35 @@ export function NotificationPage() {
 		markAsRead();
 	}, []);
 
+	const removeNotification = async (notificationId: number) => {
+		try {
+			await deleteNotification(notificationId);
+			setNotificationList((prev) =>
+				prev.filter(
+					(notification) => notification.id !== notificationId
+				)
+			);
+		} catch (error) {
+			setError(error);
+		}
+	};
+
 	if (isLoading) {
 		return <LoadingScreen />;
 	}
 
-	if (error) {
-		return <ErrorMessage error={error} />;
+	if (error || notificationError) {
+		return <ErrorMessage error={error || notificationError} />;
 	}
 
 	return (
 		<div className="max-w-2xl mx-auto">
-			{notifications &&
-				notifications.map((notification) => (
+			{notificationList &&
+				notificationList.map((notification) => (
 					<NotificationItem
 						key={notification.id}
 						notification={notification}
+						removeNotification={removeNotification}
 					/>
 				))}
 			<Button onClick={loadMore} className="w-full" disabled={!hasMore}>

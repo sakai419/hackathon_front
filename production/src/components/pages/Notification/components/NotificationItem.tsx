@@ -2,20 +2,24 @@ import Link from "next/link";
 import { Notification } from "@/types/notification";
 import { NotificationIcon } from "./NotificationIcon";
 import { getRelativeTimeString } from "@/lib/utils/getRelativeTimeString";
-import { Lock, Shield } from "lucide-react";
+import { Lock, Shield, Trash } from "lucide-react";
 import UserAvatar from "@/components/user/UserAvatar";
 import { RelatedTweetCard } from "@/components/tweet";
 import { Button } from "@/components/ui";
 import acceptFollowRequestAndNotify from "@/services/api/follow/acceptFollowRequestAndNotify";
 import { useEffect, useState } from "react";
 import rejectFollowRequest from "@/services/api/follow/rejectFollowRequest";
-import { ErrorMessage } from "@/components/common";
+import { ButtonWithTooltip, ErrorMessage } from "@/components/common";
+
+interface NotificationItemProps {
+	notification: Notification;
+	removeNotification: (notificationId: number) => void;
+}
 
 export default function NotificationItem({
 	notification,
-}: {
-	notification: Notification;
-}) {
+	removeNotification,
+}: NotificationItemProps) {
 	const [error, setError] = useState<unknown>(null);
 	const [isFollowed, setIsFollowed] = useState(false);
 
@@ -59,7 +63,6 @@ export default function NotificationItem({
 		if (!notification.senderInfo) {
 			return;
 		}
-
 		try {
 			await acceptFollowRequestAndNotify(notification.senderInfo.userId);
 			setIsFollowed(true);
@@ -72,9 +75,9 @@ export default function NotificationItem({
 		if (!notification.senderInfo) {
 			return;
 		}
-
 		try {
 			await rejectFollowRequest(notification.senderInfo.userId);
+			removeNotification(notification.id);
 		} catch (error) {
 			setError(error);
 		}
@@ -147,6 +150,12 @@ export default function NotificationItem({
 				{notification.relatedTweet && (
 					<RelatedTweetCard tweet={notification.relatedTweet} />
 				)}
+				<ButtonWithTooltip
+					description="通知を削除"
+					onClick={() => removeNotification(notification.id)}
+					content={<Trash className="w-4 h-4" />}
+					buttonClassName="absolute top-2 right-2"
+				/>
 				{!notification.isRead && (
 					<div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary/80" />
 				)}
