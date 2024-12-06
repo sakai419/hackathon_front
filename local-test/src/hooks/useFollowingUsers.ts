@@ -30,7 +30,7 @@ export default function useFollowingUsers({ userId }: UseFollowingUsersProps) {
 					const camelCaseData =
 						transformKeysToCamelCase<UserInfo[]>(data);
 					setUsers((prev) => [...prev, ...camelCaseData]);
-					if (camelCaseData.length < 10) {
+					if (camelCaseData.length === 0) {
 						setHasMore(false);
 					}
 				} else {

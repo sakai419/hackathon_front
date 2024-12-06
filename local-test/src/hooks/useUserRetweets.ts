@@ -30,7 +30,7 @@ export default function useUserRetweets({ userId }: UseUserRetweetsProps) {
 					const camelCaseData =
 						transformKeysToCamelCase<TweetNode[]>(data);
 					setRetweets((prev) => [...prev, ...camelCaseData]);
-					if (camelCaseData.length < 10) {
+					if (camelCaseData.length === 0) {
 						setHasMore(false);
 					}
 				} else {

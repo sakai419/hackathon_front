@@ -38,7 +38,7 @@ export default function useLatestTweetResults({
 					const camelCaseData =
 						transformKeysToCamelCase<TweetNode[]>(data);
 					setResults((prev) => [...prev, ...camelCaseData]);
-					if (camelCaseData.length < 10) {
+					if (camelCaseData.length === 0) {
 						setHasMore(false);
 					}
 				} else {

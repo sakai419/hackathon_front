@@ -26,7 +26,7 @@ export default function useConversation() {
 					const camelCaseData =
 						transformKeysToCamelCase<Conversation[]>(data);
 					setConversations((prev) => [...prev, ...camelCaseData]);
-					if (camelCaseData.length < 10) {
+					if (camelCaseData.length === 10) {
 						setHasMore(false);
 					}
 				} else {

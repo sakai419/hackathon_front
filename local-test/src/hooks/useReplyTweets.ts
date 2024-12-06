@@ -30,7 +30,7 @@ export default function useReplyTweets({ tweetId }: UseReplyTweetsProps) {
 					const camelCaseData =
 						transformKeysToCamelCase<TweetInfo[]>(data);
 					setReplyTweets((prev) => [...prev, ...camelCaseData]);
-					if (camelCaseData.length < 10) {
+					if (camelCaseData.length === 0) {
 						setHasMore(false);
 					}
 				} else {

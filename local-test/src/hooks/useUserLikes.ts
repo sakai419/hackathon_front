@@ -30,7 +30,7 @@ export default function useUserLikes({ userId }: UseUserLikesProps) {
 					const camelCaseData =
 						transformKeysToCamelCase<TweetNode[]>(data);
 					setLikes((prev) => [...prev, ...camelCaseData]);
-					if (camelCaseData.length < 10) {
+					if (camelCaseData.length === 0) {
 						setHasMore(false);
 					}
 				} else {

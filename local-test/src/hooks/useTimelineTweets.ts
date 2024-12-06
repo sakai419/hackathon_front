@@ -25,7 +25,7 @@ export default function useTimelineTweets() {
 					const camelCaseData =
 						transformKeysToCamelCase<TweetNode[]>(data);
 					setTweets((prev) => [...prev, ...camelCaseData]);
-					if (camelCaseData.length < 100) {
+					if (camelCaseData.length === 0) {
 						setHasMore(false);
 					}
 				} else {
