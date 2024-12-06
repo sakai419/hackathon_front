@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui";
-import { MenuIcon } from "lucide-react";
 import { useState } from "react";
 import { useSidebarInfo } from "@/hooks/useSidebarInfo";
 import { Code, Media } from "@/types/tweet";
@@ -13,8 +11,7 @@ import UserInfo from "./UserInfo";
 import { LoadingScreen } from "@/components/common";
 import { ErrorMessage } from "@/components/common";
 
-export default function Sidebar() {
-	const [isOpen, setIsOpen] = useState(false);
+export default function LeftSidebar() {
 	const { sidebarInfo, isLoading, error } = useSidebarInfo();
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -37,27 +34,10 @@ export default function Sidebar() {
 	}
 
 	return (
-		<div className="z-50">
-			<Button
-				variant="outline"
-				size="icon"
-				className="fixed top-4 left-4 z-50 md:hidden"
-				onClick={() => setIsOpen(!isOpen)}
-				aria-label={isOpen ? "サイドバーを閉じる" : "サイドバーを開く"}
-			>
-				<MenuIcon className="h-4 w-4" />
-			</Button>
-			<div
-				className={`fixed top-0 left-0 h-full bg-background p-4 shadow-lg transition-all duration-300 ease-in-out ${
-					isOpen ? "w-72" : "w-0 md:w-72"
-				}`}
-			>
+		<aside className="z-50 w-72">
+			<div className="fixed top-0 left-0 h-full w-72 bg-background p-4 shadow-lg">
 				{isLoading && <LoadingScreen />}
-				<div
-					className={`flex flex-col h-full overflow-hidden ${
-						isOpen ? "w-64" : "w-0 md:w-64"
-					}`}
-				>
+				<div className="flex flex-col h-full overflow-hidden w-64">
 					<Link href="/home">
 						<h1 className="text-3xl font-semibold pb-4 pl-2">
 							{"\u{1D54E}"}
@@ -88,6 +68,6 @@ export default function Sidebar() {
 					</div>
 				</div>
 			</div>
-		</div>
+		</aside>
 	);
 }

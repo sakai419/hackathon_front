@@ -15,7 +15,7 @@ export default function UserHeader({
 	const Date = formatYearMonth(profile.createdAt);
 
 	return (
-		<div className="relative">
+		<div>
 			<BannerAndAvatar profile={profile} updateProfile={updateProfile} />
 			<ProfileInfo
 				userId={profile.userInfo.userId}

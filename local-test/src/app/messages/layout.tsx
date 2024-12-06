@@ -1,6 +1,6 @@
 "use client";
 
-import { Sidebar } from "@/components/layouts";
+import { LeftSidebar } from "@/components/layouts";
 import { ClientProfileProvider } from "@/context";
 
 export default function MessageLayout({
@@ -8,9 +8,11 @@ export default function MessageLayout({
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<ClientProfileProvider>
-			<Sidebar />
-			<div className="flex-grow">
-				<main className="ml-64 pl-8">{children}</main>
+			<div className="flex h-screen">
+				<LeftSidebar />
+				<div className="flex flex-col flex-grow">
+					<main className="flex-grow overflow-auto">{children}</main>
+				</div>
 			</div>
 		</ClientProfileProvider>
 	);

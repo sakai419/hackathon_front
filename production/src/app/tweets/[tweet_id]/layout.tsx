@@ -1,6 +1,6 @@
 "use client";
 
-import { RightSidebar, Sidebar } from "@/components/layouts";
+import { LeftSidebar, RightSidebar } from "@/components/layouts";
 import { TweetDetailHeader } from "@/components/pages/TweetDetail";
 import { ClientProfileProvider } from "@/context";
 
@@ -9,11 +9,13 @@ export default function TweetDetailLayout({
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<ClientProfileProvider>
-			<div className="flex">
-				<Sidebar />
-				<TweetDetailHeader />
-				<div className="flex-grow">
-					<main className="ml-72 pt-14">{children}</main>
+			<div className="flex h-screen">
+				<LeftSidebar />
+				<div className="flex flex-col flex-grow">
+					<TweetDetailHeader />
+					<main className="flex-grow overflow-auto mt-14">
+						{children}
+					</main>
 				</div>
 				<RightSidebar />
 			</div>

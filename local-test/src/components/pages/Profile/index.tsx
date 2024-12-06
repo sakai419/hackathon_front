@@ -83,28 +83,24 @@ export function ProfilePage({ userId }: ProfilePageProps) {
 	}
 
 	return (
-		<>
+		<div className="max-w-2xl mx-auto min-w-0">
 			{isProfileLoading && <LoadingScreen />}
-			<div className="max-w-2xl mx-auto w-full">
-				{userProfile && (
-					<UserHeader
-						profile={userProfile}
-						updateProfile={updateProfile}
-					/>
-				)}
-				<DynamicTabs
-					tabNames={tabNames}
-					activeTab={activeTab}
-					setActiveTab={setActiveTab}
+			{userProfile && (
+				<UserHeader
+					profile={userProfile}
+					updateProfile={updateProfile}
 				/>
-				{activeTab === "ツイート" ? (
-					<UserTweets userId={userId} />
-				) : null}
-				{activeTab === "リツイート" ? (
-					<UserRetweets userId={userId} />
-				) : null}
-				{activeTab === "いいね" ? <UserLikes userId={userId} /> : null}
-			</div>
-		</>
+			)}
+			<DynamicTabs
+				tabNames={tabNames}
+				activeTab={activeTab}
+				setActiveTab={setActiveTab}
+			/>
+			{activeTab === "ツイート" ? <UserTweets userId={userId} /> : null}
+			{activeTab === "リツイート" ? (
+				<UserRetweets userId={userId} />
+			) : null}
+			{activeTab === "いいね" ? <UserLikes userId={userId} /> : null}
+		</div>
 	);
 }
