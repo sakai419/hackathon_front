@@ -26,6 +26,7 @@
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"firebase": "^11.0.1",
+		"framer-motion": "^11.13.1",
 		"lodash.camelcase": "^4.3.0",
 		"lodash.snakecase": "^4.1.1",
 		"lucide-react": "^0.454.0",

@@ -1,14 +1,15 @@
 import Link from "next/link";
 import SignUpCardContent from "./components/SignUpCardContent";
-import FormCard from "@/components/common/FormCard";
 import { useState } from "react";
 import SetUserInfoCardContent from "./components/SetUserInfoCardContent";
+import { AnimatedBackground, FormCard } from "@/components/common";
 
 export default function SignupCard() {
 	const [accountCreated, setAccountCreated] = useState(false);
 
 	return (
 		<>
+			<AnimatedBackground />
 			{accountCreated ? (
 				<FormCard
 					title="ユーザー情報の登録"

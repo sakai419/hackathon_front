@@ -1,4 +1,5 @@
 // @index('./*', f => `export { default as ${f.name} } from '${f.path}'`)
+export { default as AnimatedBackground } from "./AnimatedBackground";
 export { default as ButtonWithTooltip } from "./ButtonWithTooltip";
 export { default as CodeEditor } from "./CodeEditor";
 export { default as DynamicTabs } from "./DynamicTabs";
