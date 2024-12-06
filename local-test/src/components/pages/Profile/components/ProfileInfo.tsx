@@ -30,7 +30,11 @@ export default function ProfileInfo({
 				<div className="text-muted-foreground">@{userId}</div>
 			</div>
 
-			{bio && <div>{bio}</div>}
+			{bio && (
+				<div className="w-full">
+					<p className="break-words">{bio}</p>
+				</div>
+			)}
 
 			<div className="flex items-center gap-2 text-muted-foreground">
 				<Calendar className="h-4 w-4" />
