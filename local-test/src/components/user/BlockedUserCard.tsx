@@ -13,6 +13,12 @@ export default function BlockedUserCard({
 	user,
 	handleUnblock,
 }: BlockedUserCardProps) {
+	const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+		e.stopPropagation();
+		handleUnblock(user.userId);
+	};
+
 	return (
 		<Link
 			href={`/users/${user.userId}`}
@@ -54,7 +60,7 @@ export default function BlockedUserCard({
 									</p>
 								</div>
 								<Button
-									onClick={() => handleUnblock(user.userId)}
+									onClick={onClick}
 									className="p-4 bg-red-500 hover:bg-red-600"
 								>
 									ブロック解除

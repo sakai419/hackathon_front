@@ -5,24 +5,37 @@ import { UserInfo } from "@/types/useInfo";
 import useBlockedUsers from "@/hooks/useBlockedUsers";
 import { ErrorMessage } from "@/components/common";
 import { BlockedUserCard } from "@/components/user";
+import unBlockUser from "@/services/api/block/unBlockUser";
 
 export function BlockedUsers() {
+	const [error, setError] = useState<unknown>(null);
 	const [blockedUsers, setBlockedUsers] = useState<UserInfo[]>([]);
 
-	const { users, isLoading, hasMore, loadMore, error } = useBlockedUsers();
+	const {
+		users,
+		isLoading,
+		hasMore,
+		loadMore,
+		error: blockedUsersError,
+	} = useBlockedUsers();
 
 	useEffect(() => {
 		setBlockedUsers(users);
 	}, [users]);
 
-	const handleUnblock = (userId: string) => {
-		// ここでユーザーのブロック解除APIを呼び出す
-		console.log("Unblocking user:", userId);
-		setBlockedUsers(blockedUsers.filter((user) => user.userId !== userId));
+	const handleUnblock = async (userId: string) => {
+		try {
+			await unBlockUser(userId);
+			setBlockedUsers(
+				blockedUsers.filter((user) => user.userId !== userId)
+			);
+		} catch (error) {
+			setError(error);
+		}
 	};
 
-	if (error) {
-		return <ErrorMessage error={error} />;
+	if (error || blockedUsersError) {
+		return <ErrorMessage error={error || blockedUsersError} />;
 	}
 
 	return (
