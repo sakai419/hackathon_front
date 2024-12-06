@@ -22,13 +22,14 @@ export default function UserCard({ user, updateUser }: UserCardProps) {
 		e.preventDefault();
 		e.stopPropagation();
 		try {
-			if (user.isPrivate) {
-				await requestFollowAndNotify(user.userId);
-				updateUser(user, { isPending: true });
+			if (user.isFollowing) {
+				await unfollow(user.userId);
+				updateUser(user, { isFollowing: false });
 			} else {
-				if (user.isFollowing) {
-					await unfollow(user.userId);
-					updateUser(user, { isFollowing: false });
+				if (user.isPending) return;
+				if (user.isPrivate) {
+					await requestFollowAndNotify(user.userId);
+					updateUser(user, { isPending: true });
 				} else {
 					await followAndNodify(user.userId);
 					updateUser(user, { isFollowing: true });
