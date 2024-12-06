@@ -38,7 +38,7 @@ export default function ErrorMessage({ error }: ErrorMessageProps) {
 			) : (
 				<>
 					<h2 className="text-red-500 font-semibold">
-						UNKNWON_ERROR
+						UNKNOWN_ERROR
 					</h2>
 					<p className="text-sm text-gray-500">
 						Please read the console for more information
