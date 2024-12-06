@@ -82,6 +82,9 @@ export default function UserCard({ user, updateUser }: UserCardProps) {
 									<p className="text-sm text-gray-500 truncate">
 										@{user.userId}
 									</p>
+									<p className="text-sm truncate">
+										{user.bio}
+									</p>
 								</div>
 								{isClient ? null : (
 									<Button
