@@ -10,6 +10,7 @@ import { TweetList } from "@/components/tweet";
 import { Header } from "@/components/layouts";
 import EngagementLink from "./components/EngagementLink";
 import { useClientProfileContext } from "@/context";
+import { ErrorMessage } from "@/components/common";
 
 interface TweetDetailPageProps {
 	tweetId: number;
@@ -43,7 +44,11 @@ export function TweetDetailPage({ tweetId }: TweetDetailPageProps) {
 	} = useReplyTweets({ tweetId });
 
 	if (clientProfileError || tweetError || repliesError) {
-		return <div>エラーが発生しました</div>;
+		return (
+			<ErrorMessage
+				error={clientProfileError || tweetError || repliesError}
+			/>
+		);
 	}
 
 	const handleTweet = async (
