@@ -53,7 +53,7 @@ export function MessagePage() {
 
 	return (
 		<div className="flex h-screen">
-			<Card className="w-1/3 border-r">
+			<Card className="w-1/3 border-r max-w-[300px]">
 				<CardHeader>
 					<CardTitle>メッセージ</CardTitle>
 				</CardHeader>
@@ -76,7 +76,6 @@ export function MessagePage() {
 					</Button>
 				</CardContent>
 			</Card>
-
 			{selectedConversation ? (
 				<MessageArea
 					selectedConversation={selectedConversation}
@@ -84,7 +83,7 @@ export function MessagePage() {
 					updateConversation={updateConversation}
 				/>
 			) : (
-				<div className="w-2/3 flex items-center justify-center">
+				<div className="w-full flex items-center justify-center">
 					<p className="text-muted-foreground">
 						ユーザーを選択してメッセージを開始してください。
 					</p>

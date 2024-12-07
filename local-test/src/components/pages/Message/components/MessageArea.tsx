@@ -105,7 +105,7 @@ export default function MessageArea({
 	}
 
 	return (
-		<Card className="w-2/3">
+		<Card className="w-full">
 			{isMessageLoading && <LoadingScreen />}
 			<CardHeader className="flex flex-row items-center gap-4 p-4">
 				<Button
@@ -146,7 +146,6 @@ export default function MessageArea({
 								message.senderUserId ===
 								selectedConversation.opponentInfo.userId;
 							const createdAtDate = new Date(message.createdAt);
-
 							return (
 								<div
 									key={message.id}
@@ -161,9 +160,11 @@ export default function MessageArea({
 											isOpponentMessage
 												? "bg-secondary text-secondary-foreground"
 												: "bg-primary text-primary-foreground"
-										} rounded-lg p-2 max-w-[80%]`}
+										} rounded-lg p-2 max-w-[80%] break-words`}
 									>
-										<div>{message.content}</div>
+										<div className="max-w-[300px]">
+											{message.content}
+										</div>
 									</div>
 									<div className="flex space-x-1 items-center justify-center text-center">
 										<div

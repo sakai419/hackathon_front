@@ -42,11 +42,11 @@ export function ConversationList({
 								alt={conversation.opponentInfo.userName}
 								size="w-10 h-10"
 							/>
-							<div className="flex-1 space-y-1">
+							<div className="flex-1 space-y-1 max-w-full overflow-hidden w-full">
 								<p className="text-sm font-medium leading-none">
 									{conversation.opponentInfo.userName}
 								</p>
-								<p className="text-sm text-muted-foreground">
+								<p className="text-sm text-muted-foreground truncate">
 									{conversation.content}
 								</p>
 							</div>
