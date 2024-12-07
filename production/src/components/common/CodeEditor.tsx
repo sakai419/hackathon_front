@@ -22,7 +22,7 @@ import { ExecuteResult } from "@/types/execute";
 import ButtonWithTooltip from "./ButtonWithTooltip";
 
 interface CodeEditorProps {
-	readOnly: boolean;
+	readOnly?: boolean;
 	language: string;
 	value: string;
 	onChange?: (value: string | undefined, language: string) => void;
@@ -43,7 +43,7 @@ const LANGUAGES = [
 ];
 
 export default function CodeEditor({
-	readOnly,
+	readOnly = false,
 	language,
 	value,
 	onChange,
