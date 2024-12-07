@@ -1,14 +1,18 @@
 import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
+import { validateLabel } from "@/lib/utils/validation";
 import searchTweets from "@/services/api/search/searchTweets";
+import { Label } from "@/types/label";
 import { TweetNode } from "@/types/tweet";
 import { useEffect, useRef, useState } from "react";
 
 interface UseLatestTweetResultsProps {
 	keyword: string;
+	label: string;
 }
 
 export default function useLatestTweetResults({
 	keyword,
+	label,
 }: UseLatestTweetResultsProps) {
 	const [results, setResults] = useState<TweetNode[]>([]);
 	const [page, setPage] = useState(1);
@@ -30,10 +34,21 @@ export default function useLatestTweetResults({
 
 	useEffect(() => {
 		const fetchUserResults = async () => {
-			if (isLoadingRef.current || !hasMore || !keyword) return;
+			if (
+				isLoadingRef.current ||
+				!hasMore ||
+				(!keyword && !label) ||
+				(label && !validateLabel(label))
+			)
+				return;
 			setIsLoading(true);
 			try {
-				const data = await searchTweets(keyword, page, "latest");
+				const data = await searchTweets(
+					keyword,
+					label as Label,
+					page,
+					"latest"
+				);
 				if (data) {
 					const camelCaseData =
 						transformKeysToCamelCase<TweetNode[]>(data);
@@ -51,7 +66,7 @@ export default function useLatestTweetResults({
 			}
 		};
 		fetchUserResults();
-	}, [keyword, page, hasMore]);
+	}, [keyword, label, page, hasMore]);
 
 	const loadMore = () => {
 		if (hasMore && !isLoading) {

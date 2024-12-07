@@ -5,21 +5,24 @@ import usePopularTweetResults from "@/hooks/usePopularTweetResults";
 
 interface LatestTweetResultsProps {
 	keyword: string;
+	label: string;
 }
 
 export default function PopularTweetResults({
 	keyword,
+	label,
 }: LatestTweetResultsProps) {
 	const { results, isLoading, hasMore, loadMore, error } =
 		usePopularTweetResults({
 			keyword,
+			label,
 		});
 
 	if (error) {
 		return <ErrorMessage error={error} />;
 	}
 
-	return keyword ? (
+	return keyword || label ? (
 		<>
 			{isLoading && <LoadingScreen />}
 			<TweetList tweets={results} highlightWord={keyword} />

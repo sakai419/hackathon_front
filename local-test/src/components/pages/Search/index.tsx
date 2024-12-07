@@ -8,14 +8,18 @@ import { SearchForm } from "@/components/common";
 
 interface SearchPageProps {
 	keyword: string;
+	label: string;
 }
 
-export default function SearchPage({ keyword }: SearchPageProps) {
+export default function SearchPage({ keyword, label }: SearchPageProps) {
 	const router = useRouter();
 	const [searchKeyword, setSearchKeyword] = useState(keyword);
 	const [activeTab, setActiveTab] = useState("トップ");
 
-	const tabNames = ["トップ", "最新", "ユーザー"];
+	const tabNames = ["トップ", "最新"];
+	if (keyword || (!label && !keyword)) {
+		tabNames.push("ユーザー");
+	}
 
 	const handleSearch = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -39,9 +43,11 @@ export default function SearchPage({ keyword }: SearchPageProps) {
 				setActiveTab={setActiveTab}
 			/>
 			{activeTab === "トップ" && (
-				<PopularTweetResults keyword={keyword} />
+				<PopularTweetResults keyword={keyword} label={label} />
 			)}
-			{activeTab === "最新" && <LatestTweetResults keyword={keyword} />}
+			{activeTab === "最新" && (
+				<LatestTweetResults keyword={keyword} label={label} />
+			)}
 			{activeTab === "ユーザー" ? (
 				<UserResults keyword={keyword} />
 			) : null}

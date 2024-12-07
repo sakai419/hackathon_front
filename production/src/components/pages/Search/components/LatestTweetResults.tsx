@@ -5,21 +5,24 @@ import useLatestTweetResults from "@/hooks/useLatestTweetResults";
 
 interface LatestTweetResultsProps {
 	keyword: string;
+	label: string;
 }
 
 export default function LatestTweetResults({
 	keyword,
+	label,
 }: LatestTweetResultsProps) {
 	const { results, isLoading, hasMore, loadMore, error } =
 		useLatestTweetResults({
 			keyword,
+			label,
 		});
 
 	if (error) {
 		return <ErrorMessage error={error} />;
 	}
 
-	return keyword ? (
+	return keyword || label ? (
 		<>
 			{isLoading && <LoadingScreen />}
 			<TweetList tweets={results} highlightWord={keyword} />
