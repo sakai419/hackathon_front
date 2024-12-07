@@ -23,6 +23,9 @@ import followAndNodify from "@/services/api/follow/followAndNodify";
 import blockUser from "@/services/api/block/blockUser";
 import { ErrorMessage } from "@/components/common";
 import { ConfirmationDialog } from "@/components/common/ConfirmationDialog";
+import ReportUserDialog from "./ReportUserDialog";
+import createReport from "@/services/api/report/createUser";
+import { ReportReason } from "@/types/report";
 
 interface TweetOptionsButtonProps {
 	tweet: TweetInfo;
@@ -39,11 +42,8 @@ export function TweetOptionsButton({
 }: TweetOptionsButtonProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+	const [reportDialogOpen, setReportDialogOpen] = useState(false);
 	const [error, setError] = useState<unknown>(null);
-
-	const handleDeleteClick = () => {
-		setConfirmDialogOpen(true);
-	};
 
 	const onDelete = async () => {
 		try {
@@ -53,6 +53,15 @@ export function TweetOptionsButton({
 			setError(error);
 		}
 		setIsOpen(false);
+	};
+
+	const onSubmit = async (reason: ReportReason, content?: string) => {
+		try {
+			await createReport(tweet.userInfo.userId, reason, content);
+			setIsOpen(false);
+		} catch (error) {
+			setError(error);
+		}
 	};
 
 	const handlePinClick = async () => {
@@ -102,11 +111,6 @@ export function TweetOptionsButton({
 		setIsOpen(false);
 	};
 
-	const handleReportClick = () => {
-		console.log(`Report @${tweet.userInfo.userId}`);
-		setIsOpen(false);
-	};
-
 	if (error) {
 		return <ErrorMessage error={error} />;
 	}
@@ -139,7 +143,7 @@ export function TweetOptionsButton({
 							<Button
 								variant="ghost"
 								className="flex items-center justify-start space-x-2 w-full"
-								onClick={handleDeleteClick}
+								onClick={() => setConfirmDialogOpen(true)}
 							>
 								<Trash2
 									className="w-4 h-4 font-semibold"
@@ -234,13 +238,18 @@ export function TweetOptionsButton({
 							<Button
 								variant="ghost"
 								className="flex items-center justify-start space-x-2 w-full"
-								onClick={handleReportClick}
+								onClick={() => setReportDialogOpen(true)}
 							>
 								<Flag className="w-4 h-4 font-semibold" />
 								<span className="font-semibold">
 									@{tweet.userInfo.userId}さんを通報
 								</span>
 							</Button>
+							<ReportUserDialog
+								isOpen={reportDialogOpen}
+								setIsOpen={setReportDialogOpen}
+								onSubmit={onSubmit}
+							/>
 						</>
 					)}
 				</div>
