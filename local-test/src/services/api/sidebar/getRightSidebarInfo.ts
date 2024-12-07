@@ -1,10 +1,10 @@
-import { TWEET_ENDPOINT } from "../apiConfig";
+import { SIDEBAR_ENDPOINT } from "../apiConfig";
 import { sendRequestWithRetry } from "../requests";
 
-export default async function getRecentLabels() {
+export default async function getRightSidebarInfo() {
 	try {
 		const response = await sendRequestWithRetry({
-			url: `${TWEET_ENDPOINT}/recent/labels?limit=100`,
+			url: `${SIDEBAR_ENDPOINT}/right`,
 			method: "GET",
 		});
 		return response.data;

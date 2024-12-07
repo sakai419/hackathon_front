@@ -1,19 +1,15 @@
-import { ErrorMessage, LoadingScreen } from "@/components/common";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui";
-import useRecentLabels from "@/hooks/useRecentLabels";
 import { translateLabels } from "@/lib/utils/translate";
+import { LabelCount } from "@/types/label";
 import Link from "next/link";
 
-export default function RecentLabelsCard() {
-	const { labels, isLoading, error } = useRecentLabels();
+interface RecentLabelsCardProps {
+	labels: LabelCount[];
+}
 
-	if (error) {
-		return <ErrorMessage error={error} />;
-	}
-
+export default function RecentLabelsCard({ labels }: RecentLabelsCardProps) {
 	return (
 		<>
-			{isLoading && <LoadingScreen />}
 			<Card>
 				<CardHeader>
 					<CardTitle>トレンド</CardTitle>

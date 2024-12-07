@@ -1,10 +1,12 @@
 import { transformKeysToCamelCase } from "@/lib/utils/transformKeys";
-import getSidebarInfo from "@/services/api/sidebar/getSidebarInfo";
-import { SidebarInfo } from "@/types/sidebar";
+import getRightSidebarInfo from "@/services/api/sidebar/getRightSidebarInfo";
+import { RightSidebarInfo } from "@/types/sidebar";
 import { useState, useEffect } from "react";
 
-export function useSidebarInfo() {
-	const [sidebarInfo, setSidebarInfo] = useState<SidebarInfo | null>(null);
+export default function useRightSidebarInfo() {
+	const [sidebarInfo, setSidebarInfo] = useState<RightSidebarInfo | null>(
+		null
+	);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [error, setError] = useState<unknown>(null);
 
@@ -12,10 +14,10 @@ export function useSidebarInfo() {
 		const fetchSidebarInfo = async () => {
 			try {
 				setIsLoading(true);
-				const data = await getSidebarInfo();
+				const data = await getRightSidebarInfo();
 				if (data) {
 					const camelCaseData =
-						transformKeysToCamelCase<SidebarInfo>(data);
+						transformKeysToCamelCase<RightSidebarInfo>(data);
 					setSidebarInfo(camelCaseData);
 				}
 			} catch (error) {

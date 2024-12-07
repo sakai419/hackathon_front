@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { useSidebarInfo } from "@/hooks/useSidebarInfo";
 import { Code, Media } from "@/types/tweet";
 import postTweet from "@/services/api/tweets/postTweet";
 import { useClientProfileContext } from "@/context";
 import Link from "next/link";
 import TweetDialog from "@/components/tweet/TweetDialog";
-import SidebarContent from "./SidebarContent";
-import TweetButton from "./TweetButton";
-import UserInfo from "./UserInfo";
+import SidebarContent from "./components/SidebarContent";
+import TweetButton from "./components/TweetButton";
+import UserInfo from "./components/UserInfo";
 import { LoadingScreen } from "@/components/common";
 import { ErrorMessage } from "@/components/common";
+import useLeftSidebarInfo from "@/hooks/useLeftSidebarInfo";
 
 export default function LeftSidebar() {
-	const { sidebarInfo, isLoading, error } = useSidebarInfo();
+	const { sidebarInfo, isLoading, error } = useLeftSidebarInfo();
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 	const clientProfile = useClientProfileContext().profile;
