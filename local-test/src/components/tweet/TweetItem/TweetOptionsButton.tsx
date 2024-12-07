@@ -22,24 +22,33 @@ import requestFollowAndNotify from "@/services/api/follow/requestFollowAndNotify
 import followAndNodify from "@/services/api/follow/followAndNodify";
 import blockUser from "@/services/api/block/blockUser";
 import { ErrorMessage } from "@/components/common";
+import { ConfirmationDialog } from "@/components/common/ConfirmationDialog";
 
 interface TweetOptionsButtonProps {
 	tweet: TweetInfo;
 	updateTweet: (tweet: TweetInfo, updateFields: Partial<TweetInfo>) => void;
+	deleteTweet: (tweetId: number) => void;
 	isAuthor: boolean;
 }
 
 export function TweetOptionsButton({
 	tweet,
 	updateTweet,
+	deleteTweet: deleteTweetFromList,
 	isAuthor,
 }: TweetOptionsButtonProps) {
 	const [isOpen, setIsOpen] = useState(false);
+	const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
 	const [error, setError] = useState<unknown>(null);
 
-	const handleDeleteClick = async () => {
+	const handleDeleteClick = () => {
+		setConfirmDialogOpen(true);
+	};
+
+	const onDelete = async () => {
 		try {
 			await deleteTweet(tweet.tweetId);
+			deleteTweetFromList(tweet.tweetId);
 		} catch (error) {
 			setError(error);
 		}
@@ -117,6 +126,16 @@ export function TweetOptionsButton({
 				<div className="flex flex-col">
 					{isAuthor ? (
 						<>
+							<ConfirmationDialog
+								isOpen={confirmDialogOpen}
+								onClose={() => {
+									setConfirmDialogOpen(false);
+									setIsOpen(false);
+								}}
+								onConfirm={onDelete}
+								title="ツイートを削除"
+								description="このツイートを削除しますか？この操作は取り消せません。"
+							/>
 							<Button
 								variant="ghost"
 								className="flex items-center justify-start space-x-2 w-full"

@@ -40,6 +40,12 @@ export default function TweetList({
 		});
 	};
 
+	const deleteTweet = (tweetId: number) => {
+		setTweetNodes((prev) => {
+			return prev.filter((node) => node.tweet.tweetId !== tweetId);
+		});
+	};
+
 	const { profile } = useClientProfileContext();
 	const clientUserId = profile?.userInfo.userId || "";
 
@@ -53,6 +59,7 @@ export default function TweetList({
 							highlightWord={highlightWord}
 							clientUserId={clientUserId}
 							updateTweet={updateTweet}
+							deleteTweet={deleteTweet}
 							showThreadLine={true}
 						/>
 					)}
@@ -73,6 +80,7 @@ export default function TweetList({
 							highlightWord={highlightWord}
 							clientUserId={clientUserId}
 							updateTweet={updateTweet}
+							deleteTweet={deleteTweet}
 							showThreadLine={true}
 						/>
 					)}
@@ -81,6 +89,7 @@ export default function TweetList({
 						highlightWord={highlightWord}
 						clientUserId={clientUserId}
 						updateTweet={updateTweet}
+						deleteTweet={deleteTweet}
 						disbalePin={disablePin}
 						{...(tweet.tweet.isQuote && {
 							quotedTweet: tweet.originalTweet,

@@ -21,6 +21,7 @@ interface TweetItemProps {
 	withLink?: boolean;
 	withActions?: boolean;
 	updateTweet?: (tweet: TweetInfo, updateFields: Partial<TweetInfo>) => void;
+	deleteTweet?: (tweetId: number) => void;
 	quotedTweet?: TweetInfo;
 	disbalePin?: boolean;
 }
@@ -33,6 +34,7 @@ export default function TweetItem({
 	withLink = true,
 	withActions = true,
 	updateTweet,
+	deleteTweet,
 	quotedTweet,
 	disbalePin = true,
 }: TweetItemProps) {
@@ -88,15 +90,19 @@ export default function TweetItem({
 					/>
 				)}
 			</div>
-			{withActions && isAuthor !== undefined && updateTweet && (
-				<div className="absolute top-2 right-0 ">
-					<TweetOptionsButton
-						tweet={tweet}
-						updateTweet={updateTweet}
-						isAuthor={isAuthor}
-					/>
-				</div>
-			)}
+			{withActions &&
+				isAuthor !== undefined &&
+				updateTweet &&
+				deleteTweet && (
+					<div className="absolute top-2 right-0 ">
+						<TweetOptionsButton
+							tweet={tweet}
+							updateTweet={updateTweet}
+							deleteTweet={deleteTweet}
+							isAuthor={isAuthor}
+						/>
+					</div>
+				)}
 			<div className="flex-1" onClick={handleTweetClick}>
 				<div
 					className="flex items-center justify-between"
