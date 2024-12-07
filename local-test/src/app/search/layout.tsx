@@ -13,7 +13,7 @@ export default function SearchLayout({
 				<div className="flex flex-col flex-grow">
 					<main className="flex-grow overflow-auto">{children}</main>
 				</div>
-				<RightSidebar />
+				<RightSidebar withSearch={false} />
 			</div>
 		</ClientProfileProvider>
 	);
