@@ -5,10 +5,10 @@ export default function AnimatedBackground() {
 	return (
 		<div className="fixed inset-0 z-[-1] overflow-hidden bg-sky-50">
 			<motion.div
-				className="absolute top-[-50%] left-[-50%] right-[-50%] bottom-[-50%] bg-gradient-to-br from-sky-200 via-sky-500 to-white"
+				className="absolute top-[-50%] left-[-50%] right-[-50%] bottom-[-50%] bg-gradient-to-br from-sky-200 via-sky-500 to-green-500"
 				animate={{
 					scale: [1, 1.1, 1.05, 1],
-					rotate: [0, 45, 90, 135, 180],
+					rotate: [0, 90, 180, 270, 360],
 				}}
 				transition={{
 					duration: 20,
