@@ -165,15 +165,19 @@ export default function ReplyBox({ onTweet }: ReplyBoxProps) {
 							className="hidden"
 						/>
 						<ButtonWithTooltip
-							description="画像を追加"
-							onClick={handleMediaClick}
-							buttonSize="icon"
+							description="メディアを追加"
+							buttonProps={{
+								onClick: handleMediaClick,
+								size: "icon",
+							}}
 							content={<ImageIcon className="h-5 w-5" />}
 						/>
 						<ButtonWithTooltip
 							description="ソースコードを追加"
-							onClick={handleEditorClick}
-							buttonSize="icon"
+							buttonProps={{
+								onClick: handleEditorClick,
+								size: "icon",
+							}}
 							content={<Code2Icon className="h-5 w-5" />}
 						/>
 					</div>

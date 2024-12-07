@@ -59,19 +59,27 @@ export default function TweetActions({
 			<div className="flex justify-between text-gray-500 mt-4">
 				<ButtonWithTooltip
 					description="返信"
-					onClick={handleReplyClick}
+					buttonProps={{
+						className:
+							"flex items-center space-x-2 hover:bg-sky-100 hover:text-sky-500",
+						onClick: handleReplyClick,
+					}}
 					content={
 						<>
 							<MessageCircle className="w-4 h-4" />
 							<span>{tweet.repliesCount}</span>
 						</>
 					}
-					buttonClassName="flex items-center space-x-2 hover:bg-sky-100 hover:text-sky-500"
 				/>
 				<RetweetButton tweet={tweet} updateTweet={updateTweet} />
 				<ButtonWithTooltip
 					description="いいね"
-					onClick={handleLikeClick}
+					buttonProps={{
+						className: `flex items-center space-x-2 hover:bg-red-100 hover:text-red-500 ${
+							tweet.hasLiked ? "text-red-500" : ""
+						}`,
+						onClick: handleLikeClick,
+					}}
 					content={
 						<>
 							<Heart
@@ -84,9 +92,6 @@ export default function TweetActions({
 							<span>{tweet.likesCount}</span>
 						</>
 					}
-					buttonClassName={`flex items-center space-x-2 hover:bg-red-100 hover:text-red-500 ${
-						tweet.hasLiked ? "text-red-500" : ""
-					}`}
 				/>
 			</div>
 			<TweetDialog
