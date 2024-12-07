@@ -11,7 +11,9 @@ export default function MessageLayout({
 			<div className="flex h-screen">
 				<LeftSidebar />
 				<div className="flex flex-col flex-grow">
-					<main className="flex-grow overflow-auto">{children}</main>
+					<main className="flex-grow overflow-auto max-w-[calc(100vw-18rem)]">
+						{children}
+					</main>
 				</div>
 			</div>
 		</ClientProfileProvider>

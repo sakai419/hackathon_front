@@ -6,7 +6,7 @@ export default function EngagementsLayout({
 	return (
 		<div className="flex h-screen">
 			<div className="flex flex-col flex-grow">
-				<main className="flex-grow overflow-auto mt-14">
+				<main className="flex-grow overflow-auto mt-14 max-w-[calc(100vw-38rem)]">
 					{children}
 				</main>
 			</div>

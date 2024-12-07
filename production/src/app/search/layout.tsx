@@ -11,7 +11,9 @@ export default function SearchLayout({
 			<div className="flex h-screen">
 				<LeftSidebar />
 				<div className="flex flex-col flex-grow">
-					<main className="flex-grow overflow-auto">{children}</main>
+					<main className="max-w-[calc(100vw-38rem)] flex-grow overflow-auto">
+						{children}
+					</main>
 				</div>
 				<RightSidebar withSearch={false} />
 			</div>

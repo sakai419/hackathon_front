@@ -19,7 +19,7 @@ export default function ProfileLayout({
 				<LeftSidebar />
 				<div className="flex flex-col flex-grow">
 					<ProfileHeader userId={user_id.toString()} />
-					<main className="flex-grow overflow-auto mt-14">
+					<main className="flex-grow overflow-auto mt-14 max-w-[calc(100vw-38rem)]">
 						{children}
 					</main>
 				</div>

@@ -61,7 +61,7 @@ export default function UserCard({ user, updateUser }: UserCardProps) {
 						/>
 						<div className="flex-1 min-w-0">
 							<div className="flex items-center justify-between">
-								<div>
+								<div className="max-w-[calc(100%-10rem)]">
 									<div className="flex items-center space-x-2">
 										<h3 className="text-sm font-semibold truncate">
 											{user.userName}
@@ -82,7 +82,7 @@ export default function UserCard({ user, updateUser }: UserCardProps) {
 									<p className="text-sm text-gray-500 truncate">
 										@{user.userId}
 									</p>
-									<p className="text-sm truncate">
+									<p className="text-sm truncate max-w-full">
 										{user.bio}
 									</p>
 								</div>
