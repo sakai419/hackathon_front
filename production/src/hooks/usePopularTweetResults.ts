@@ -30,7 +30,7 @@ export default function useLatestTweetResults({
 		setResults([]);
 		setPage(1);
 		setHasMore(true);
-	}, [keyword]);
+	}, [keyword, label]);
 
 	useEffect(() => {
 		const fetchUserResults = async () => {
