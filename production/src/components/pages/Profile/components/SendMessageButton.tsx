@@ -46,10 +46,13 @@ export default function SendMessageButton({ userId }: SendMessageButtonProps) {
 		<>
 			<ButtonWithTooltip
 				description="メッセージを送信"
-				onClick={() => setIsOpen(true)}
+				buttonProps={{
+					onClick: () => setIsOpen(true),
+					className:
+						"bg-white text-gray-500 hover:text-gray-700 p-2 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400",
+					size: "icon",
+				}}
 				content={<MailIcon />}
-				buttonClassName="bg-white text-gray-500 hover:text-gray-700 p-2 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400"
-				buttonSize={"icon"}
 			/>
 			<Dialog open={isOpen} onOpenChange={handleClose}>
 				<DialogContent className="sm:max-w-[425px]">

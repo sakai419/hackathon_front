@@ -6,11 +6,16 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui";
+import { Play } from "lucide-react";
+import { cn } from "@/lib/utils";
+import ButtonWithTooltip from "./ButtonWithTooltip";
+
 const LANGUAGES = [
 	{ value: "javascript", label: "JavaScript" },
 	{ value: "typescript", label: "TypeScript" },
 	{ value: "python", label: "Python" },
 	{ value: "java", label: "Java" },
+	{ value: "c", label: "C" },
 	{ value: "csharp", label: "C#" },
 	{ value: "cpp", label: "C++" },
 	{ value: "go", label: "Go" },
@@ -40,27 +45,57 @@ export default function CodeEditor({
 		onChange?.(newValue, language);
 	};
 
+	const onExecute = () => {
+		console.log("Executed");
+	};
+
 	return (
 		<div className="border rounded-md overflow-hidden">
-			{!readOnly && (
-				<div className="bg-gray-100 p-2 border-b">
-					<Select
-						value={language}
-						onValueChange={handleLanguageChange}
-					>
-						<SelectTrigger className="w-[180px]">
-							<SelectValue placeholder="言語を選択" />
-						</SelectTrigger>
-						<SelectContent>
-							{LANGUAGES.map((lang) => (
-								<SelectItem key={lang.value} value={lang.value}>
-									{lang.label}
-								</SelectItem>
-							))}
-						</SelectContent>
-					</Select>
+			<div className="bg-gray-900 p-2 border-b flex justify-between items-center">
+				<div className="flex items-center space-x-2">
+					{!readOnly ? (
+						<Select
+							value={language}
+							onValueChange={handleLanguageChange}
+						>
+							<SelectTrigger className="w-[180px]">
+								<SelectValue placeholder="言語を選択" />
+							</SelectTrigger>
+							<SelectContent>
+								{LANGUAGES.map((lang) => (
+									<SelectItem
+										key={lang.value}
+										value={lang.value}
+									>
+										{lang.label}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+					) : (
+						<div className="w-[100px] h-10 px-3 py-2 flex items-center justify-between rounded-md border border-input bg-background text-sm ring-offset-background">
+							<span>
+								{LANGUAGES.find(
+									(lang) => lang.value === language
+								)?.label || "言語"}
+							</span>
+						</div>
+					)}
 				</div>
-			)}
+				<ButtonWithTooltip
+					description="実行"
+					buttonProps={{
+						className: cn(
+							"hover:bg-transparent",
+							"text-lime-500 hover:text-lime-400",
+							"transition-colors"
+						),
+						onClick: onExecute,
+						variant: "ghost",
+					}}
+					content={<Play className="w-5 h-5" />}
+				/>
+			</div>
 			<div
 				onClick={(e) => {
 					e.stopPropagation();
@@ -74,25 +109,25 @@ export default function CodeEditor({
 					onChange={handleCodeChange}
 					options={{
 						readOnly: readOnly,
-						wordWrap: "on", // 行の折り返しを有効化
-						minimap: { enabled: false }, // ミニマップを無効化（表示する場合は true）
-						scrollBeyondLastLine: true, // 最終行の下に余白を表示
-						automaticLayout: true, // レイアウトの自動調整を有効化
-						fontSize: 14, // フォントサイズ
-						fontFamily: "JetBrains Mono", // モノスペースフォントを指定
-						lineNumbers: "on", // 行番号を表示
-						folding: true, // コードの折りたたみを有効化
-						renderWhitespace: "boundary", // 空白文字を視覚的に表示（例: タブやスペース）
-						cursorStyle: "line", // カーソルスタイル
-						cursorSmoothCaretAnimation: "on", // カーソル移動を滑らかに
-						bracketPairColorization: { enabled: true }, // 括弧のペアを色付け
+						wordWrap: "on",
+						minimap: { enabled: false },
+						scrollBeyondLastLine: true,
+						automaticLayout: true,
+						fontSize: 14,
+						fontFamily: "JetBrains Mono",
+						lineNumbers: "on",
+						folding: true,
+						renderWhitespace: "boundary",
+						cursorStyle: "line",
+						cursorSmoothCaretAnimation: "on",
+						bracketPairColorization: { enabled: true },
 						guides: {
-							indentation: true, // インデントガイドを表示
-							highlightActiveIndentation: true, // アクティブなインデントガイドを強調
+							indentation: true,
+							highlightActiveIndentation: true,
 						},
-						renderLineHighlight: "all", // 現在の行を強調
-						glyphMargin: true, // 行頭に余白を確保（デバッグ用など）
-						smoothScrolling: true, // スムーズスクロールを有効化
+						renderLineHighlight: "all",
+						glyphMargin: true,
+						smoothScrolling: true,
 					}}
 					theme="vs-dark"
 				/>

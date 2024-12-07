@@ -152,9 +152,11 @@ export default function NotificationItem({
 				)}
 				<ButtonWithTooltip
 					description="通知を削除"
-					onClick={() => removeNotification(notification.id)}
+					buttonProps={{
+						className: "absolute top-2 right-2",
+						onClick: () => removeNotification(notification.id),
+					}}
 					content={<Trash className="w-4 h-4" />}
-					buttonClassName="absolute top-2 right-2"
 				/>
 				{!notification.isRead && (
 					<div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary/80" />

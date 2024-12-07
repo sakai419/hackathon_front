@@ -56,8 +56,11 @@ export default function LoginCardContent() {
 								? "パスワードを隠す"
 								: "パスワードを表示"
 						}
-						onClick={() => setShowPassword(!showPassword)}
-						buttonClassName="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+						buttonProps={{
+							className:
+								"absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none",
+							onClick: () => setShowPassword(!showPassword),
+						}}
 						content={
 							showPassword ? (
 								<EyeOffIcon className="h-5 w-5" />
