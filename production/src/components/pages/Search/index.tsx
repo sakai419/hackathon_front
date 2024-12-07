@@ -9,15 +9,20 @@ import { SearchForm } from "@/components/common";
 interface SearchPageProps {
 	keyword: string;
 	label: string;
+	hashtag: string;
 }
 
-export default function SearchPage({ keyword, label }: SearchPageProps) {
+export default function SearchPage({
+	keyword,
+	label,
+	hashtag,
+}: SearchPageProps) {
 	const router = useRouter();
 	const [searchKeyword, setSearchKeyword] = useState(keyword);
 	const [activeTab, setActiveTab] = useState("トップ");
 
 	const tabNames = ["トップ", "最新"];
-	if (keyword || (!label && !keyword)) {
+	if (keyword || (!label && !keyword && !hashtag)) {
 		tabNames.push("ユーザー");
 	}
 
@@ -43,10 +48,18 @@ export default function SearchPage({ keyword, label }: SearchPageProps) {
 				setActiveTab={setActiveTab}
 			/>
 			{activeTab === "トップ" && (
-				<PopularTweetResults keyword={keyword} label={label} />
+				<PopularTweetResults
+					keyword={keyword}
+					label={label}
+					hashtag={hashtag}
+				/>
 			)}
 			{activeTab === "最新" && (
-				<LatestTweetResults keyword={keyword} label={label} />
+				<LatestTweetResults
+					keyword={keyword}
+					label={label}
+					hashtag={hashtag}
+				/>
 			)}
 			{activeTab === "ユーザー" ? (
 				<UserResults keyword={keyword} />

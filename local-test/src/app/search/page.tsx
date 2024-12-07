@@ -6,5 +6,6 @@ import { useSearchParams } from "next/navigation";
 export default function Search() {
 	const keyword = useSearchParams().get("keyword") || "";
 	const label = useSearchParams().get("label") || "";
-	return <SearchPage keyword={keyword} label={label} />;
+	const hashtag = useSearchParams().get("hashtag") || "";
+	return <SearchPage keyword={keyword} label={label} hashtag={hashtag} />;
 }

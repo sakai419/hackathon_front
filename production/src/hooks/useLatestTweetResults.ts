@@ -8,11 +8,13 @@ import { useEffect, useRef, useState } from "react";
 interface UseLatestTweetResultsProps {
 	keyword: string;
 	label: string;
+	hashtag: string;
 }
 
 export default function useLatestTweetResults({
 	keyword,
 	label,
+	hashtag,
 }: UseLatestTweetResultsProps) {
 	const [results, setResults] = useState<TweetNode[]>([]);
 	const [page, setPage] = useState(1);
@@ -30,14 +32,14 @@ export default function useLatestTweetResults({
 		setResults([]);
 		setPage(1);
 		setHasMore(true);
-	}, [keyword, label]);
+	}, [keyword, label, hashtag]);
 
 	useEffect(() => {
 		const fetchUserResults = async () => {
 			if (
 				isLoadingRef.current ||
 				!hasMore ||
-				(!keyword && !label) ||
+				(!keyword && !label && !hashtag) ||
 				(label && !validateLabel(label))
 			)
 				return;
@@ -46,6 +48,7 @@ export default function useLatestTweetResults({
 				const data = await searchTweets(
 					keyword,
 					label as Label,
+					hashtag,
 					page,
 					"latest"
 				);
@@ -66,7 +69,7 @@ export default function useLatestTweetResults({
 			}
 		};
 		fetchUserResults();
-	}, [keyword, label, page, hasMore]);
+	}, [keyword, label, hashtag, page, hasMore]);
 
 	const loadMore = () => {
 		if (hasMore && !isLoading) {

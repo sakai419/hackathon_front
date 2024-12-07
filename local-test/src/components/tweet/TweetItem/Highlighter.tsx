@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 interface HighlighterProps {
@@ -20,26 +21,29 @@ export default function Highlighter({
 		const words = text.split(/(\s+)/); // 空白で分割
 		return words.map((word, index) => {
 			if (word.startsWith("#")) {
+				const tag = word.slice(1);
 				if (highlightWord && regex && regex.test(word)) {
 					// ハッシュタグ内で highlightWord が一致する場合
 					const parts = word.split(regex); // highlightWord を基準に分割
 					return (
 						<React.Fragment key={index}>
-							<span className="text-blue-500 hover:underline cursor-pointer break-all">
-								{parts.map((part, subIndex) =>
-									part.toLowerCase() ===
-									highlightWord.toLowerCase() ? (
-										<span
-											key={subIndex}
-											className="font-bold"
-										>
-											{part}
-										</span>
-									) : (
-										part
-									)
-								)}
-							</span>
+							<Link href={`/search?hashtag=${tag}`} passHref>
+								<span className="text-blue-500 hover:underline cursor-pointer break-all">
+									{parts.map((part, subIndex) =>
+										part.toLowerCase() ===
+										highlightWord.toLowerCase() ? (
+											<span
+												key={subIndex}
+												className="font-bold"
+											>
+												{part}
+											</span>
+										) : (
+											part
+										)
+									)}
+								</span>
+							</Link>
 						</React.Fragment>
 					);
 				}
@@ -47,9 +51,11 @@ export default function Highlighter({
 				// highlightWord が含まれない通常のハッシュタグ
 				return (
 					<React.Fragment key={index}>
-						<span className="text-blue-500 hover:underline cursor-pointer break-all">
-							{word}
-						</span>
+						<Link href={`/search?hashtag=${tag}`} passHref>
+							<span className="text-blue-500 hover:underline cursor-pointer break-all">
+								{word}
+							</span>
+						</Link>
 					</React.Fragment>
 				);
 			}
