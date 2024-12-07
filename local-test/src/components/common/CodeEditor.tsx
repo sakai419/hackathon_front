@@ -1,21 +1,32 @@
-import MonacoEditor from "@monaco-editor/react";
+import { useState, useEffect } from "react";
 import {
-	Alert,
-	AlertDescription,
-	AlertTitle,
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "@/components/ui";
+} from "@/components/ui/select";
 import { Play } from "lucide-react";
 import { cn } from "@/lib/utils";
-import ButtonWithTooltip from "./ButtonWithTooltip";
-import { ExecuteResult } from "@/types/execute";
-import { useState } from "react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import CodeMirror from "@uiw/react-codemirror";
+import { vscodeDark } from "@uiw/codemirror-theme-vscode";
+import { javascript } from "@codemirror/lang-javascript";
+import { python } from "@codemirror/lang-python";
+import { java } from "@codemirror/lang-java";
+import { cpp } from "@codemirror/lang-cpp";
+import { Extension } from "@codemirror/state";
 import ErrorMessage from "./ErrorMessage";
 import executeCode from "@/services/api/execute/executeCode";
+import { ExecuteResult } from "@/types/execute";
+import ButtonWithTooltip from "./ButtonWithTooltip";
+
+interface CodeEditorProps {
+	readOnly: boolean;
+	language: string;
+	value: string;
+	onChange?: (value: string | undefined, language: string) => void;
+}
 
 const LANGUAGES = [
 	{ value: "javascript", label: "JavaScript" },
@@ -31,20 +42,17 @@ const LANGUAGES = [
 	{ value: "php", label: "PHP" },
 ];
 
-interface CodeEditorProps {
-	value: string;
-	language: string;
-	onChange?: (value: string | undefined, language: string) => void;
-	readOnly?: boolean;
-}
-
 export default function CodeEditor({
-	value,
+	readOnly,
 	language,
+	value,
 	onChange,
-	readOnly = false,
 }: CodeEditorProps) {
-	const [executeResult, setExecuteResult] = useState<ExecuteResult>();
+	const [executeResult, setExecuteResult] = useState<ExecuteResult | null>(
+		null
+	);
+	const [isExecuting, setIsExecuting] = useState(false);
+	const [extensions, setExtensions] = useState<Extension[]>([javascript()]);
 	const [error, setError] = useState<unknown>(null);
 
 	const handleLanguageChange = (newLanguage: string) => {
@@ -55,13 +63,36 @@ export default function CodeEditor({
 		onChange?.(newValue, language);
 	};
 
-	const onExecute = async () => {
+	useEffect(() => {
+		switch (language) {
+			case "javascript":
+				setExtensions([javascript()]);
+				break;
+			case "python":
+				setExtensions([python()]);
+				break;
+			case "java":
+				setExtensions([java()]);
+				break;
+			case "c":
+			case "cpp":
+				setExtensions([cpp()]);
+				break;
+			default:
+				setExtensions([javascript()]);
+		}
+	}, [language]);
+
+	const handleExecute = async () => {
 		try {
-			setExecuteResult(undefined);
+			setIsExecuting(true);
+			setExecuteResult(null);
 			const res = await executeCode({ language, content: value });
 			setExecuteResult(res);
 		} catch (error) {
 			setError(error);
+		} finally {
+			setIsExecuting(false);
 		}
 	};
 
@@ -71,7 +102,7 @@ export default function CodeEditor({
 
 	return (
 		<div className="border rounded-md overflow-hidden">
-			<div className="bg-gray-900 p-2 border-b flex justify-between items-center">
+			<div className="bg-gray-100 p-2 border-b flex justify-between items-center">
 				<div className="flex items-center space-x-2">
 					{!readOnly ? (
 						<Select
@@ -93,7 +124,7 @@ export default function CodeEditor({
 							</SelectContent>
 						</Select>
 					) : (
-						<div className="w-[100px] h-10 px-3 py-2 flex items-center justify-between rounded-md border border-input bg-background text-sm ring-offset-background">
+						<div className="w-[180px] h-10 px-3 py-2 flex items-center justify-between rounded-md border border-input bg-background text-sm ring-offset-background">
 							<span>
 								{LANGUAGES.find(
 									(lang) => lang.value === language
@@ -111,9 +142,9 @@ export default function CodeEditor({
 							"text-lime-500 hover:text-lime-400",
 							"transition-colors"
 						),
-						onClick: onExecute,
+						onClick: handleExecute,
 						variant: "ghost",
-						disabled: language !== "c",
+						disabled: language !== "c" || isExecuting,
 					}}
 					content={<Play className="w-5 h-5" />}
 				/>
@@ -124,37 +155,41 @@ export default function CodeEditor({
 					e.preventDefault();
 				}}
 			>
-				<MonacoEditor
-					height="400px"
-					language={language}
+				<CodeMirror
 					value={value}
+					height="400px"
+					theme={vscodeDark}
+					extensions={extensions}
 					onChange={handleCodeChange}
-					options={{
-						readOnly: readOnly,
-						wordWrap: "on",
-						minimap: { enabled: false },
-						scrollBeyondLastLine: true,
-						automaticLayout: true,
-						fontSize: 14,
-						fontFamily: "JetBrains Mono",
-						lineNumbers: "on",
-						folding: true,
-						renderWhitespace: "boundary",
-						cursorStyle: "line",
-						cursorSmoothCaretAnimation: "on",
-						bracketPairColorization: { enabled: true },
-						guides: {
-							indentation: true,
-							highlightActiveIndentation: true,
-						},
-						renderLineHighlight: "all",
-						glyphMargin: true,
-						smoothScrolling: true,
+					editable={!readOnly}
+					basicSetup={{
+						lineNumbers: true,
+						highlightActiveLineGutter: true,
+						highlightSpecialChars: true,
+						history: true,
+						foldGutter: true,
+						drawSelection: true,
+						dropCursor: true,
+						allowMultipleSelections: true,
+						indentOnInput: true,
+						syntaxHighlighting: true,
+						bracketMatching: true,
+						closeBrackets: true,
+						autocompletion: true,
+						rectangularSelection: true,
+						crosshairCursor: true,
+						highlightActiveLine: true,
+						highlightSelectionMatches: true,
+						closeBracketsKeymap: true,
+						defaultKeymap: true,
+						searchKeymap: true,
+						historyKeymap: true,
+						foldKeymap: true,
+						completionKeymap: true,
+						lintKeymap: true,
 					}}
-					theme="vs-dark"
 				/>
 			</div>
-
 			{executeResult && (
 				<div className="p-4 bg-gray-100 border-t">
 					<Alert
