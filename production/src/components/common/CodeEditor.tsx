@@ -31,7 +31,7 @@ interface CodeEditorProps {
 const LANGUAGES = [
 	{ value: "javascript", label: "JavaScript" },
 	{ value: "typescript", label: "TypeScript" },
-	{ value: "python", label: "Python" },
+	{ value: "python", label: "Python (3.12)" },
 	{ value: "java", label: "Java" },
 	{ value: "c", label: "C" },
 	{ value: "csharp", label: "C#" },
@@ -144,7 +144,10 @@ export default function CodeEditor({
 						),
 						onClick: handleExecute,
 						variant: "ghost",
-						disabled: language !== "c" || isExecuting,
+						disabled:
+							(language !== "c" && language !== "python") ||
+							!value ||
+							isExecuting,
 					}}
 					content={<Play className="w-5 h-5" />}
 				/>
