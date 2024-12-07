@@ -135,7 +135,7 @@ export default function CodeEditor({
 				</div>
 				<ButtonWithTooltip
 					description="実行"
-					disabledDescription="現在実行できるのは C 言語のみです"
+					disabledDescription="対応していない言語です"
 					buttonProps={{
 						className: cn(
 							"hover:bg-transparent",
