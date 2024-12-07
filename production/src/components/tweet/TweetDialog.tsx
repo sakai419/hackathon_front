@@ -231,7 +231,7 @@ export default function TweetDialog({
 								/>
 							)}
 						</div>
-						<div className="sticky bottom-0 bg-background pt-4 border-t">
+						<div className="bottom-0 bg-background pt-4 border-t">
 							<div className="flex justify-between items-center">
 								<div className="flex items-center">
 									<input

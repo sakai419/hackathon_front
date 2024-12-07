@@ -57,6 +57,7 @@ export default function CodeEditor({
 
 	const onExecute = async () => {
 		try {
+			setExecuteResult(undefined);
 			const res = await executeCode({ language, content: value });
 			setExecuteResult(res);
 		} catch (error) {
