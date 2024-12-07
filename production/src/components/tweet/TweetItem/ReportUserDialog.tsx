@@ -78,13 +78,13 @@ export default function ReportUserDialog({
 		setIsSubmitting(true);
 		try {
 			await handleSubmit(data.reason, data.description);
-			toast({ description: "通報が完了しました。", status: "success" });
+			toast({ description: "通報が完了しました。", variant: "default" });
 			setIsOpen(false);
 		} catch (error) {
 			setError(error);
 			toast({
 				description: "通報中にエラーが発生しました。",
-				status: "error",
+				variant: "destructive",
 			});
 		} finally {
 			setIsSubmitting(false);
