@@ -19,10 +19,11 @@ export default function RecentLabelsCard() {
 					<CardTitle>トレンド</CardTitle>
 				</CardHeader>
 				<CardContent className="space-y-4">
-					{labels.slice(0, 6).map((label, index: number) => (
+					<h1 className="font-bold">上位5つのラベル</h1>
+					{labels.slice(0, 5).map((label, index: number) => (
 						<Link href={`/search?label=${label.label}`} key={index}>
 							<div className="my-4">
-								<p className="font-semibold">
+								<p className="font-semibold hover:underline">
 									{translateLabels(label.label)}
 								</p>
 								<p className="text-sm text-muted-foreground">
