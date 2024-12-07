@@ -63,6 +63,7 @@ export default function TweetActions({
 						className:
 							"flex items-center space-x-2 hover:bg-sky-100 hover:text-sky-500",
 						onClick: handleReplyClick,
+						variant: "ghost",
 					}}
 					content={
 						<>
@@ -79,6 +80,7 @@ export default function TweetActions({
 							tweet.hasLiked ? "text-red-500" : ""
 						}`,
 						onClick: handleLikeClick,
+						variant: "ghost",
 					}}
 					content={
 						<>

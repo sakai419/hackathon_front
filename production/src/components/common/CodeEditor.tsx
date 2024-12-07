@@ -1,5 +1,8 @@
 import MonacoEditor from "@monaco-editor/react";
 import {
+	Alert,
+	AlertDescription,
+	AlertTitle,
 	Select,
 	SelectContent,
 	SelectItem,
@@ -9,6 +12,10 @@ import {
 import { Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ButtonWithTooltip from "./ButtonWithTooltip";
+import { ExecuteResult } from "@/types/execute";
+import { useState } from "react";
+import ErrorMessage from "./ErrorMessage";
+import executeCode from "@/services/api/execute/executeCode";
 
 const LANGUAGES = [
 	{ value: "javascript", label: "JavaScript" },
@@ -37,6 +44,9 @@ export default function CodeEditor({
 	onChange,
 	readOnly = false,
 }: CodeEditorProps) {
+	const [executeResult, setExecuteResult] = useState<ExecuteResult>();
+	const [error, setError] = useState<unknown>(null);
+
 	const handleLanguageChange = (newLanguage: string) => {
 		onChange?.(value, newLanguage);
 	};
@@ -45,9 +55,18 @@ export default function CodeEditor({
 		onChange?.(newValue, language);
 	};
 
-	const onExecute = () => {
-		console.log("Executed");
+	const onExecute = async () => {
+		try {
+			const res = await executeCode({ language, content: value });
+			setExecuteResult(res);
+		} catch (error) {
+			setError(error);
+		}
 	};
+
+	if (error) {
+		return <ErrorMessage error={error} />;
+	}
 
 	return (
 		<div className="border rounded-md overflow-hidden">
@@ -84,6 +103,7 @@ export default function CodeEditor({
 				</div>
 				<ButtonWithTooltip
 					description="実行"
+					disabledDescription="現在実行できるのは C 言語のみです"
 					buttonProps={{
 						className: cn(
 							"hover:bg-transparent",
@@ -92,6 +112,7 @@ export default function CodeEditor({
 						),
 						onClick: onExecute,
 						variant: "ghost",
+						disabled: language !== "c",
 					}}
 					content={<Play className="w-5 h-5" />}
 				/>
@@ -132,6 +153,30 @@ export default function CodeEditor({
 					theme="vs-dark"
 				/>
 			</div>
+
+			{executeResult && (
+				<div className="p-4 bg-gray-100 border-t">
+					<Alert
+						variant={
+							executeResult.status === "success"
+								? "default"
+								: "destructive"
+						}
+					>
+						<AlertTitle>{executeResult.status}</AlertTitle>
+						<AlertDescription>
+							{executeResult.output && (
+								<pre className="mt-2 whitespace-pre-wrap">
+									{executeResult.output}
+								</pre>
+							)}
+							{executeResult.message && (
+								<p className="mt-2">{executeResult.message}</p>
+							)}
+						</AlertDescription>
+					</Alert>
+				</div>
+			)}
 		</div>
 	);
 }

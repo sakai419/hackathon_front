@@ -169,6 +169,7 @@ export default function ReplyBox({ onTweet }: ReplyBoxProps) {
 							buttonProps={{
 								onClick: handleMediaClick,
 								size: "icon",
+								variant: "ghost",
 							}}
 							content={<ImageIcon className="h-5 w-5" />}
 						/>
@@ -177,6 +178,7 @@ export default function ReplyBox({ onTweet }: ReplyBoxProps) {
 							buttonProps={{
 								onClick: handleEditorClick,
 								size: "icon",
+								variant: "ghost",
 							}}
 							content={<Code2Icon className="h-5 w-5" />}
 						/>

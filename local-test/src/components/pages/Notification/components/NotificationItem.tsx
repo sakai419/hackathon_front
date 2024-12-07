@@ -155,6 +155,7 @@ export default function NotificationItem({
 					buttonProps={{
 						className: "absolute top-2 right-2",
 						onClick: () => removeNotification(notification.id),
+						variant: "ghost",
 					}}
 					content={<Trash className="w-4 h-4" />}
 				/>

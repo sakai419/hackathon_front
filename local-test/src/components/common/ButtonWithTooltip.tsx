@@ -9,23 +9,29 @@ import {
 
 interface ButtonWithTooltipProps {
 	description: string;
+	disabledDescription?: string; // disabled時のTooltip内容
 	content: React.ReactNode;
 	buttonProps?: React.ComponentProps<typeof Button>;
 }
 
 export default function ButtonWithTooltip({
 	description,
+	disabledDescription = "Button is disabled", // デフォルトのdisabled時Tooltip内容
 	content,
 	buttonProps,
 }: ButtonWithTooltipProps) {
+	const isDisabled = buttonProps?.disabled;
+
 	return (
 		<TooltipProvider>
 			<Tooltip>
 				<TooltipTrigger asChild>
-					<Button {...buttonProps}>{content}</Button>
+					<div>
+						<Button {...buttonProps}>{content}</Button>
+					</div>
 				</TooltipTrigger>
 				<TooltipContent className="z-50">
-					<p>{description}</p>
+					<p>{isDisabled ? disabledDescription : description}</p>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
