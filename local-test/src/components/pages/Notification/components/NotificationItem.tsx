@@ -105,10 +105,10 @@ export default function NotificationItem({
 						/>
 					)}
 					<Link
-						href={`/users/${notification.senderInfo?.userName}`}
+						href={`/users/${notification.senderInfo?.userId}`}
 						className="font-semibold hover:underline"
 					>
-						{notification.senderInfo?.userName}
+						{notification.senderInfo?.userId}
 					</Link>
 					<span className="text-gray-500">
 						@{notification.senderInfo?.userId}
