@@ -5,8 +5,10 @@ import {
 	UserIcon,
 	SettingsIcon,
 	Search,
+	Shield,
 } from "lucide-react";
 import SidebarItem from "./SidebarItem";
+import { useClientProfileContext } from "@/context";
 
 interface SidebarContentProps {
 	unreadConversationCount?: number;
@@ -19,6 +21,7 @@ export default function SidebarContent({
 	unreadNotificationCount,
 	userId,
 }: SidebarContentProps) {
+	const { profile } = useClientProfileContext();
 	return (
 		<nav className="space-y-2">
 			<SidebarItem icon={HomeIcon} label="ホーム" href="/home" />
@@ -41,6 +44,9 @@ export default function SidebarContent({
 				href={`/users/${userId}`}
 			/>
 			<SidebarItem icon={SettingsIcon} label="設定" href="/settings" />
+			{profile?.userInfo.isAdmin && (
+				<SidebarItem icon={Shield} label="管理者ページ" href="/admin" />
+			)}
 		</nav>
 	);
 }
