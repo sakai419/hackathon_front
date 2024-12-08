@@ -17,3 +17,11 @@ export type ReportedUserInfo = {
 	userInfo: UserInfo;
 	reportCount: number;
 };
+
+export type Report = {
+	reportId: string;
+	reporterInfo: UserInfo;
+	reason: ReportReason;
+	content?: string;
+	createdAt: string;
+};

@@ -7,12 +7,19 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import { ReportedUserInfo } from "@/types/report";
+import { useRouter } from "next/navigation";
 
 interface ReportedUsersListProps {
 	users: ReportedUserInfo[];
 }
 
 export function ReportedUsersList({ users }: ReportedUsersListProps) {
+	const router = useRouter();
+
+	const onClickUser = (userId: string) => {
+		router.push(`/admin/reports/users/${userId}`);
+	};
+
 	return (
 		<Table>
 			<TableHeader>
@@ -24,7 +31,10 @@ export function ReportedUsersList({ users }: ReportedUsersListProps) {
 			</TableHeader>
 			<TableBody>
 				{users.map((user) => (
-					<TableRow key={user.userInfo.userId}>
+					<TableRow
+						key={user.userInfo.userId}
+						onClick={() => onClickUser(user.userInfo.userId)}
+					>
 						<TableCell>{user.userInfo.userId}</TableCell>
 						<TableCell className="font-medium">
 							{user.userInfo.userName}
