@@ -14,3 +14,4 @@ export const SETTINGS_ENDPOINT = `${API_BASE_URL}/settings`;
 export const BLOCK_ENDPOINT = `${API_BASE_URL}/blocks`;
 export const EXECUTE_ENDPOINT = `${API_BASE_URL}/execute`;
 export const REPORT_ENDPOINT = `${API_BASE_URL}/reports`;
+export const ADMIN_ENDPOINT = `${API_BASE_URL}/admin`;

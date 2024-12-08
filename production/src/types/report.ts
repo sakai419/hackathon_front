@@ -1,17 +1,4 @@
-// const (
-// 	ReportReasonSpam ReportReason = "spam"
-// 	ReportReasonHarrassment ReportReason = "harassment"
-// 	ReportReasonInappropriateContent ReportReason = "inappropriate_content"
-// 	ReportReasonOther ReportReason = "other"
-// )
-
-// // CreateReport
-// type CreateReportParams struct {
-// 	ReporterAccountID string
-// 	ReportedAccountID string
-// 	Reason            ReportReason
-// 	Content           *string
-// }
+import { UserInfo } from "./useInfo";
 
 export type ReportReason =
 	| "spam"
@@ -24,4 +11,9 @@ export type CreateReportRequest = {
 	reportedAccountId: string;
 	reason: ReportReason;
 	content?: string;
+};
+
+export type ReportedUserInfo = {
+	userInfo: UserInfo;
+	reportCount: number;
 };

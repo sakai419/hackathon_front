@@ -15,7 +15,10 @@ export * from "./scroll-area";
 export * from "./select";
 export * from "./skeleton";
 export * from "./switch";
+export * from "./table";
 export * from "./tabs";
 export * from "./textarea";
+export * from "./toast";
+export * from "./toaster";
 export * from "./tooltip";
 // @endindex
